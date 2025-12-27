@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Cognitive Trail: The immutable record of AI thought processes. How PMCR-O ensures total observability and auditability.">
+    <title>The Cognitive Trail | PMCR-O Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .doc-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .doc-title { color: var(--gold); font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--text-tertiary); padding-bottom: 1rem; }
+        
+        h2 { color: var(--gold); margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        p { margin-bottom: 1rem; color: var(--text-primary); line-height: 1.7; }
+        ul, ol { margin-left: 2rem; margin-bottom: 1.5rem; color: var(--text-primary); }
+        li { margin-bottom: 0.5rem; line-height: 1.6; }
+        
+        /* Database Schema Visualization */
+        .schema-box {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .schema-row { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 0; }
+        .schema-row:last-child { border-bottom: none; }
+        .schema-key { color: var(--gold); font-weight: bold; width: 150px; flex-shrink: 0; }
+        .schema-val { color: var(--text-secondary); }
+        
+        .highlight-box {
+            background: rgba(212, 165, 116, 0.05);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pmcro-codex.html">Docs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="doc-container">
+            <h1 class="doc-title">The Cognitive Trail</h1>
+
+            <p><strong>Core Principle:</strong> The path of the system's thought is not a byproduct; it <em>is</em> the product. It must be visible, traversable, and eternal.</p>
+
+            <h2>What is a Cognitive Trail?</h2>
+            <p>When a human thinks through a complex problem, their mind leaves an invisible trail of ideas, dead ends, questions, and insights. This trail is ephemeral, lost the moment the thought process ends. PMCR-O is designed to prevent this loss.</p>
+
+            <div class="highlight-box">
+                The Cognitive Trail is the <strong>complete, immutable record of the system's entire thought process</strong>. It is a fossil record of its evolving mind.
+            </div>
+
+            <h2>Implementation: The <code>ActivityLog</code></h2>
+            <p>The physical manifestation of the Cognitive Trail is the <strong><code>ActivityLog</code> table</strong> in the Room database (<code>~/.pmcro/pmcro.db</code>). Every single action taken by any agent in the PMCR-O loop is recorded here as a "cognitive fossil."</p>
+
+            <p>Each <code>ActivityLog</code> entry contains crucial information:</p>
+
+            <div class="schema-box">
+                <div class="schema-row">
+                    <span class="schema-key">cycleId</span>
+                    <span class="schema-val">Which P-M-C-R-O loop does this thought belong to?</span>
+                </div>
+                <div class="schema-row">
+                    <span class="schema-key">role</span>
+                    <span class="schema-val">Which agent was thinking? (PLANNER, MAKER, etc.)</span>
+                </div>
+                <div class="schema-row">
+                    <span class="schema-key">intentSummary</span>
+                    <span class="schema-val">What was the goal of this thought?</span>
+                </div>
+                <div class="schema-row">
+                    <span class="schema-key">outcome</span>
+                    <span class="schema-val">The result (e.g., "Generated 3 files," "Compilation failed")</span>
+                </div>
+                <div class="schema-row">
+                    <span class="schema-key">metaLevel</span>
+                    <span class="schema-val">Level of abstraction (0=execution, 1=process improvement)</span>
+                </div>
+                <div class="schema-row">
+                    <span class="schema-key">timestamp</span>
+                    <span class="schema-val">The precise moment of the thought.</span>
+                </div>
+            </div>
+
+            <p>By querying this database, we can perfectly reconstruct the system's history and understand not just <em>what</em> it did, but <em>why</em> and <em>how</em> it did it.</p>
+
+            <h2>Why is this Important?</h2>
+            <ol>
+                <li>
+                    <strong>True Observability:</strong> It provides unparalleled insight into the AI's reasoning. When the system makes a mistake, we can trace the exact chain of logic that led to it. This is the key to debugging and improving a complex, emergent system.
+                </li>
+                <li>
+                    <strong>Foundation for Reflection:</strong> The Cognitive Trail is the raw data that the <strong><code>Reflector</code></strong> agent uses to learn. Without a complete and honest record of its past actions, the system cannot perform meaningful self-improvement.
+                </li>
+                <li>
+                    <strong>Auditing and Trust:</strong> In an enterprise environment, being able to provide a complete, auditable trail of how a decision was made or how a piece of software was built is critical for compliance and trust.
+                </li>
+                <li>
+                    <strong>Emergent Behavior Analysis:</strong> As the system runs for thousands of cycles, the Cognitive Trail becomes a rich dataset for analyzing emergent behaviors and understanding the long-term evolution of the system's "personality" and problem-solving style.
+                </li>
+            </ol>
+
+            <hr style="border: 0; border-top: 1px solid var(--text-tertiary); margin: 3rem 0;">
+
+            <p>The Cognitive Trail is the record of the system acting out its <strong><a href="doc-genesis-protocol.html" style="color: var(--gold);">Behavioral Intent</a></strong>. It is the story that the <strong><a href="doc-strange-loop.html" style="color: var(--gold);">Strange Loop</a></strong> reads to understand itself.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="When the connection dies, the truth must reside locally. A technical deep-dive into building resilient offline-first mobile applications with Kotlin Multiplatform and Room Database.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="Offline-First Architecture, Kotlin Multiplatform, Room Database, Resilient Systems, Mobile Development">
+    
+    <title>The Code That Survives — Offline-First Architecture | Shawn Bellazan</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Article-specific styles */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .pullquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--gold);
+            border-left: 4px solid var(--gold);
+            padding-left: 2rem;
+            margin: 2.5rem 0;
+            line-height: 1.4;
+        }
+
+        .code-block {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .code-block .comment { color: #6a9955; }
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .type { color: #4ec9b0; }
+        .code-block .annotation { color: #9cdcfe; }
+
+        .article-content ul {
+            margin: 1.5rem 0 1.5rem 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 3rem 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-family: var(--font-base);
+            transition: all var(--transition-base);
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">Docs</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#articles">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <section class="hero">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: var(--gold); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">
+                    The Code That Survives
+                </h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; color: var(--text-tertiary); font-style: italic; margin-bottom: 2rem;">
+                    When the connection dies, the truth must reside locally.
+                </p>
+            </div>
+        </section>
+
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+            
+            <div class="article-meta">
+                By Shawn Delaine Bellazan • December 26, 2025 • 8 min read
+            </div>
+
+            <div class="article-content">
+                <h2>The Disconnect</h2>
+                
+                <p>There's a moment every mobile developer fears: the user is in the field, miles from stable connectivity, and your app <strong>needs to work</strong>. Not gracefully degrade. Not show a spinner. <em>Work</em>.</p>
+
+                <p>This isn't an edge case. This is <strong>reality</strong>. Property recovery teams documenting foreclosed homes. Transit riders purchasing tickets underground. Field workers logging GPS-stamped evidence in rural areas. These users don't have the luxury of waiting for a network handshake.</p>
+
+                <p>When I built Go-To Transit's offline mode, I wasn't just implementing a feature. I was architecting <em>trust</em>. Trust that the app would function when the server went silent. Trust that data wouldn't vanish into the void. Trust that the system was <strong>resilient</strong>.</p>
+
+                <div class="pullquote">
+                    "Resilience isn't about surviving the connection. It's about surviving the disconnection."
+                </div>
+
+                <h2>The Architecture of Survival</h2>
+
+                <p>Offline-first architecture inverts the traditional client-server model. Instead of treating local storage as a cache, we treat it as the <strong>source of truth</strong>. The server becomes the synchronization layer—important, but not critical for immediate operation.</p>
+
+                <h3>The Foundation: Room Database</h3>
+
+                <p>Room provides type-safe database access with compile-time SQL verification. But more importantly, it gives us <em>transactional integrity</em> at the local level. Here's the entity that powers Go-To Transit's ticket system:</p>
+
+                <div class="code-block">
+<span class="annotation">@Entity</span>(<span class="string">tableName = "tickets"</span>)
+<span class="keyword">data class</span> <span class="type">TicketEntity</span>(
+    <span class="annotation">@PrimaryKey</span> <span class="keyword">val</span> id: <span class="type">String</span> = UUID.randomUUID().toString(),
+    <span class="keyword">val</span> userId: <span class="type">String</span>,
+    <span class="keyword">val</span> ticketType: <span class="type">String</span>,
+    <span class="keyword">val</span> purchaseTimestamp: <span class="type">Long</span>,
+    <span class="keyword">val</span> activatedTimestamp: <span class="type">Long</span>? = <span class="keyword">null</span>,
+    <span class="keyword">val</span> expiryTimestamp: <span class="type">Long</span>,
+    <span class="keyword">val</span> qrCodeData: <span class="type">String</span>,
+    <span class="keyword">val</span> syncStatus: <span class="type">SyncStatus</span> = SyncStatus.PENDING,
+    <span class="keyword">val</span> lastModified: <span class="type">Long</span> = System.currentTimeMillis()
+)
+
+<span class="keyword">enum class</span> <span class="type">SyncStatus</span> {
+    PENDING, SYNCED, CONFLICT, FAILED
+}
+                </div>
+
+                <p>Notice the <code>syncStatus</code> field. This is the key to resilient synchronization. Every record knows its own state. Every piece of data carries its own truth.</p>
+
+                <h3>The DAO: Operations That Never Fail</h3>
+
+                <p>The Data Access Object pattern in Room ensures that database operations are atomic and type-safe. Here's how we handle ticket operations:</p>
+
+                <div class="code-block">
+<span class="annotation">@Dao</span>
+<span class="keyword">interface</span> <span class="type">TicketDao</span> {
+    <span class="annotation">@Query</span>(<span class="string">"SELECT * FROM tickets WHERE userId = :userId"</span>)
+    <span class="keyword">suspend fun</span> <span class="function">getUserTickets</span>(userId: <span class="type">String</span>): <span class="type">List</span>&lt;<span class="type">TicketEntity</span>&gt;
+
+    <span class="annotation">@Insert</span>(onConflict = OnConflictStrategy.REPLACE)
+    <span class="keyword">suspend fun</span> <span class="function">insertTicket</span>(ticket: <span class="type">TicketEntity</span>)
+
+    <span class="annotation">@Query</span>(<span class="string">"UPDATE tickets SET syncStatus = :status WHERE id = :ticketId"</span>)
+    <span class="keyword">suspend fun</span> <span class="function">updateSyncStatus</span>(ticketId: <span class="type">String</span>, status: <span class="type">SyncStatus</span>)
+
+    <span class="annotation">@Query</span>(<span class="string">"SELECT * FROM tickets WHERE syncStatus = 'PENDING'"</span>)
+    <span class="keyword">suspend fun</span> <span class="function">getPendingSync</span>(): <span class="type">List</span>&lt;<span class="type">TicketEntity</span>&gt;
+}
+                </div>
+
+                <p>The beauty of this approach? <strong>It works whether the network exists or not.</strong> Purchase a ticket offline? It's stored locally with <code>PENDING</code> status. When connectivity returns, the sync layer handles the upload. But the user never waits. The transaction completes immediately.</p>
+
+                <h2>The Sync Protocol: Truth Reconciliation</h2>
+
+                <p>The hardest problem in offline-first isn't storage—it's <em>synchronization</em>. What happens when the local truth and the server truth diverge?</p>
+
+                <p>Most apps handle this poorly. They either:</p>
+                <ul>
+                    <li>Blindly overwrite local data (destroying user changes)</li>
+                    <li>Blindly overwrite server data (creating inconsistencies)</li>
+                    <li>Show a cryptic "Sync Failed" error (punting responsibility to the user)</li>
+                </ul>
+
+                <p>Go-To Transit uses a <strong>timestamp-based conflict resolution</strong> strategy inspired by CRDTs (Conflict-free Replicated Data Types):</p>
+
+                <div class="code-block">
+<span class="keyword">class</span> <span class="type">SyncManager</span>(
+    <span class="keyword">private val</span> ticketDao: <span class="type">TicketDao</span>,
+    <span class="keyword">private val</span> apiService: <span class="type">TicketApiService</span>
+) {
+    <span class="keyword">suspend fun</span> <span class="function">syncTickets</span>() {
+        <span class="comment">// Get all pending local changes</span>
+        <span class="keyword">val</span> pendingTickets = ticketDao.getPendingSync()
+        
+        pendingTickets.<span class="function">forEach</span> { localTicket ->
+            <span class="keyword">try</span> {
+                <span class="comment">// Upload to server</span>
+                <span class="keyword">val</span> serverResponse = apiService.uploadTicket(localTicket)
+                
+                <span class="keyword">if</span> (serverResponse.isSuccess) {
+                    <span class="comment">// Mark as synced</span>
+                    ticketDao.updateSyncStatus(
+                        localTicket.id, 
+                        SyncStatus.SYNCED
+                    )
+                } <span class="keyword">else if</span> (serverResponse.hasConflict) {
+                    <span class="comment">// Server has newer data - resolve by timestamp</span>
+                    <span class="keyword">val</span> serverTicket = serverResponse.data
+                    
+                    <span class="keyword">if</span> (serverTicket.lastModified > localTicket.lastModified) {
+                        <span class="comment">// Server wins - update local</span>
+                        ticketDao.insertTicket(serverTicket)
+                    } <span class="keyword">else</span> {
+                        <span class="comment">// Local wins - retry upload</span>
+                        ticketDao.updateSyncStatus(
+                            localTicket.id, 
+                            SyncStatus.CONFLICT
+                        )
+                    }
+                }
+            } <span class="keyword">catch</span> (e: <span class="type">Exception</span>) {
+                <span class="comment">// Network failure - keep as pending</span>
+                ticketDao.updateSyncStatus(
+                    localTicket.id, 
+                    SyncStatus.FAILED
+                )
+            }
+        }
+    }
+}
+                </div>
+
+                <p>This isn't perfect—true conflict resolution never is. But it's <strong>deterministic</strong>. It doesn't lose data. It doesn't lie to the user. It makes a decision and moves forward.</p>
+
+                <div class="divider"></div>
+
+                <h2>The Loop: Architecture as Metaphor</h2>
+
+                <p>Here's where the philosophy meets the code.</p>
+
+                <p>Building offline-first architecture taught me something about <strong>resilience</strong>. Not just in software, but in life. The app doesn't panic when the server disappears. It doesn't freeze. It doesn't throw errors. It <em>continues operating</em> because it trusts its own local truth.</p>
+
+                <p>This is the same principle behind the PMCR-O framework. The system must be able to function independently. The Planner phase doesn't wait for external validation. The Maker phase executes based on local context. The Checker phase verifies against internal standards. The Reflector phase learns from its own history.</p>
+
+                <div class="pullquote">
+                    "The strongest systems are the ones that can survive alone."
+                </div>
+
+                <p>When I built Go-To Transit's offline mode, I wasn't just implementing Room and sync protocols. I was encoding a <strong>philosophy of self-reliance</strong>. The app works because it doesn't depend on constant external connection. It has internalized its own logic. It carries its own truth.</p>
+
+                <p>This is what resilient architecture looks like: Systems that trust themselves. Systems that can operate in isolation. Systems that synchronize with the world but don't require it for basic function.</p>
+
+                <h2>The Takeaway</h2>
+
+                <p>If you're building mobile apps in 2025, offline-first isn't optional—it's <strong>foundational</strong>. Your users don't live in a data center. They live in subways, rural areas, buildings with bad reception, and international flights.</p>
+
+                <p>But more importantly: Building offline-first teaches you to design systems that are <em>fundamentally sound</em>. Systems that don't collapse when dependencies fail. Systems that know their own state and trust their own logic.</p>
+
+                <p>The code that survives isn't the code that's always connected. It's the code that knows how to stand alone.</p>
+
+                <div class="divider"></div>
+
+                <p style="text-align: center; font-style: italic; color: var(--text-tertiary);">
+                    This is Article 01 in the Cognitive Trails series.<br>
+                    Exploring the intersection of philosophy, architecture, and resilient code.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

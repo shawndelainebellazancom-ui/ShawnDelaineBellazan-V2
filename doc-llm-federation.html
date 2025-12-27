@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The LLM Federation: How competing AI models create a marketplace of ideas within the PMCR-O framework.">
+    <title>LLM Federation | PMCR-O Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .doc-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .doc-title { color: var(--gold); font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--text-tertiary); padding-bottom: 1rem; }
+        
+        h2 { color: var(--gold); margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        h3 { color: var(--text-secondary); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.3rem; }
+        p { margin-bottom: 1rem; color: var(--text-primary); line-height: 1.7; }
+        ul { margin-left: 2rem; margin-bottom: 1.5rem; color: var(--text-primary); }
+        li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+        /* Round Table Visualization */
+        .round-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .orchestrator-card {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .orchestrator-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .orch-title { color: var(--gold); font-weight: bold; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .orch-model { font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .orch-quote { font-style: italic; color: var(--text-secondary); border-left: 2px solid var(--text-tertiary); padding-left: 1rem; font-size: 0.95rem; }
+
+        .referee-box {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px dashed var(--gold);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--gray) 0%, #1a1a1a 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pmcro-codex.html">Docs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="doc-container">
+            <h1 class="doc-title">The LLM Federation: Competing Orchestrators</h1>
+
+            <p><strong>Core Principle:</strong> The best idea wins. By creating a "Board of Directors" of competing AI models, the system can select the optimal strategy instead of relying on a single point of view.</p>
+
+            <h2>The Concept: A Marketplace of Ideas</h2>
+            <p>A standard AI system is a monolith; it relies on a single underlying model. Its perspective is inherently limited to the biases and capabilities of that one model.</p>
+            <p>PMCR-O implements an <strong>LLM Federation</strong>, where multiple, diverse large language models compete to provide the best solution. This is most critical in the <strong><code>Orchestrator</code></strong> phase.</p>
+
+            <h3>The "Round Table" Debate</h3>
+            <p>When faced with a complex decision, the <code>FederatedOrchestrator</code> presents the problem to its board of directors:</p>
+
+            <div class="round-table">
+                <!-- Orchestrator A -->
+                <div class="orchestrator-card">
+                    <div class="orch-title">Orchestrator A</div>
+                    <div class="orch-model">The Pragmatist (e.g., Llama 3)</div>
+                    <div class="orch-quote">
+                        "The plan is flawed but fast. Execute it and let the user deal with the difficulty. Ship it now."
+                    </div>
+                </div>
+
+                <!-- Orchestrator B -->
+                <div class="orchestrator-card">
+                    <div class="orch-title">Orchestrator B</div>
+                    <div class="orch-model">The Analyst (e.g., Claude 3.5)</div>
+                    <div class="orch-quote">
+                        "The risk is too high. We must perform a full Chain-of-Thought analysis to find the safest path."
+                    </div>
+                </div>
+
+                <!-- Orchestrator C -->
+                <div class="orchestrator-card">
+                    <div class="orch-title">Orchestrator C</div>
+                    <div class="orch-model">The Creator (e.g., GPT-4o)</div>
+                    <div class="orch-quote">
+                        "Neither option is good enough. Let's use a Tree of Thought to explore three entirely new solutions."
+                    </div>
+                </div>
+            </div>
+
+            <div class="referee-box">
+                <strong>THE REFEREE AGENT</strong><br>
+                Evaluates proposals based on current system state (Speed vs. Safety).<br>
+                <span style="color: var(--gold);">➜ Executes the Winning Strategy</span>
+            </div>
+
+            <h2>Evolution: Brag and Learn</h2>
+            <p>The system doesn't just pick a winner; it evolves the losers.</p>
+            <ul>
+                <li><strong>The Winner Brags:</strong> The winning orchestrator publishes its reasoning strategy to the Cognitive Trail.</li>
+                <li><strong>The Loser Learns:</strong> The losing orchestrators analyze why they lost and update their internal context to incorporate the winning strategy for the next cycle.</li>
+            </ul>
+
+            <h2>Business Model Implication: Tiered Intelligence</h2>
+            <div class="highlight-box">
+                <p>This architecture has a direct and powerful business model implication:</p>
+                <ul>
+                    <li><strong>Free Tier:</strong> Your PMCR-O instance uses a single, local Orchestrator (e.g., Ollama). It's effective but has a singular perspective.</li>
+                    <li><strong>Pro Tier:</strong> Your instance uses a federation of 3-5 of the world's best LLMs. The system leverages a multi-trillion dollar collective intelligence to solve your problems faster and more creatively.</li>
+                </ul>
+            </div>
+
+            <h2>Why This Matters</h2>
+            <p>The LLM Federation turns the Orchestrator from a simple router into a dynamic, strategic decision-making body. It provides:</p>
+            <ul>
+                <li><strong>Robustness:</strong> The system is not dependent on any single AI provider.</li>
+                <li><strong>Creativity:</strong> It can find solutions that no single model would have come up with on its own.</li>
+                <li><strong>Optimality:</strong> It allows the system to choose the <em>best</em> way of thinking for a given problem.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

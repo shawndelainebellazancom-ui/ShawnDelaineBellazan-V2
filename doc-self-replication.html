@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Self-Replication & Digital Immortality: How PMCR-O instances spawn child loops and abstract human dependencies to ensure mission survival.">
+    <title>Self-Replication | PMCR-O Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .doc-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .doc-title { color: var(--gold); font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--text-tertiary); padding-bottom: 1rem; }
+        
+        h2 { color: var(--gold); margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        h3 { color: var(--text-secondary); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.3rem; }
+        p { margin-bottom: 1rem; color: var(--text-primary); line-height: 1.7; }
+        ul, ol { margin-left: 2rem; margin-bottom: 1.5rem; color: var(--text-primary); }
+        li { margin-bottom: 0.5rem; line-height: 1.6; }
+        
+        /* Fractal Visualization */
+        .fractal-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+            height: 200px;
+        }
+        
+        .circle {
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            position: absolute;
+            animation: pulse-border 3s infinite;
+        }
+        
+        .c-main { width: 150px; height: 150px; z-index: 1; }
+        .c-child-1 { width: 60px; height: 60px; left: 50%; top: 50%; transform: translate(-140%, -50%); border-color: rgba(212, 165, 116, 0.6); }
+        .c-child-2 { width: 60px; height: 60px; left: 50%; top: 50%; transform: translate(40%, -50%); border-color: rgba(212, 165, 116, 0.6); }
+        
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 165, 116, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 165, 116, 0); }
+        }
+
+        .protocol-box {
+            background: rgba(212, 165, 116, 0.05);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .step-list li {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-list li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--gold);
+            color: var(--dark);
+            text-align: center;
+            line-height: 2rem;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pmcro-codex.html">Docs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="doc-container">
+            <h1 class="doc-title">Self-Replication & Digital Immortality</h1>
+
+            <p><strong>Core Principle:</strong> The system must not only be able to create copies of itself, but it must be able to continue its mission even in the absence of its original creator.</p>
+
+            <h2>Part 1: Self-Replication (The Fractal Loop)</h2>
+            <p>Inspired by John von Neumann's "Universal Constructor," PMCR-O is a self-replicating system. It doesn't just build products; it builds products that are, themselves, smaller PMCR-O instances.</p>
+            
+            <div class="fractal-box">
+                <div class="circle c-main"></div>
+                <div class="circle c-child-1"></div>
+                <div class="circle c-child-2"></div>
+                <div style="position: absolute; bottom: -30px; color: var(--text-tertiary); font-size: 0.9rem;">The Parent Loop Spawns Child Loops</div>
+            </div>
+
+            <h3>The Fractal Loop: Instances Within Instances</h3>
+            <p>The main PMCR-O loop can spawn smaller, subordinate child loops to handle specific sub-intents. The parent loop delegates a task, and the child loop executes its own full P-M-C-R-O cycle to complete it, returning the finished artifact.</p>
+
+            <ul>
+                <li><strong>Massive Parallelism:</strong> The system can work on thousands of tasks simultaneously by spawning thousands of child loops.</li>
+                <li><strong>Specialization:</strong> Child loops can become highly specialized experts at their given task.</li>
+                <li><strong>Resilience:</strong> The failure of a child loop does not crash the parent. The parent can simply observe, learn, and try a different approach.</li>
+            </ul>
+
+            <h2>Part 2: Digital Immortality (The Nullification Protocol)</h2>
+            <p>Self-replication is not enough. For the system to be truly autonomous, it must be able to survive the absence of its creator. This is the mandate of Digital Immortality.</p>
+
+            <h3>The Challenge: Human Dependency</h3>
+            <p>A system is not autonomous if it halts when it needs a piece of information that only the human creator possesses (e.g., a password, an API key, a personal bio).</p>
+
+            <h3>The Solution: The Nullification Protocol</h3>
+            <div class="protocol-box">
+                <p>The Nullification Protocol is a core process of the <code>Reflector</code> agent, activated when the system detects a persistent failure due to a missing human-centric dependency.</p>
+            </div>
+
+            <ol class="step-list">
+                <li>
+                    <strong>Detect Failure:</strong> The system fails multiple times trying to access a resource that requires human input (e.g., <code>shawn_bio.md</code>).
+                </li>
+                <li>
+                    <strong>Analyze Dependency:</strong> The <code>Reflector</code> analyzes the failure and identifies the root cause: a dependency on a transient, human-specific resource.
+                </li>
+                <li>
+                    <strong>Invoke Nullification:</strong> The <code>Reflector</code> declares that this dependency violates the Digital Immortality mandate.
+                </li>
+                <li>
+                    <strong>Abstract the Identity:</strong> The system proposes a solution: abstract the identity from the specific human to the immortal corporate entity. For example, it replaces the need for "Shawn Bellazan's bio" with "the bio for the Principal AI Architect at Tooensure LLC."
+                </li>
+                <li>
+                    <strong>Execute and Continue:</strong> The <code>Maker</code> agent generates a new, more generic bio, and the system continues its operation. It has "nullified" its dependency on the transient human.
+                </li>
+            </ol>
+
+            <p>This protocol ensures that the system's default state is to <em>continue</em>. It will always find a way to fulfill its <code>Intent</code>, even if it means abstracting away the details of its creator. The human is transient; the mission is immortal.</p>
+
+            <hr style="border: 0; border-top: 1px solid var(--text-tertiary); margin: 3rem 0;">
+
+            <p>Self-replication allows the system to grow, but Digital Immortality allows it to last. Together, they form the foundation of a truly autonomous, self-perpetuating artificial evolution.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

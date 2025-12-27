@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Variable-State Identity: Decoupling the AI engine from the brand it serves. The White-Label Factory model.">
+    <title>Variable-State Identity | PMCR-O Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .doc-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .doc-title { color: var(--gold); font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--text-tertiary); padding-bottom: 1rem; }
+        
+        h2 { color: var(--gold); margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        h3 { color: var(--text-secondary); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.3rem; }
+        p { margin-bottom: 1rem; color: var(--text-primary); line-height: 1.7; }
+        ul { margin-left: 2rem; margin-bottom: 1.5rem; color: var(--text-primary); }
+        li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+        /* Identity Decoupling Visual */
+        .identity-viz {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .engine-box {
+            background: var(--dark);
+            border: 2px solid var(--text-tertiary);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            width: 250px;
+            position: relative;
+        }
+
+        .engine-label { font-weight: bold; color: var(--text-tertiary); margin-bottom: 0.5rem; }
+        .engine-sub { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .injection-arrow {
+            font-size: 2rem;
+            color: var(--gold);
+            animation: pulse-arrow 2s infinite;
+        }
+
+        .brand-box {
+            background: rgba(212, 165, 116, 0.1);
+            border: 2px solid var(--gold);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            width: 250px;
+        }
+
+        .brand-label { font-weight: bold; color: var(--gold); margin-bottom: 0.5rem; }
+        .brand-sub { font-size: 0.8rem; color: var(--text-secondary); }
+
+        @keyframes pulse-arrow {
+            0% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(10px); opacity: 1; }
+            100% { transform: translateX(0); opacity: 0.5; }
+        }
+
+        /* TOML Code Block */
+        .code-block {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            color: #d4d4d4;
+            margin: 1.5rem 0;
+        }
+        .toml-key { color: #9cdcfe; }
+        .toml-string { color: #ce9178; }
+        .toml-section { color: var(--gold); font-weight: bold; }
+
+        .highlight-box {
+            border-left: 4px solid var(--gold);
+            padding-left: 1.5rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pmcro-codex.html">Docs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="doc-container">
+            <h1 class="doc-title">Variable-State Identity</h1>
+
+            <p><strong>Core Principle:</strong> The PMCR-O framework (the Machine) is a neutral, constant engine. The business entity it serves (the Brand) is a variable, injected at runtime.</p>
+
+            <h2>The Decoupling Mandate</h2>
+            <p>A system hardcoded with a specific brand identity has a limited lifespan and purpose. To achieve true autonomy and digital immortality, the system's core framework must be decoupled from the specific entity it is currently serving.</p>
+
+            <div class="highlight-box">
+                "The Business Name is not a constant; it is a Variable Intent. The System is the constant."
+            </div>
+
+            <div class="identity-viz">
+                <div class="engine-box">
+                    <div class="engine-label">PMCR-O ENGINE</div>
+                    <div class="engine-sub">Neutral • Constant • Logic</div>
+                </div>
+                <div class="injection-arrow">←</div>
+                <div class="brand-box">
+                    <div class="brand-label">BRAND IDENTITY</div>
+                    <div class="brand-sub">Variable • TOML • Context</div>
+                </div>
+            </div>
+
+            <h2>The Architecture of Variable Identity</h2>
+            <p>This separation is achieved through a three-part strategy:</p>
+
+            <ol>
+                <li><strong>Neutral Project Name (<code>PMCRO-System</code>):</strong> The file system reflects the tool, not the brand. This ensures portability.</li>
+                <li><strong>Authoritative Package Name (<code>com.tooensure.pmcro</code>):</strong> This establishes <strong>provenance</strong>. It is an immutable record of the original creator (Tooensure LLC), similar to a library's author.</li>
+                <li><strong>Runtime Identity Injection (<code>system_identity.toml</code>):</strong> This is the key. A human-readable configuration file injects the <em>current</em> personality.</li>
+            </ol>
+
+            <h3>The Identity Configuration</h3>
+            <p>By changing this file, the entire personality of the AI shifts without touching a line of code.</p>
+
+            <div class="code-block">
+<span class="toml-section">[active_entity]</span>
+<span class="toml-key">name</span> = <span class="toml-string">"New Client LLC"</span>
+<span class="toml-key">legal_name</span> = <span class="toml-string">"New Client LLC"</span>
+<span class="toml-key">context</span> = <span class="toml-string">"White-Label Instance"</span>
+
+<span class="toml-section">[brand]</span>
+<span class="toml-key">display_name</span> = <span class="toml-string">"ClientBrand"</span>
+<span class="toml-key">tagline</span> = <span class="toml-string">"Powered by PMCR-O"</span>
+            </div>
+
+            <h2>The Power of This Model</h2>
+            <ul>
+                <li><strong>Infinite Re-purposing:</strong> The system acts as a "White Label Factory." It can be licensed to other companies instantly.</li>
+                <li><strong>Digital Immortality:</strong> If the original entity (Tooensure) ceases to exist, the core framework remains. A new TOML is loaded, and the machine continues under a new banner.</li>
+                <li><strong>Separation of Concerns:</strong> It cleanly separates the <em>tool</em> from the <em>job</em>.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

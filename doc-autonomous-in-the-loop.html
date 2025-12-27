@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Autonomous-in-the-Loop (AITL): Shifting the human role from operator to governor. The 3 levels of PMCR-O autonomy.">
+    <title>Autonomous-in-the-Loop | PMCR-O Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .doc-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .doc-title { color: var(--gold); font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--text-tertiary); padding-bottom: 1rem; }
+        
+        h2 { color: var(--gold); margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        p { margin-bottom: 1rem; color: var(--text-primary); line-height: 1.7; }
+        ul { margin-left: 2rem; margin-bottom: 1.5rem; color: var(--text-primary); }
+        li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+        /* Paradigm Shift Visual */
+        .paradigm-box {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .paradigm-card {
+            flex: 1;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            padding: 2rem;
+            border-radius: 8px;
+            min-width: 300px;
+        }
+
+        .p-title { font-weight: bold; color: var(--gold); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .p-flow { font-family: 'Courier New', monospace; color: var(--text-secondary); background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 4px; margin-bottom: 1rem; }
+        .p-desc { font-size: 0.95rem; color: var(--text-primary); }
+
+        /* Levels of Autonomy */
+        .levels-container {
+            margin: 3rem 0;
+            border-left: 3px solid var(--gold);
+        }
+
+        .level-item {
+            padding: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .level-item::before {
+            content: '';
+            position: absolute;
+            left: -11px;
+            top: 2rem;
+            width: 19px;
+            height: 19px;
+            background: var(--dark);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+        }
+
+        .level-header { color: var(--gold); font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .level-meta { font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 0.5rem; text-transform: uppercase; }
+
+        .governance-list {
+            background: rgba(212, 165, 116, 0.05);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .governance-item { margin-bottom: 1rem; }
+        .gov-label { color: var(--gold); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pmcro-codex.html">Docs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="doc-container">
+            <h1 class="doc-title">Autonomous-in-the-Loop (AITL)</h1>
+
+            <p><strong>Core Principle:</strong> The system must operate and improve itself without requiring a human to approve every step. The human role shifts from operator to governor.</p>
+
+            <h2>The Paradigm Shift: From HITL to AITL</h2>
+            <p>Traditional AI systems operate on a <strong>Human-in-the-Loop (HITL)</strong> model. They are powerful tools, but they are tethered to a human operator. If the human sleeps, the system stalls.</p>
+            <p>PMCR-O inverts this model to <strong>Autonomous-in-the-Loop (AITL)</strong>.</p>
+
+            <div class="paradigm-box">
+                <!-- HITL -->
+                <div class="paradigm-card" style="opacity: 0.7;">
+                    <div class="p-title">Traditional (HITL)</div>
+                    <div class="p-flow">AI generates → Human reviews → Human approves → Repeat</div>
+                    <div class="p-desc">The human is the bottleneck. The system waits for permission to exist.</div>
+                </div>
+
+                <!-- AITL -->
+                <div class="paradigm-card" style="border-color: var(--gold);">
+                    <div class="p-title">PMCR-O (AITL)</div>
+                    <div class="p-flow">Intent (Once) → Plan → Build → Check → Reflect → Continue...</div>
+                    <div class="p-desc">The human sets the Intent once. The system works overnight, self-healing and evolving.</div>
+                </div>
+            </div>
+
+            <h2>The Three Levels of Autonomy</h2>
+            <p>AITL is a journey of increasing maturity.</p>
+
+            <div class="levels-container">
+                <div class="level-item">
+                    <div class="level-header">Level 1: Assisted Autonomy</div>
+                    <div class="level-meta">Cycles &lt; 15</div>
+                    <p>The system executes single P-M-C-R-O cycles but requires human review before major state changes.</p>
+                </div>
+
+                <div class="level-item">
+                    <div class="level-header">Level 2: Supervised Autonomy</div>
+                    <div class="level-meta">Cycles 16-20</div>
+                    <p>The system executes full plans. It self-heals from errors. It only notifies the human if it enters a "hibernation state" after repeated critical failures.</p>
+                </div>
+
+                <div class="level-item">
+                    <div class="level-header">Level 3: Full Autonomy</div>
+                    <div class="level-meta">Cycles 21+</div>
+                    <p>The system generates its own new <code>Intents</code> based on reflection. It manages a portfolio of products, operating for weeks without direct intervention.</p>
+                </div>
+            </div>
+
+            <h2>Governance: Autonomy is not Anarchy</h2>
+            <p>We do not simply unleash the AI. We govern it through a strict constitutional framework.</p>
+
+            <div class="governance-list">
+                <div class="governance-item">
+                    <span class="gov-label">1. The Constitution:</span> Immutable principles (e.g., "The system shall not hallucinate capabilities") defined in <code>pmcro_codex.mdc</code>.
+                </div>
+                <div class="governance-item">
+                    <span class="gov-label">2. The Constraint Layer:</span> Hard limits on resource usage and retry attempts per cycle.
+                </div>
+                <div class="governance-item">
+                    <span class="gov-label">3. The Pivot Protocol:</span> If a strategy fails X times, the Reflector must propose a strategic pivot, not just a retry.
+                </div>
+                <div class="governance-item">
+                    <span class="gov-label">4. Human Veto:</span> High-level meta-decisions (e.g., changing core governance) require a signed human key.
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--text-tertiary); margin: 3rem 0;">
+
+            <p>By codifying these rules, we can trust the system to operate and evolve safely and predictably, even if without our constant supervision.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
