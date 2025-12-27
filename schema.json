@@ -1,0 +1,207 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://shawndelainebellazan.com/#person",
+      "name": "Shawn Delaine Bellazan",
+      "givenName": "Shawn",
+      "familyName": "Bellazan",
+      "additionalName": "Delaine",
+      "url": "https://shawndelainebellazan.com",
+      "image": "https://shawndelainebellazan.com/assets/shawn-bellazan-photo.jpg",
+      "jobTitle": "Principal AI Architect",
+      "description": "Principal AI Architect specializing in autonomous AI agents, self-referential systems, and the PMCR-O framework. Building the future of AI cognition through strange loops and recursive optimization.",
+      "disambiguatingDescription": "Founder of Tooensure LLC, creator of the PMCR-O (Planner-Maker-Checker-Reflector-Orchestrator) framework for autonomous AI agents",
+      "worksFor": {
+        "@id": "https://tooensure.com/#organization"
+      },
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Formal & Self-Directed AI Engineering",
+          "description": "Polyglot developer with expertise across .NET, Kotlin Multiplatform, and enterprise architectures"
+        }
+      ],
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "Artificial Intelligence",
+          "description": "AI Agent Frameworks, Self-Referential Systems, Cognitive Architectures"
+        },
+        {
+          "@type": "Thing",
+          "name": "PMCR-O Framework",
+          "description": "Planner-Maker-Checker-Reflector-Orchestrator cognitive system"
+        },
+        {
+          "@type": "Thing",
+          "name": "Strange Loops",
+          "description": "Self-referential systems inspired by Douglas Hofstadter"
+        },
+        {
+          "@type": "Thing",
+          "name": "Software Architecture",
+          "description": "Microservices, .NET Aspire, gRPC, SignalR, Enterprise Systems"
+        },
+        {
+          "@type": "Thing",
+          "name": "Mobile Development",
+          "description": "Kotlin Multiplatform, Jetpack Compose, Cross-Platform Apps"
+        }
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "AI Architect",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Minneapolis",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Minnesota"
+          }
+        },
+        "skills": ".NET 10, C#, Kotlin Multiplatform, Microsoft Agent Framework, Blazor, PostgreSQL, gRPC, SignalR, AI/ML Systems"
+      },
+      "sameAs": [
+        "https://github.com/shawndelainebellazancom-ui",
+        "https://linkedin.com/in/shawn-bellazan",
+        "https://tooensure.com",
+        "https://github.com/tooensure"
+      ],
+      "email": "tooensuremaster@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Minneapolis",
+        "addressRegion": "MN",
+        "addressCountry": "US"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://tooensure.com/#organization",
+      "name": "Tooensure LLC",
+      "legalName": "Tooensure LLC (S-Corp)",
+      "url": "https://tooensure.com",
+      "description": "AI Agent Company building autonomous systems through self-referential strange loops. Developer of the PMCR-O framework for AI cognition.",
+      "founder": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "foundingDate": "2024",
+      "sameAs": [
+        "https://github.com/tooensure",
+        "https://tooensure.com"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Minneapolis",
+        "addressRegion": "MN",
+        "addressCountry": "US"
+      },
+      "email": "tooensuremaster@gmail.com"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://tooensure.com/pmcr-o#software",
+      "name": "PMCR-O Framework",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": ".NET 10, Cross-Platform",
+      "description": "Self-referential AI cognition system. Planner-Maker-Checker-Reflector-Orchestrator framework for autonomous AI agents.",
+      "creator": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "provider": {
+        "@id": "https://tooensure.com/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://play.google.com/store/apps/details?id=com.tooensure.gototransit#app",
+      "name": "Go-To Transit",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "Android",
+      "description": "Cross-platform mobile application for public transit ticket purchasing with offline capability and Google Play Billing integration.",
+      "creator": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "provider": {
+        "@id": "https://tooensure.com/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "1000",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://shawndelainebellazan.com/#website",
+      "url": "https://shawndelainebellazan.com",
+      "name": "Shawn Delaine Bellazan - Principal AI Architect",
+      "description": "Professional portfolio showcasing AI architecture, PMCR-O framework, and production applications",
+      "publisher": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://shawndelainebellazan.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://shawndelainebellazan.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Work",
+          "item": "https://shawndelainebellazan.com/#work"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Skills",
+          "item": "https://shawndelainebellazan.com/#skills"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Philosophy",
+          "item": "https://shawndelainebellazan.com/#philosophy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Achievements",
+          "item": "https://shawndelainebellazan.com/#achievements"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Contact",
+          "item": "https://shawndelainebellazan.com/#contact"
+        }
+      ]
+    }
+  ]
+}

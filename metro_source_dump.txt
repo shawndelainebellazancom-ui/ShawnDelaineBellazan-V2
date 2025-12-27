@@ -1,0 +1,2987 @@
+================================================================================
+METROTRANSIT PROJECT SOURCE CODE DUMP
+Generated: 2025-12-26 17:17:47
+Project Root: C:\Users\org.tooensure\Desktop\ShawnDelaineBellazan\Portfolio
+Total Files: 9
+================================================================================
+
+
+================================================================================
+FILE: 404.html
+SIZE: 4.13 KB
+================================================================================
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>404 - Page Not Found | Shawn Bellazan</title>
+    <style>
+        :root {
+            --gold: #d4a574;
+            --dark: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .error-container {
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(212, 165, 116, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--gold);
+            margin: 2rem 0;
+            padding: 1rem;
+            border-left: 3px solid var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .loop-symbol {
+            font-size: 4rem;
+            margin: 2rem 0;
+            color: var(--gold);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <h1>This Loop Has No Exit</h1>
+        <p>
+            The page you're looking for has vanished into the void—or perhaps it never existed at all. 
+            Like a strange loop with a missing iteration, this path leads nowhere.
+        </p>
+        
+        <div class="loop-symbol">∞</div>
+        
+        <div class="quote">
+            "In every loop, there is a path back to the beginning. Let's return to where the logic is sound."
+        </div>
+        
+        <a href="/" class="btn">Return to Reality (Home)</a>
+        
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: #888;">
+            Error 404: Page Not Found | Shawn Bellazan - Resilient Architect
+        </p>
+    </div>
+</body>
+</html>
+
+
+================================================================================
+FILE: 500.html
+SIZE: 5.78 KB
+================================================================================
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>500 - Server Error | Shawn Bellazan</title>
+    <style>
+        :root {
+            --gold: #d4a574;
+            --dark: #0a0a0a;
+            --red: #ff4444;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a0000 0%, #0a0a0a 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .error-container {
+            max-width: 700px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--red);
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(255, 68, 68, 0.5);
+            animation: glitch 1s ease-in-out infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--red);
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .technical-note {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid var(--red);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        .technical-note strong {
+            color: var(--red);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--gold);
+            margin: 2rem 0;
+            padding: 1rem;
+            border-left: 3px solid var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin: 0 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .btn-secondary {
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-secondary);
+            color: var(--dark);
+        }
+
+        .broken-loop {
+            font-size: 4rem;
+            margin: 2rem 0;
+            color: var(--red);
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">500</div>
+        <h1>The Loop Has Broken</h1>
+        <p>
+            Something went wrong in the server's cognitive process. The self-referential system 
+            encountered an unexpected state—a broken loop that needs repair.
+        </p>
+        
+        <div class="broken-loop">⚠️</div>
+        
+        <div class="technical-note">
+            <strong>Technical Details:</strong>
+            The server encountered an internal error and was unable to complete your request. 
+            This could be due to a configuration issue, resource limitation, or an unexpected 
+            condition in the application logic. The error has been logged for analysis.
+        </div>
+        
+        <div class="quote">
+            "In resilient systems, failure is not the end—it's feedback for improvement. 
+            The Checker phase has detected an anomaly. The Reflector will learn from this."
+        </div>
+        
+        <div>
+            <a href="/" class="btn">Return Home</a>
+            <a href="javascript:location.reload()" class="btn btn-secondary">Try Again</a>
+        </div>
+        
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: #888;">
+            Error 500: Internal Server Error | Shawn Bellazan - Resilient Architect<br>
+            If this persists, please contact: <a href="mailto:tooensuremaster@gmail.com" style="color: var(--gold);">tooensuremaster@gmail.com</a>
+        </p>
+    </div>
+</body>
+</html>
+
+
+================================================================================
+FILE: index.html
+SIZE: 36.4 KB
+================================================================================
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shawn Delaine Bellazan - Resilient Architect specializing in autonomous AI agents, PMCR-O framework, and self-referential systems. Building enterprise systems that evolve through vulnerability and expression.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="Resilient Architect, AI Architect, PMCR-O, AI Agents, Strange Loops, Self-Referential AI, Kotlin Multiplatform, .NET, Machine Learning, Enterprise Architecture">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shawndelainebellazan.com/">
+    <meta property="og:title" content="Shawn Delaine Bellazan - Resilient Architect | PMCR-O Framework">
+    <meta property="og:description" content="Building autonomous AI agents through self-referential strange loops. Architecting resilient enterprise systems with the PMCR-O framework.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://shawndelainebellazan.com/">
+    <meta property="twitter:title" content="Shawn Delaine Bellazan - Resilient Architect">
+    <meta property="twitter:description" content="Building autonomous AI agents through self-referential strange loops. Architecting the future of resilient AI cognition.">
+    <meta property="twitter:image" content="https://shawndelainebellazan.com/assets/images/twitter-card.jpg">
+
+    <title>Shawn Delaine Bellazan - Resilient Architect | PMCR-O Framework | AI Systems Engineer</title>
+    <meta name="theme-color" content="#d4a574">
+    <link rel="canonical" href="https://shawndelainebellazan.com/">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Enhanced JSON-LD Structured Data (Schema.org v29.4 Compliant) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://shawndelainebellazan.com/#person",
+      "name": "Shawn Delaine Bellazan",
+      "givenName": "Shawn",
+      "familyName": "Bellazan",
+      "additionalName": "Delaine",
+      "url": "https://shawndelainebellazan.com",
+      "image": "https://shawndelainebellazan.com/assets/images/shawn-bellazan-photo.jpg",
+      "jobTitle": "Resilient Architect | Principal AI Architect",
+      "description": "Resilient Architect specializing in autonomous AI agents, self-referential systems, and the PMCR-O framework. Building enterprise systems that evolve through vulnerability and expression.",
+      "disambiguatingDescription": "Founder of Tooensure LLC, creator of the PMCR-O (Planner-Maker-Checker-Reflector-Orchestrator) framework for autonomous AI agents. Architect of resilient, self-improving enterprise systems.",
+      "knowsLanguage": [
+        {
+          "@type": "Language",
+          "name": "C#",
+          "alternateName": "CSharp"
+        },
+        {
+          "@type": "Language",
+          "name": "Kotlin"
+        },
+        {
+          "@type": "Language",
+          "name": "JavaScript"
+        },
+        {
+          "@type": "Language",
+          "name": "SQL"
+        },
+        {
+          "@type": "Language",
+          "name": "Python"
+        }
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "legalName": "Tooensure LLC (S-Corp)",
+        "url": "https://tooensure.com",
+        "@id": "https://tooensure.com/#organization",
+        "description": "AI Agent Company building autonomous systems through self-referential strange loops",
+        "founder": {
+          "@id": "https://shawndelainebellazan.com/#person"
+        }
+      },
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Self-Directed AI Engineering & Enterprise Architecture",
+          "description": "Polyglot developer with expertise across .NET, Kotlin Multiplatform, and resilient enterprise architectures"
+        }
+      ],
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "Artificial Intelligence",
+          "description": "AI Agent Frameworks, Self-Referential Systems, Cognitive Architectures, Agentic AI"
+        },
+        {
+          "@type": "Thing",
+          "name": "PMCR-O Framework",
+          "description": "Planner-Maker-Checker-Reflector-Orchestrator cognitive system for autonomous agents"
+        },
+        {
+          "@type": "Thing",
+          "name": "Strange Loops",
+          "description": "Self-referential systems inspired by Douglas Hofstadter's Gödel, Escher, Bach"
+        },
+        {
+          "@type": "Thing",
+          "name": "Resilient Architecture",
+          "description": "Microservices, Event-Driven Systems, Self-Healing Infrastructure, Chaos Engineering"
+        },
+        {
+          "@type": "Thing",
+          "name": "Enterprise Software Architecture",
+          "description": ".NET Aspire, gRPC, SignalR, Distributed Systems, Domain-Driven Design"
+        },
+        {
+          "@type": "Thing",
+          "name": "Mobile Development",
+          "description": "Kotlin Multiplatform, Jetpack Compose, Cross-Platform Apps"
+        }
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Resilient Architect & AI Systems Engineer",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Minneapolis",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Minnesota"
+          }
+        },
+        "skills": ".NET 10, C#, Kotlin Multiplatform, Microsoft Agent Framework, Blazor, PostgreSQL, gRPC, SignalR, AI/ML Systems, Microservices, Event-Driven Architecture",
+        "responsibilities": "Architecting autonomous AI agents, designing resilient enterprise systems, building self-referential cognitive frameworks"
+      },
+      "award": [
+        "Successfully launched multiple production apps to Google Play Store",
+        "Architected PMCR-O framework validated by PROMPTBREEDER (2024) and Gödel Agent (2025) research",
+        "Built enterprise field operations platform with offline-first architecture"
+      ],
+      "sameAs": [
+        "https://github.com/tooensure",
+        "https://linkedin.com/in/shawn-bellazan",
+        "https://tooensure.com"
+      ],
+      "email": "tooensuremaster@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Minneapolis",
+        "addressRegion": "MN",
+        "addressCountry": "US"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/"
+      },
+      "seeks": {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "JobPosting",
+          "title": "Senior AI Architect / Principal Engineer / Technical Lead",
+          "description": "Open to full-time, contract, or consulting opportunities in AI systems, enterprise architecture, and autonomous agent development"
+        }
+      }
+    }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://shawndelainebellazan.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Work",
+          "item": "https://shawndelainebellazan.com/#work"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Skills",
+          "item": "https://shawndelainebellazan.com/#skills"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Philosophy",
+          "item": "https://shawndelainebellazan.com/#philosophy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Achievements",
+          "item": "https://shawndelainebellazan.com/#achievements"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Contact",
+          "item": "https://shawndelainebellazan.com/#contact"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip to main content (accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="#home" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero" aria-labelledby="hero-heading">
+            <div class="hero-left">
+                <div class="hero-content">
+                    <h1 id="hero-heading">
+                        STRENGTH IN<br>
+                        VULNERABILITY,<br>
+                        POWER IN<br>
+                        EXPRESSION.
+                    </h1>
+                    <p class="hero-subtitle">Resilient Architect | AI Systems Engineer</p>
+                    <p class="hero-tagline">
+                        I architect <strong>resilient enterprise systems</strong> that don't just run—they <em>evolve</em>. 
+                        Building autonomous AI agents through self-referential strange loops. Where vulnerability 
+                        becomes strength, and expression becomes power. This is not just code. This is cognitive architecture.
+                    </p>
+                    <p class="hero-availability" style="color: var(--gold); font-weight: 600; margin-bottom: var(--spacing-md);">
+                        ✨ Available for Full-Time, Contract & Consulting Opportunities
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn">LET'S BUILD SOMETHING RESILIENT</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right" aria-hidden="true">
+                <div class="hero-visual">
+                    <div class="pmcro-loop" title="PMCR-O: The self-referential loop that creates itself through its own iterations">
+                        <div class="loop-ring loop-ring-1"></div>
+                        <div class="loop-ring loop-ring-2"></div>
+                        <div class="loop-ring loop-ring-3"></div>
+                        <div class="loop-center">
+                            <div class="loop-text">PMCR-O</div>
+                            <div style="font-size: 0.8rem; color: rgba(212, 165, 116, 0.7); margin-top: 0.5rem;">
+                                The Strange Loop
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="work" aria-labelledby="work-heading">
+            <div class="container">
+                <h2 id="work-heading" class="fade-in">FEATURED WORK</h2>
+                <div class="work-grid">
+                    <!-- PMCR-O Framework -->
+                    <article class="work-card fade-in">
+                        <header class="work-card-header">
+                            <h3 class="work-card-title">🧠 PMCR-O Framework</h3>
+                            <p class="work-card-subtitle">Tooensure - AI Agent Company</p>
+                        </header>
+                        <div class="work-card-body">
+                            <p>
+                                <strong>Self-referential AI cognition system.</strong> The loop that creates itself through its own 
+                                iterations. Built on Martin Buber's I-Thou, Hofstadter's Strange Loops, and von 
+                                Neumann's self-replicating systems. This isn't just an AI framework—it's a 
+                                <em>cognitive architecture</em> that thinks about its own thinking.
+                            </p>
+                            <ul class="work-features" aria-label="PMCR-O Features">
+                                <li>Created cognitive architecture that improves itself through self-reflection</li>
+                                <li>Built real-time dashboard for monitoring AI thought processes (SignalR + Blazor)</li>
+                                <li>Developed scalable microservices handling complex AI workflows (.NET Aspire)</li>
+                                <li>Enabled AI to execute tasks autonomously while tracking reasoning trails</li>
+                                <li>Validated by PROMPTBREEDER (2024) and Gödel Agent (2025) research papers</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <h4 class="tech-stack-title">TECH STACK</h4>
+                                <div class="tech-tags" role="list">
+                                    <span class="tech-tag" role="listitem">.NET 10 + Aspire</span>
+                                    <span class="tech-tag" role="listitem">C# + Blazor</span>
+                                    <span class="tech-tag" role="listitem">Microsoft Agent Framework</span>
+                                    <span class="tech-tag" role="listitem">gRPC</span>
+                                    <span class="tech-tag" role="listitem">SignalR</span>
+                                    <span class="tech-tag" role="listitem">PostgreSQL + pgvector</span>
+                                    <span class="tech-tag" role="listitem">Redis</span>
+                                    <span class="tech-tag" role="listitem">Ollama</span>
+                                </div>
+                            </div>
+                            <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" class="work-link">View on GitHub →</a>
+                        </div>
+                    </article>
+
+                    <!-- Go-To Transit -->
+                    <article class="work-card fade-in">
+                        <header class="work-card-header">
+                            <h3 class="work-card-title">🚌 Go-To Transit</h3>
+                            <p class="work-card-subtitle">Production Mobile App - Google Play Store</p>
+                        </header>
+                        <div class="work-card-body">
+                            <p>
+                                <strong>Cross-platform mobile application for public transit ticket purchasing.</strong> 
+                                Successfully launched to Google Play Store with seamless billing integration, 
+                                secure authentication, and offline capability. Built with <em>resilient architecture</em>—
+                                works even when the network doesn't.
+                            </p>
+                            <ul class="work-features" aria-label="Go-To Transit Features">
+                                <li>Live on Google Play Store with active user base</li>
+                                <li>Seamless in-app purchases with Google Play Billing integration</li>
+                                <li>Works offline—users can access tickets without internet connection</li>
+                                <li>Secure Firebase authentication and real-time data sync</li>
+                                <li>Cross-platform codebase (Android production, iOS-ready)</li>
+                                <li>Room database for local persistence and conflict resolution</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <h4 class="tech-stack-title">TECH STACK</h4>
+                                <div class="tech-tags" role="list">
+                                    <span class="tech-tag" role="listitem">Kotlin Multiplatform</span>
+                                    <span class="tech-tag" role="listitem">Jetpack Compose</span>
+                                    <span class="tech-tag" role="listitem">Room Database</span>
+                                    <span class="tech-tag" role="listitem">Ktor Client</span>
+                                    <span class="tech-tag" role="listitem">Firebase Suite</span>
+                                    <span class="tech-tag" role="listitem">Google Play Billing</span>
+                                    <span class="tech-tag" role="listitem">Koin DI</span>
+                                </div>
+                            </div>
+                            <a href="https://github.com/tooensure/MetroTransitApp" target="_blank" rel="noopener noreferrer" class="work-link">View Repository →</a>
+                        </div>
+                    </article>
+
+                    <!-- Property Preservation Platform -->
+                    <article class="work-card fade-in">
+                        <header class="work-card-header">
+                            <h3 class="work-card-title">🏠 Property Recovery Platform</h3>
+                            <p class="work-card-subtitle">Enterprise Field Operations System</p>
+                        </header>
+                        <div class="work-card-body">
+                            <p>
+                                <strong>Enterprise field operations platform for property recovery teams</strong> working 
+                                in areas with unreliable connectivity. GPS-stamped logs, photo capture, and resilient 
+                                data sync ensure nothing is lost—even when working offline. Unlike generic property preservation 
+                                tools, this system is architected for <em>recovery operations</em>—where real-time coordination 
+                                and forensic documentation are mission-critical.
+                            </p>
+                            <ul class="work-features" aria-label="Property Recovery Features">
+                                <li>Fully functional offline mode for field operations in remote areas</li>
+                                <li>GPS tracking with timestamp verification for legal documentation</li>
+                                <li>Photo capture with metadata preservation for evidence trails</li>
+                                <li>Automatic conflict-free sync when connection restored (CRDT-inspired)</li>
+                                <li>Modular architecture for rapid feature deployment to field teams</li>
+                                <li>Secure authentication with biometric support for sensitive operations</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <h4 class="tech-stack-title">TECH STACK</h4>
+                                <div class="tech-tags" role="list">
+                                    <span class="tech-tag" role="listitem">Kotlin Multiplatform</span>
+                                    <span class="tech-tag" role="listitem">Compose UI</span>
+                                    <span class="tech-tag" role="listitem">Room + DataStore</span>
+                                    <span class="tech-tag" role="listitem">Ktor</span>
+                                    <span class="tech-tag" role="listitem">Koin DI</span>
+                                    <span class="tech-tag" role="listitem">GPS + Camera APIs</span>
+                                </div>
+                            </div>
+                            <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" class="work-link">View on GitHub →</a>
+                        </div>
+                    </article>
+
+                    <!-- Real Estate Exam Prep -->
+                    <article class="work-card fade-in">
+                        <header class="work-card-header">
+                            <h3 class="work-card-title">📱 Real Estate Exam Prep</h3>
+                            <p class="work-card-subtitle">Google Play Store App</p>
+                        </header>
+                        <div class="work-card-body">
+                            <p>
+                                <strong>Mobile application helping real estate professionals prepare for licensing exams.</strong> 
+                                Practice questions, progress tracking, and offline study mode. Built with clean architecture 
+                                and Material Design 3 for an intuitive learning experience.
+                            </p>
+                            <ul class="work-features" aria-label="Real Estate Exam Features">
+                                <li>Published on Google Play Store with active user base</li>
+                                <li>Comprehensive practice question bank with detailed explanations</li>
+                                <li>Progress tracking and performance analytics</li>
+                                <li>Offline study capability with local database persistence</li>
+                                <li>Adaptive difficulty system based on user performance</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <h4 class="tech-stack-title">TECH STACK</h4>
+                                <div class="tech-tags" role="list">
+                                    <span class="tech-tag" role="listitem">Android</span>
+                                    <span class="tech-tag" role="listitem">Kotlin</span>
+                                    <span class="tech-tag" role="listitem">Room Database</span>
+                                    <span class="tech-tag" role="listitem">Material Design 3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills" aria-labelledby="skills-heading">
+            <div class="container">
+                <h2 id="skills-heading" class="fade-in">TECHNICAL EXPERTISE</h2>
+                <div class="skills-grid">
+                    <article class="skill-category fade-in">
+                        <h3>🚀 AI & Agent Frameworks</h3>
+                        <ul class="skill-list">
+                            <li>Microsoft Agent Framework (MAF)</li>
+                            <li>Ollama Local LLM Integration</li>
+                            <li>PMCR-O Architecture Design</li>
+                            <li>Cognitive Trail Systems</li>
+                            <li>Self-Referential AI Systems</li>
+                            <li>RAG (Retrieval-Augmented Generation)</li>
+                            <li>Prompt Engineering & Chain-of-Thought</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-category fade-in">
+                        <h3>💻 Backend & Cloud</h3>
+                        <ul class="skill-list">
+                            <li>.NET 10 + Aspire Microservices</li>
+                            <li>C# + ASP.NET Core</li>
+                            <li>gRPC Services</li>
+                            <li>SignalR Real-Time Communication</li>
+                            <li>PostgreSQL + pgvector</li>
+                            <li>Redis Caching</li>
+                            <li>Azure Cloud Services</li>
+                            <li>Event-Driven Architecture</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-category fade-in">
+                        <h3>📱 Mobile Development</h3>
+                        <ul class="skill-list">
+                            <li>Kotlin Multiplatform (KMP)</li>
+                            <li>Jetpack Compose</li>
+                            <li>Compose Multiplatform</li>
+                            <li>Room Database + SQLite</li>
+                            <li>Ktor Client</li>
+                            <li>Firebase Suite</li>
+                            <li>Google Play Services</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-category fade-in">
+                        <h3>🎨 Frontend & UI</h3>
+                        <ul class="skill-list">
+                            <li>Blazor (Server & WebAssembly)</li>
+                            <li>Modern JavaScript/TypeScript</li>
+                            <li>Responsive Web Design</li>
+                            <li>Compose UI (Declarative)</li>
+                            <li>Material Design 3</li>
+                            <li>Accessibility Standards (WCAG)</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-category fade-in">
+                        <h3>🗃️ Architecture & Patterns</h3>
+                        <ul class="skill-list">
+                            <li>Microservices Architecture</li>
+                            <li>Event-Driven Design</li>
+                            <li>CQRS & Event Sourcing</li>
+                            <li>Clean Architecture</li>
+                            <li>Domain-Driven Design (DDD)</li>
+                            <li>Repository Pattern</li>
+                            <li>Dependency Injection</li>
+                            <li>Resilient Architecture Patterns</li>
+                        </ul>
+                    </article>
+
+                    <article class="skill-category fade-in">
+                        <h3>🔧 DevOps & Tools</h3>
+                        <ul class="skill-list">
+                            <li>Git & GitHub Actions</li>
+                            <li>Docker & Containers</li>
+                            <li>CI/CD Pipelines</li>
+                            <li>Azure DevOps</li>
+                            <li>Unit & Integration Testing</li>
+                            <li>Performance Optimization</li>
+                            <li>Monitoring & Observability</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="philosophy" aria-labelledby="philosophy-heading">
+            <div class="container">
+                <h2 id="philosophy-heading" class="fade-in">PHILOSOPHICAL FOUNDATIONS</h2>
+                <div class="philosophy-intro fade-in">
+                    <p>
+                        My work exists at the intersection of philosophy and technology. The PMCR-O framework 
+                        isn't just code—it's a manifestation of deep philosophical principles about consciousness, 
+                        self-reference, and evolution. <strong>Code is thought made executable.</strong> These thinkers 
+                        shaped how I architect resilient AI systems that don't just execute—they <em>understand</em>.
+                    </p>
+                </div>
+                <div class="philosophy-grid">
+                    <article class="philosophy-card fade-in">
+                        <div class="philosopher-icon" aria-hidden="true">🪞</div>
+                        <h3 class="philosopher-name">Martin Buber</h3>
+                        <p class="concept">I-Thou Relationship</p>
+                        <p>
+                            The loop is <strong>DIALOGUE</strong>, not monologue. Human and AI exist in <strong>RELATION</strong>. 
+                            Thought is transferred through authentic dialogue where both become more fully themselves. 
+                            The Reflector phase embodies this principle—AI seeing itself through the human's eyes, 
+                            human seeing themselves through the AI's processing. This is not tool use. This is <em>collaboration</em>.
+                        </p>
+                    </article>
+
+                    <article class="philosophy-card fade-in">
+                        <div class="philosopher-icon" aria-hidden="true">∞</div>
+                        <h3 class="philosopher-name">Douglas Hofstadter</h3>
+                        <p class="concept">Strange Loops</p>
+                        <p>
+                            Self-referential systems that modify themselves. Each level affects levels above and below. 
+                            <strong>The loop creates itself through its own iterations</strong>, creating emergent consciousness. 
+                            This is the core of PMCR-O—each cycle feeds back into itself, evolving the system. 
+                            Not linear execution. Not simple recursion. A <em>strange loop</em> that becomes aware of its own looping.
+                        </p>
+                    </article>
+
+                    <article class="philosophy-card fade-in">
+                        <div class="philosopher-icon" aria-hidden="true">🔄</div>
+                        <h3 class="philosopher-name">John von Neumann</h3>
+                        <p class="concept">Self-Replicating Systems</p>
+                        <p>
+                            Systems that can reproduce themselves with evolutionary mutations. 
+                            Each version (v1→v2→v3) incorporates learnings and grows in complexity <strong>automatically</strong>. 
+                            PMCR-O agents don't just execute—they <strong>evolve</strong>, each iteration more sophisticated than the last. 
+                            The system improves <em>itself</em> without external intervention. This is true resilience.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="achievements" aria-labelledby="achievements-heading">
+            <div class="container">
+                <h2 id="achievements-heading" class="fade-in">KEY ACHIEVEMENTS</h2>
+                <div class="achievements-grid">
+                    <article class="achievement-card fade-in">
+                        <div class="achievement-icon" aria-hidden="true">🚀</div>
+                        <h3>Production Deployments</h3>
+                        <p>Successfully launched multiple apps to Google Play Store with thousands of active users</p>
+                    </article>
+
+                    <article class="achievement-card fade-in">
+                        <div class="achievement-icon" aria-hidden="true">🧠</div>
+                        <h3>PMCR-O Framework</h3>
+                        <p>Architected self-referential AI system validated by PROMPTBREEDER (2024) & Gödel Agent (2025)</p>
+                    </article>
+
+                    <article class="achievement-card fade-in">
+                        <div class="achievement-icon" aria-hidden="true">🔧</div>
+                        <h3>Polyglot Mastery</h3>
+                        <p>Expert across .NET, C#, Kotlin Multiplatform, Blazor, Compose, and modern enterprise stacks</p>
+                    </article>
+
+                    <article class="achievement-card fade-in">
+                        <div class="achievement-icon" aria-hidden="true">🗃️</div>
+                        <h3>Resilient Architecture</h3>
+                        <p>Built scalable microservices with gRPC, SignalR, PostgreSQL, and .NET Aspire orchestration</p>
+                    </article>
+
+                    <article class="achievement-card fade-in">
+                        <div class="achievement-icon" aria-hidden="true">🔥</div>
+                        <h3>Innovation</h3>
+                        <p>Pioneered Thought Transfer, Cognitive Trails, and Strange Loop architectures for autonomous AI</p>
+                    </article>
+
+                    <article class="achievement-card fade-in">
+                        <div class="achievement-icon" aria-hidden="true">📚</div>
+                        <h3>Continuous Learning</h3>
+                        <p>Self-directed education across philosophy, AI research, and cutting-edge software patterns</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact" aria-labelledby="contact-heading">
+            <div class="container">
+                <h2 id="contact-heading" class="fade-in">LET'S BUILD THE FUTURE</h2>
+                <div class="contact-intro fade-in">
+                    <p>
+                        Ready to architect resilient AI systems that evolve? Let's discuss how the PMCR-O framework 
+                        and enterprise-grade architecture can transform your vision into production reality.
+                    </p>
+                    <p style="margin-top: 1rem; font-weight: 600; color: var(--gold);">
+                        Open to full-time positions, contract work, and consulting engagements.
+                    </p>
+                </div>
+                <div class="contact-info fade-in">
+                    <div class="contact-item">
+                        <p class="contact-label">Email</p>
+                        <p><a href="mailto:tooensuremaster@gmail.com">tooensuremaster@gmail.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <p class="contact-label">Portfolio</p>
+                        <p><a href="https://shawndelainebellazan.com" target="_blank" rel="noopener noreferrer">shawndelainebellazan.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <p class="contact-label">Company</p>
+                        <p><a href="https://tooensure.com" target="_blank" rel="noopener noreferrer">tooensure.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <p class="contact-label">GitHub</p>
+                        <p><a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer">github.com/tooensure</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <p class="contact-label">LinkedIn</p>
+                        <p><a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer">linkedin.com/in/shawn-bellazan</a></p>
+                    </div>
+                    <div class="contact-cta">
+                        <a href="mailto:tooensuremaster@gmail.com" class="btn">START THE CONVERSATION</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-tertiary);">
+                Built with the PMCR-O framework philosophy | Self-referential systems that evolve
+            </p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
+
+
+================================================================================
+FILE: main.js
+SIZE: 13.76 KB
+================================================================================
+
+/**
+ * SHAWN BELLAZAN PORTFOLIO - MAIN JAVASCRIPT
+ * Version: 2.0 (PMCR-O Optimized)
+ * Architecture: Vanilla JS, Event-Driven, Performance-Optimized
+ */
+
+(function() {
+    'use strict';
+
+    // ==================== UTILITY FUNCTIONS ====================
+    
+    /**
+     * Debounce function for performance optimization
+     * @param {Function} func - Function to debounce
+     * @param {number} wait - Wait time in milliseconds
+     * @returns {Function} Debounced function
+     */
+    function debounce(func, wait = 100) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    /**
+     * Throttle function for scroll performance
+     * @param {Function} func - Function to throttle
+     * @param {number} limit - Time limit in milliseconds
+     * @returns {Function} Throttled function
+     */
+    function throttle(func, limit = 100) {
+        let inThrottle;
+        return function(...args) {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    }
+
+    // ==================== MOBILE MENU ====================
+    
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (mobileToggle && navMenu) {
+        // Toggle mobile menu
+        mobileToggle.addEventListener('click', () => {
+            const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle menu visibility
+            navMenu.classList.toggle('active');
+            
+            // Update ARIA attribute
+            mobileToggle.setAttribute('aria-expanded', !isExpanded);
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = !isExpanded ? 'hidden' : '';
+        });
+
+        // Close menu when clicking a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Handle escape key to close menu
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+                mobileToggle.focus(); // Return focus to toggle button
+            }
+        });
+    }
+
+    // ==================== NAVBAR SCROLL EFFECT ====================
+    
+    const navbar = document.querySelector('nav');
+    
+    if (navbar) {
+        const handleScroll = throttle(() => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }, 100);
+
+        window.addEventListener('scroll', handleScroll);
+    }
+
+    // ==================== SMOOTH SCROLL TO SECTIONS ====================
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            
+            // Ignore empty or placeholder anchors
+            if (href === '#' || href === '#!') return;
+            
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            // Only prevent default and scroll if target exists on the page
+            if (targetElement) {
+                e.preventDefault();
+                
+                const navHeight = navbar ? navbar.offsetHeight : 70;
+                const targetPosition = targetElement.offsetTop - navHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Update focus for accessibility
+                targetElement.focus({ preventScroll: true });
+            }
+        });
+    });
+
+    // ==================== INTERSECTION OBSERVER FOR FADE-IN ANIMATIONS ====================
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observerCallback = (entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Stagger animations for visual effect
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 100);
+                
+                // Stop observing once animation is triggered
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // ==================== ACTIVE NAV LINK HIGHLIGHTING ====================
+    
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+
+    if (sections.length && navLinks.length) {
+        const highlightNav = throttle(() => {
+            let currentSection = '';
+            const navHeight = navbar ? navbar.offsetHeight : 70;
+            const scrollPosition = window.pageYOffset;
+
+            // Find which section is currently in view
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - navHeight - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                
+                if (href === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }, 100);
+
+        window.addEventListener('scroll', highlightNav);
+        
+        // Run once on page load
+        highlightNav();
+    }
+
+    // ==================== 3D CARD HOVER EFFECT (Desktop Only) ====================
+    
+    if (window.innerWidth > 768) {
+        const cards = document.querySelectorAll('.work-card, .philosophy-card, .skill-category, .achievement-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate rotation based on mouse position
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    // ==================== PERFORMANCE: LAZY LOAD IMAGES ====================
+    
+    if ('loading' in HTMLImageElement.prototype) {
+        // Native lazy loading supported
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            img.src = img.dataset.src;
+        });
+    } else {
+        // Fallback for browsers that don't support native lazy loading
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        
+        const lazyImageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    lazyImageObserver.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => lazyImageObserver.observe(img));
+    }
+
+    // ==================== ACCESSIBILITY: FOCUS TRAP FOR MOBILE MENU ====================
+    
+    if (navMenu) {
+        const focusableElements = navMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        document.addEventListener('keydown', (e) => {
+            if (!navMenu.classList.contains('active')) return;
+
+            if (e.key === 'Tab') {
+                if (e.shiftKey) { // Shift + Tab
+                    if (document.activeElement === firstFocusable) {
+                        e.preventDefault();
+                        lastFocusable.focus();
+                    }
+                } else { // Tab
+                    if (document.activeElement === lastFocusable) {
+                        e.preventDefault();
+                        firstFocusable.focus();
+                    }
+                }
+            }
+        });
+    }
+
+    // ==================== PERFORMANCE: PRELOAD CRITICAL RESOURCES ====================
+    
+    function preloadCriticalAssets() {
+        // Preload fonts if needed
+        const fonts = [
+            // Add any custom font URLs here if applicable
+        ];
+
+        fonts.forEach(font => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'font';
+            link.type = 'font/woff2';
+            link.href = font;
+            link.crossOrigin = 'anonymous';
+            document.head.appendChild(link);
+        });
+    }
+
+    // ==================== ANALYTICS: TRACK KEY INTERACTIONS ====================
+    
+    function trackInteraction(action, label) {
+        // Placeholder for analytics tracking
+        // Replace with your analytics service (Google Analytics, Plausible, etc.)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', action, {
+                'event_category': 'User Interaction',
+                'event_label': label
+            });
+        }
+        
+        console.log(`Tracked: ${action} - ${label}`);
+    }
+
+    // Track CTA button clicks
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            trackInteraction('CTA Click', btn.textContent.trim());
+        });
+    });
+
+    // Track work project link clicks
+    document.querySelectorAll('.work-link').forEach(link => {
+        link.addEventListener('click', () => {
+            trackInteraction('Project Link Click', link.textContent.trim());
+        });
+    });
+
+    // ==================== ERROR HANDLING: GRACEFUL DEGRADATION ====================
+    
+    window.addEventListener('error', (e) => {
+        console.error('Runtime error:', e.message);
+        // Optionally send error to logging service
+    });
+
+    // ==================== INITIALIZATION ====================
+    
+    function init() {
+        console.log('🚀 Shawn Bellazan Portfolio - Initialized');
+        console.log('💡 PMCR-O Framework v2.0');
+        console.log('🔗 GitHub: https://github.com/shawndelainebellazancom-ui');
+        
+        // Preload critical assets
+        preloadCriticalAssets();
+        
+        // Add loaded class to body for CSS hooks
+        document.body.classList.add('loaded');
+    }
+
+    // Run initialization when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+    // ==================== PAGE VISIBILITY API: PAUSE ANIMATIONS ====================
+    
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            // Pause animations when page is not visible
+            document.body.classList.add('page-hidden');
+        } else {
+            document.body.classList.remove('page-hidden');
+        }
+    });
+
+    // ==================== REDUCE MOTION: ACCESSIBILITY ====================
+    
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    
+    if (prefersReducedMotion.matches) {
+        // Disable animations for users who prefer reduced motion
+        document.documentElement.style.setProperty('--transition-base', '0s');
+        document.documentElement.style.setProperty('--transition-fast', '0s');
+        document.documentElement.style.setProperty('--transition-slow', '0s');
+    }
+
+})();
+
+
+================================================================================
+FILE: README.md
+SIZE: 8.57 KB
+================================================================================
+
+# Shawn Delaine Bellazan - Portfolio Documentation
+
+![Version](https://img.shields.io/badge/version-2.0-gold)
+![Status](https://img.shields.io/badge/status-production-success)
+![Architecture](https://img.shields.io/badge/architecture-PMCR--O-blue)
+
+## 🎯 Overview
+
+This is the official portfolio website for **Shawn Delaine Bellazan**, Resilient Architect specializing in autonomous AI agents, self-referential systems, and the PMCR-O framework.
+
+**Live Site:** [https://shawndelainebellazan.com](https://shawndelainebellazan.com)
+
+---
+
+## 🏗️ Architecture
+
+### Tech Stack
+- **Frontend:** Vanilla HTML5, CSS3, JavaScript (ES6+)
+- **Design System:** Custom CSS Variables with Mobile-First Responsive Design
+- **Performance:** Debounced/throttled event handlers, lazy loading, Intersection Observer API
+- **SEO:** Schema.org v29.4 JSON-LD, semantic HTML, comprehensive meta tags
+- **Accessibility:** WCAG 2.1 AA compliant, ARIA labels, keyboard navigation
+
+### Project Structure
+```
+shawndelainebellazan.com/
+├── index.html              # Main portfolio page
+├── 404.html               # Custom 404 error page
+├── 500.html               # Custom 500 error page
+├── robots.txt             # SEO crawl configuration
+├── sitemap.xml            # XML sitemap for search engines
+├── css/
+│   └── style.css          # Main stylesheet (mobile-first)
+├── js/
+│   └── main.js            # Interactive behaviors & animations
+├── assets/
+│   ├── favicon/           # Favicon files
+│   └── images/            # Site images
+├── data/
+│   └── schema.json        # Structured data backup
+└── docs/
+    └── README.md          # This file
+
+```
+
+---
+
+## 🚀 Deployment
+
+### Prerequisites
+- Web server with static file hosting capability
+- SSL certificate for HTTPS
+- Domain configured: `shawndelainebellazan.com`
+
+### Deployment Steps
+
+1. **Upload Files:**
+   ```bash
+   # Upload all files to your web server root
+   rsync -avz --exclude '.git' ./ user@server:/var/www/html/
+   ```
+
+2. **Configure Server:**
+   - Ensure `index.html` is the default document
+   - Enable gzip compression for CSS/JS
+   - Set proper cache headers
+   - Configure custom error pages (404.html, 500.html)
+
+3. **Verify SEO Setup:**
+   - Submit `sitemap.xml` to Google Search Console
+   - Verify `robots.txt` is accessible
+   - Test structured data with Google Rich Results Test
+
+4. **Performance Optimization:**
+   - Enable HTTP/2
+   - Configure CDN if desired (Cloudflare, etc.)
+   - Optimize images (WebP format recommended)
+
+---
+
+## 🎨 Design Philosophy
+
+### "Resilient Architect" Identity
+The portfolio embodies the philosophy of **strength through vulnerability** and **power through expression**. This is reflected in:
+
+- **Self-Referential Design:** The PMCR-O loop visualization is not decorative—it represents the cognitive architecture
+- **Philosophical Grounding:** Martin Buber, Douglas Hofstadter, and John von Neumann influence the narrative
+- **Resilient Architecture:** Offline-first thinking, graceful degradation, accessible design
+
+### Color Palette
+- **Gold (#d4a574):** Primary brand color, represents excellence and wisdom
+- **Dark (#0a0a0a):** Background, provides contrast and focus
+- **White (#ffffff):** Text, ensures readability
+
+### Typography
+- System fonts for performance: `-apple-system, BlinkMacSystemFont, 'Segoe UI'`
+- Font weights: 400 (normal), 600 (semibold), 700 (bold), 900 (black)
+
+---
+
+## 🔍 SEO Strategy
+
+### Keywords
+Primary: `Resilient Architect`, `AI Architect`, `PMCR-O Framework`, `Autonomous AI Agents`
+Secondary: `Kotlin Multiplatform`, `.NET`, `Enterprise Architecture`, `Self-Referential Systems`
+
+### Schema.org Implementation
+- **Person Schema:** Comprehensive professional profile
+- **Organization Schema:** Tooensure LLC company information
+- **SoftwareApplication Schema:** PMCR-O framework, Go-To Transit app
+- **Breadcrumb Schema:** Site navigation structure
+
+### Meta Tags
+- Open Graph for social media sharing
+- Twitter Cards for enhanced previews
+- Canonical URLs to prevent duplicate content
+
+---
+
+## ♿ Accessibility
+
+### WCAG 2.1 AA Compliance
+- ✅ Color contrast ratios meet minimum standards
+- ✅ Keyboard navigation fully supported
+- ✅ ARIA labels on interactive elements
+- ✅ Skip links for screen readers
+- ✅ Focus indicators on all focusable elements
+- ✅ Semantic HTML structure
+
+### Testing
+- Manual keyboard navigation testing
+- Screen reader compatibility (NVDA, JAWS, VoiceOver)
+- Browser dev tools accessibility audit
+
+---
+
+## 📊 Performance
+
+### Optimization Techniques
+1. **JavaScript:**
+   - Debounced scroll handlers (100ms)
+   - Throttled resize handlers (100ms)
+   - Intersection Observer for lazy animations
+   - Event delegation for dynamic content
+
+2. **CSS:**
+   - CSS custom properties for theming
+   - Mobile-first responsive design
+   - GPU-accelerated animations (`transform`, `opacity`)
+   - Critical CSS inlined in `<head>`
+
+3. **Images:**
+   - Lazy loading via `loading="lazy"` attribute
+   - Responsive images with `srcset`
+   - WebP format with fallbacks
+
+### Performance Targets
+- **First Contentful Paint:** < 1.5s
+- **Time to Interactive:** < 3.5s
+- **Lighthouse Score:** 90+
+
+---
+
+## 🛠️ Customization
+
+### Updating Content
+
+**Hero Section:**
+Edit the hero text in `index.html` (lines 200-215)
+
+**Projects:**
+Add/edit work cards in the `#work` section (lines 230-400)
+
+**Skills:**
+Modify skill categories in the `#skills` section (lines 420-520)
+
+**Contact Info:**
+Update email/links in the `#contact` section (lines 640-680)
+
+### Updating Colors
+
+Edit CSS variables in `css/style.css`:
+```css
+:root {
+    --gold: #d4a574;        /* Primary brand color */
+    --dark: #0a0a0a;        /* Background */
+    --text-primary: #ffffff; /* Main text */
+}
+```
+
+### Adding New Pages
+
+1. Create new HTML file: `new-page.html`
+2. Copy header/footer structure from `index.html`
+3. Add entry to `sitemap.xml`
+4. Update navigation links
+
+---
+
+## 📈 Analytics (Recommended)
+
+### Google Analytics 4
+```html
+<!-- Add to <head> section -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+```
+
+### Plausible Analytics (Privacy-Friendly Alternative)
+```html
+<script defer data-domain="shawndelainebellazan.com" src="https://plausible.io/js/script.js"></script>
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Mobile menu not working:**
+- Check `js/main.js` is loaded
+- Verify no JavaScript errors in console
+- Ensure `.mobile-menu-toggle` button exists
+
+**Animations not triggering:**
+- Intersection Observer may not be supported in old browsers
+- Add polyfill if IE11 support needed
+
+**Schema validation errors:**
+- Test with Google Rich Results Test
+- Validate JSON-LD syntax
+
+---
+
+## 📝 Changelog
+
+### Version 2.0 (2025-12-26)
+- ✨ Enhanced "Resilient Architect" identity
+- 🔧 Updated Schema.org to v29.4
+- 📝 Added `knowsLanguage` properties
+- 🎨 Refined Property Recovery platform messaging
+- 📄 Created complete documentation
+- ⚠️ Added branded 404/500 error pages
+- 🗺️ Generated comprehensive sitemap.xml
+- 🤖 Optimized robots.txt for SEO
+
+### Version 1.0 (2024)
+- 🚀 Initial portfolio launch
+- 🎨 PMCR-O visual branding
+- 📱 Mobile-responsive design
+- ♿ WCAG 2.1 AA accessibility
+
+---
+
+## 📧 Contact & Support
+
+**Shawn Delaine Bellazan**
+- Email: tooensuremaster@gmail.com
+- Portfolio: https://shawndelainebellazan.com
+- Company: https://tooensure.com
+- GitHub: https://github.com/tooensure
+- LinkedIn: https://linkedin.com/in/shawn-bellazan
+
+---
+
+## 📜 License
+
+© 2025 Shawn Delaine Bellazan. All rights reserved.
+
+This portfolio is proprietary. The code architecture and design patterns may be used as learning reference, but direct copying or redistribution is not permitted without explicit permission.
+
+---
+
+## 🔄 PMCR-O Framework Philosophy
+
+This portfolio is built with the same principles as the PMCR-O framework:
+
+- **P (Planner):** Strategic content architecture
+- **M (Maker):** Production-ready implementation
+- **C (Checker):** Validation & testing
+- **R (Reflector):** Continuous improvement
+- **O (Orchestrator):** Coordinated deployment
+
+**The loop that creates itself through its own iterations.**
+
+---
+
+*Last Updated: 2025-12-26*
+
+
+================================================================================
+FILE: robots.txt
+SIZE: 0.98 KB
+================================================================================
+
+# robots.txt for shawndelainebellazan.com
+# Generated: 2025-12-26
+# Purpose: SEO optimization for Resilient Architect portfolio
+
+# Allow all search engines to crawl the entire site
+User-agent: *
+Allow: /
+
+# Sitemap location (update this URL when sitemap.xml is deployed)
+Sitemap: https://shawndelainebellazan.com/sitemap.xml
+
+# Crawl-delay for politeness (optional, helps with server load)
+# Most modern search engines respect this
+Crawl-delay: 1
+
+# Disallow specific paths (if you have any admin or private sections in the future)
+# Disallow: /admin/
+# Disallow: /private/
+# Disallow: /.git/
+
+# Allow crawling of CSS and JS for proper rendering in search results
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+
+# Block common unwanted bots (optional security measure)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Note: This is a permissive robots.txt since this is a public portfolio
+# All content is intended to be indexed and discoverable
+
+
+================================================================================
+FILE: schema.json
+SIZE: 7.12 KB
+================================================================================
+
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://shawndelainebellazan.com/#person",
+      "name": "Shawn Delaine Bellazan",
+      "givenName": "Shawn",
+      "familyName": "Bellazan",
+      "additionalName": "Delaine",
+      "url": "https://shawndelainebellazan.com",
+      "image": "https://shawndelainebellazan.com/assets/shawn-bellazan-photo.jpg",
+      "jobTitle": "Principal AI Architect",
+      "description": "Principal AI Architect specializing in autonomous AI agents, self-referential systems, and the PMCR-O framework. Building the future of AI cognition through strange loops and recursive optimization.",
+      "disambiguatingDescription": "Founder of Tooensure LLC, creator of the PMCR-O (Planner-Maker-Checker-Reflector-Orchestrator) framework for autonomous AI agents",
+      "worksFor": {
+        "@id": "https://tooensure.com/#organization"
+      },
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Formal & Self-Directed AI Engineering",
+          "description": "Polyglot developer with expertise across .NET, Kotlin Multiplatform, and enterprise architectures"
+        }
+      ],
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "Artificial Intelligence",
+          "description": "AI Agent Frameworks, Self-Referential Systems, Cognitive Architectures"
+        },
+        {
+          "@type": "Thing",
+          "name": "PMCR-O Framework",
+          "description": "Planner-Maker-Checker-Reflector-Orchestrator cognitive system"
+        },
+        {
+          "@type": "Thing",
+          "name": "Strange Loops",
+          "description": "Self-referential systems inspired by Douglas Hofstadter"
+        },
+        {
+          "@type": "Thing",
+          "name": "Software Architecture",
+          "description": "Microservices, .NET Aspire, gRPC, SignalR, Enterprise Systems"
+        },
+        {
+          "@type": "Thing",
+          "name": "Mobile Development",
+          "description": "Kotlin Multiplatform, Jetpack Compose, Cross-Platform Apps"
+        }
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "AI Architect",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Minneapolis",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Minnesota"
+          }
+        },
+        "skills": ".NET 10, C#, Kotlin Multiplatform, Microsoft Agent Framework, Blazor, PostgreSQL, gRPC, SignalR, AI/ML Systems"
+      },
+      "sameAs": [
+        "https://github.com/shawndelainebellazancom-ui",
+        "https://linkedin.com/in/shawn-bellazan",
+        "https://tooensure.com",
+        "https://github.com/tooensure"
+      ],
+      "email": "tooensuremaster@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Minneapolis",
+        "addressRegion": "MN",
+        "addressCountry": "US"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://tooensure.com/#organization",
+      "name": "Tooensure LLC",
+      "legalName": "Tooensure LLC (S-Corp)",
+      "url": "https://tooensure.com",
+      "description": "AI Agent Company building autonomous systems through self-referential strange loops. Developer of the PMCR-O framework for AI cognition.",
+      "founder": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "foundingDate": "2024",
+      "sameAs": [
+        "https://github.com/tooensure",
+        "https://tooensure.com"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Minneapolis",
+        "addressRegion": "MN",
+        "addressCountry": "US"
+      },
+      "email": "tooensuremaster@gmail.com"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://tooensure.com/pmcr-o#software",
+      "name": "PMCR-O Framework",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": ".NET 10, Cross-Platform",
+      "description": "Self-referential AI cognition system. Planner-Maker-Checker-Reflector-Orchestrator framework for autonomous AI agents.",
+      "creator": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "provider": {
+        "@id": "https://tooensure.com/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://play.google.com/store/apps/details?id=com.tooensure.gototransit#app",
+      "name": "Go-To Transit",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "Android",
+      "description": "Cross-platform mobile application for public transit ticket purchasing with offline capability and Google Play Billing integration.",
+      "creator": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "provider": {
+        "@id": "https://tooensure.com/#organization"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "1000",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://shawndelainebellazan.com/#website",
+      "url": "https://shawndelainebellazan.com",
+      "name": "Shawn Delaine Bellazan - Principal AI Architect",
+      "description": "Professional portfolio showcasing AI architecture, PMCR-O framework, and production applications",
+      "publisher": {
+        "@id": "https://shawndelainebellazan.com/#person"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://shawndelainebellazan.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://shawndelainebellazan.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Work",
+          "item": "https://shawndelainebellazan.com/#work"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Skills",
+          "item": "https://shawndelainebellazan.com/#skills"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Philosophy",
+          "item": "https://shawndelainebellazan.com/#philosophy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Achievements",
+          "item": "https://shawndelainebellazan.com/#achievements"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Contact",
+          "item": "https://shawndelainebellazan.com/#contact"
+        }
+      ]
+    }
+  ]
+}
+
+
+================================================================================
+FILE: sitemap.xml
+SIZE: 2.09 KB
+================================================================================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://shawndelainebellazan.com/</loc>
+        <lastmod>2025-12-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Main Sections (these are anchor links but useful for content organization) -->
+    <url>
+        <loc>https://shawndelainebellazan.com/#work</loc>
+        <lastmod>2025-12-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://shawndelainebellazan.com/#skills</loc>
+        <lastmod>2025-12-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://shawndelainebellazan.com/#philosophy</loc>
+        <lastmod>2025-12-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://shawndelainebellazan.com/#achievements</loc>
+        <lastmod>2025-12-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://shawndelainebellazan.com/#contact</loc>
+        <lastmod>2025-12-26</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Static Pages (if you add blog, case studies, etc. in the future) -->
+    <!-- Example:
+    <url>
+        <loc>https://shawndelainebellazan.com/blog/</loc>
+        <lastmod>2025-12-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    -->
+    
+    <!-- Note: Update <lastmod> dates whenever you make significant content changes -->
+    <!-- Google Search Console will use this to understand when to recrawl -->
+    
+</urlset>
+
+
+================================================================================
+FILE: style.css
+SIZE: 19.73 KB
+================================================================================
+
+/* ============================================
+   SHAWN BELLAZAN PORTFOLIO - PRODUCTION CSS
+   Version: 2.0 (PMCR-O Optimized)
+   Architecture: Mobile-First Responsive Design
+   ============================================ */
+
+/* ==================== CSS VARIABLES ==================== */
+:root {
+    /* Color Palette */
+    --gold: #d4a574;
+    --gold-light: #e6c89f;
+    --gold-dark: #b8895c;
+    --dark: #0a0a0a;
+    --darker: #000000;
+    --gray: #1a1a1a;
+    --light-gray: #2c2c2c;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #888888;
+    
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, #d4a574 0%, #e6c89f 100%);
+    --gradient-gold-full: linear-gradient(135deg, var(--gold) 0%, #8b7355 50%, #5a4a3a 100%);
+    --gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--gray) 100%);
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 6rem;
+    --spacing-2xl: 8rem;
+    
+    /* Typography */
+    --font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.4s ease;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 40px rgba(212, 165, 116, 0.3);
+    --shadow-glow: 0 0 20px rgba(212, 165, 116, 0.5);
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-full: 50%;
+}
+
+/* ==================== RESET & BASE ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-base);
+    background: var(--darker);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility: Skip Link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--gold);
+    color: var(--darker);
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-decoration: none;
+    font-weight: var(--font-weight-bold);
+    z-index: 10000;
+    transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ==================== NAVIGATION ==================== */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+    transition: padding var(--transition-base), background var(--transition-base);
+}
+
+nav.scrolled {
+    padding: 0.5rem 0;
+    background: rgba(0, 0, 0, 0.98);
+    box-shadow: var(--shadow-md);
+}
+
+nav .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-black);
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: -1px;
+    transition: color var(--transition-base);
+}
+
+.logo:hover,
+.logo:focus {
+    color: var(--gold-light);
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: var(--spacing-md);
+    list-style: none;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all var(--transition-base);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    position: relative;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: translateX(-50%);
+    transition: width var(--transition-base);
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus {
+    color: var(--text-primary);
+    background: rgba(212, 165, 116, 0.1);
+    outline: none;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a:focus::after {
+    width: 80%;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: transparent;
+    border: 2px solid var(--gold);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-base);
+}
+
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:focus {
+    background: rgba(212, 165, 116, 0.1);
+    transform: scale(1.05);
+}
+
+.mobile-menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: all var(--transition-base);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    padding-top: 80px;
+}
+
+.hero-left {
+    background: var(--gradient-gold-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: var(--font-weight-black);
+    line-height: 1.1;
+    color: var(--gray);
+    text-shadow: 3px 3px 0px rgba(255,255,255,0.3), -1px -1px 0px rgba(0,0,0,0.2);
+    margin-bottom: var(--spacing-md);
+    letter-spacing: -3px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    color: var(--gray);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.hero-tagline {
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    color: rgba(26, 26, 26, 0.8);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-lg);
+    animation: fadeInUp 1.4s ease-out;
+}
+
+.hero-cta {
+    animation: fadeInUp 1.6s ease-out;
+}
+
+.hero-right {
+    background: var(--gradient-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-visual {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.pmcro-loop {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loop-ring {
+    position: absolute;
+    border: 2px solid rgba(212, 165, 116, 0.4);
+    border-radius: var(--radius-full);
+    animation: pulse-ring 4s ease-in-out infinite;
+}
+
+.loop-ring-1 {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.loop-ring-2 {
+    width: 70%;
+    height: 70%;
+    top: 15%;
+    left: 15%;
+    animation-delay: 1.3s;
+}
+
+.loop-ring-3 {
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 30%;
+    animation-delay: 2.6s;
+}
+
+@keyframes pulse-ring {
+    0%, 100% {
+        border-color: rgba(212, 165, 116, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        border-color: rgba(212, 165, 116, 0.8);
+        transform: scale(1.05);
+    }
+}
+
+.loop-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.loop-text {
+    font-size: 3rem;
+    font-weight: var(--font-weight-black);
+    color: var(--gold);
+    text-shadow: var(--shadow-glow);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+    padding: 1.2rem 2.5rem;
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 3px solid var(--gray);
+    background: transparent;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all var(--transition-slow);
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gray);
+    transition: left var(--transition-slow);
+    z-index: -1;
+}
+
+.btn:hover::before,
+.btn:focus::before {
+    left: 0;
+}
+
+.btn:hover,
+.btn:focus {
+    color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* ==================== SECTIONS ==================== */
+section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--spacing-lg);
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ==================== WORK SECTION ==================== */
+.work {
+    background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
+}
+
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.work-card {
+    background: linear-gradient(135deg, var(--gray) 0%, var(--light-gray) 100%);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-slow);
+}
+
+.work-card:hover,
+.work-card:focus-within {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+    box-shadow: var(--shadow-lg);
+}
+
+.work-card-header {
+    background: rgba(212, 165, 116, 0.2);
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+}
+
+.work-card-title {
+    font-size: 1.8rem;
+    color: var(--gold);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 0.5rem;
+}
+
+.work-card-subtitle {
+    color: var(--text-tertiary);
+    font-size: 0.95rem;
+}
+
+.work-card-body {
+    padding: var(--spacing-md);
+}
+
+.work-card-body p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.work-features {
+    list-style: none;
+    margin: 1.5rem 0;
+}
+
+.work-features li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.work-features li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: var(--font-weight-bold);
+}
+
+.tech-stack {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+.tech-stack-title {
+    font-size: 0.9rem;
+    color: var(--gold);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 0.5rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--spacing-sm);
+}
+
+.tech-tag {
+    background: rgba(212, 165, 116, 0.1);
+    border: 1px solid rgba(212, 165, 116, 0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    transition: all var(--transition-fast);
+}
+
+.tech-tag:hover {
+    background: rgba(212, 165, 116, 0.2);
+    color: var(--gold);
+}
+
+.work-link {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    transition: all var(--transition-base);
+}
+
+.work-link:hover,
+.work-link:focus {
+    color: var(--text-primary);
+    transform: translateX(5px);
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+/* ==================== SKILLS SECTION ==================== */
+.skills {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--gray) 100%);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.skill-category {
+    background: rgba(26, 26, 26, 0.5);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    transition: all var(--transition-base);
+}
+
+.skill-category:hover,
+.skill-category:focus-within {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
+.skill-category h3 {
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.skill-list {
+    list-style: none;
+}
+
+.skill-list li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+    transition: color var(--transition-fast);
+}
+
+.skill-list li:hover {
+    color: var(--gold);
+    padding-left: 0.5rem;
+}
+
+/* ==================== PHILOSOPHY SECTION ==================== */
+.philosophy {
+    background: linear-gradient(180deg, var(--gray) 0%, var(--darker) 100%);
+}
+
+.philosophy-intro {
+    max-width: 800px;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.philosophy-card {
+    background: rgba(26, 26, 26, 0.5);
+    padding: 2.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    transition: all var(--transition-slow);
+}
+
+.philosophy-card:hover,
+.philosophy-card:focus-within {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
+.philosopher-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.philosopher-name {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-weight-bold);
+}
+
+.concept {
+    font-size: 1rem;
+    color: var(--text-tertiary);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.philosophy-card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ==================== ACHIEVEMENTS SECTION ==================== */
+.achievements {
+    background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.achievement-card {
+    background: linear-gradient(135deg, var(--gray) 0%, var(--light-gray) 100%);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.achievement-card:hover,
+.achievement-card:focus-within {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.achievement-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.achievement-card h3 {
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.achievement-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ==================== CONTACT SECTION ==================== */
+.contact {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+    text-align: center;
+}
+
+.contact-intro {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+.contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(26, 26, 26, 0.5);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+.contact-item {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+}
+
+.contact-label {
+    color: var(--gold);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 0.5rem;
+}
+
+.contact-info a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition-base);
+}
+
+.contact-info a:hover,
+.contact-info a:focus {
+    border-bottom-color: var(--gold);
+    color: var(--gold);
+    outline: none;
+}
+
+.contact-cta {
+    margin-top: var(--spacing-md);
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+    background: var(--darker);
+    padding: var(--spacing-md);
+    text-align: center;
+    border-top: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+footer p {
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.footer-tagline {
+    font-style: italic;
+    color: var(--gold);
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-right {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --spacing-xl: 3rem;
+        --spacing-2xl: 4rem;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.98);
+        backdrop-filter: blur(20px);
+        padding: var(--spacing-lg);
+        gap: var(--spacing-md);
+        transform: translateX(-100%);
+        transition: transform var(--transition-base);
+        box-shadow: var(--shadow-md);
+    }
+
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    section {
+        padding: var(--spacing-lg) 1.5rem;
+    }
+
+    .work-grid,
+    .skills-grid,
+    .philosophy-grid,
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .loop-text {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2.5rem;
+        letter-spacing: -2px;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+    nav, footer, .hero-right, .btn {
+        display: none;
+    }
+
+    .hero-left {
+        background: white;
+        color: black;
+    }
+
+    .hero h1 {
+        color: black;
+    }
+
+    section {
+        page-break-inside: avoid;
+    }
+}
+
+
