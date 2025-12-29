@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Behavioral Intent Programming (BIP): The Transition from Imperative Logic to Declarative Cognition. A Technical Manifesto for PMCR-O.">
+    <title>BIP Manifesto | Behavioral Intent Programming</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .doc-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .doc-title { color: var(--gold); font-size: 2.5rem; margin-bottom: 0.5rem; line-height: 1.2; }
+        .doc-subtitle { color: var(--text-secondary); font-size: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--text-tertiary); padding-bottom: 1rem; }
+        
+        h2 { color: var(--gold); margin-top: 3rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px; font-size: 1.8rem; }
+        h3 { color: var(--gold-light); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.4rem; }
+        p { margin-bottom: 1rem; color: var(--text-primary); line-height: 1.7; }
+        
+        .meta-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--gold);
+        }
+        .meta-info p { margin: 0; font-family: monospace; color: var(--text-secondary); }
+        .meta-info strong { color: var(--gold); }
+
+        ul, ol { margin: 1rem 0 1.5rem 2rem; color: var(--text-secondary); }
+        li { margin-bottom: 0.5rem; line-height: 1.7; }
+        
+        code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--gold-light);
+        }
+
+        .highlight-box {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--gold);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pmcro-codex.html">Docs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="doc-container">
+            <h1 class="doc-title">BEHAVIORAL INTENT PROGRAMMING (BIP)</h1>
+            <div class="doc-subtitle">The Transition from Imperative Logic to Declarative Cognition</div>
+
+            <div class="meta-info">
+                <p><strong>Author:</strong> Shawn Delaine Bellazan</p>
+                <p><strong>Architecture:</strong> PMCR-O Framework</p>
+                <p><strong>Date:</strong> December 2025</p>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--text-tertiary); margin: 2rem 0;">
+
+            <h2>1. The Death of "If/Else"</h2>
+            <p>For 70 years, software engineering has been <strong>Imperative</strong>. We tell the machine exactly what to do, step by step. We anticipate every edge case and write an <code>if</code> statement for it.</p>
+            <ul>
+                <li><em>If user clicks button -> Open Window.</em></li>
+                <li><em>If network fails -> Retry.</em></li>
+            </ul>
+            <p>This model is fragile. It is brittle. It assumes the programmer can predict the future.</p>
+            <p><strong>Behavioral Intent Programming (BIP)</strong> is the shift to <strong>Teleological Architecture</strong>. We do not program the steps; we program the <strong>Intent</strong> and the <strong>Pattern</strong>.</p>
+
+            <h2>2. The Mechanics: Pattern Matching Over Instruction</h2>
+            <p>In a BIP system, the code does not contain the solution. The code contains a <strong>Generic Template</strong> (the shape of the solution) and a <strong>Behavioral Pattern</strong> (the rules of engagement).</p>
+
+            <h3>The Prompty Analogy</h3>
+            <p>Consider a <code>.prompty</code> file or a Semantic Kernel plugin. We do not write the logic inside. We write the <strong>Pattern</strong>.</p>
+            <ul>
+                <li><strong>The Input:</strong> "I am tired." (The Seed Intent)</li>
+                <li><strong>The Pattern:</strong> "The System acts as a Health Guardian. It maps physical states to environmental controls."</li>
+                <li><strong>The Execution:</strong> The AI recognizes the pattern matches the intent. It autonomously decides to call the <code>SmartHome.DimLights()</code> plugin and the <code>Spotify.PlayWhiteNoise()</code> plugin.</li>
+            </ul>
+            <p>No programmer wrote: <code>if (user.says("tired")) { dimLights(); }</code>.</p>
+            <p>The programmer defined the <strong>Pattern</strong>, and the AI derived the <strong>Logic</strong> at runtime.</p>
+
+            <h2>3. Generic Template-Driven Declarative Design</h2>
+            <p>This is the technical heart of BIP. To build a system that can evolve, we must strip the "Business Logic" out of the code and place it into the "Cognitive Layer."</p>
+            <ul>
+                <li><strong>Generic:</strong> The codebase is agnostic. It is a "White Label Factory" capable of building anything.</li>
+                <li><strong>Template-Driven:</strong> We provide structural skeletons (Architectures, UI layouts, Database Schemas).</li>
+                <li><strong>Declarative:</strong> We state the <em>Goal</em> ("Build a transit app"), not the <em>Method</em>.</li>
+            </ul>
+            <p>When the <strong>Seed Intent</strong> is injected into the <strong>Strange Loop</strong>, the system selects the appropriate Templates based on the Intent, fills them with content generated by the AI, and compiles the result.</p>
+
+            <h2>4. The Loop That Builds Products</h2>
+            <p>You asked: <em>"Can an AI Agent Company autonomously loop on an intent and build products?"</em></p>
+            <div class="highlight-box">
+                <p><strong>Yes. That is the definition of BIP.</strong></p>
+            </div>
+            <ol>
+                <li><strong>Seed Intent:</strong> "The world needs better property management for vacant homes."</li>
+                <li><strong>The Planner (P):</strong> Recognizes the intent matches the "Enterprise SaaS" pattern.</li>
+                <li><strong>The Maker (M):</strong> Selects the <code>.NET Aspire</code> template and the <code>Kotlin Multiplatform</code> template. It generates the specific code for "Property Recovery."</li>
+                <li><strong>The Checker (C):</strong> Validates the build.</li>
+                <li><strong>The Reflector (R):</strong> Notices a gap: "We need offline mode." It modifies the intent for the next cycle.</li>
+                <li><strong>The Orchestrator (O):</strong> Loops again.</li>
+            </ol>
+            <p>The system is not just running code; it is <strong>behaving</strong> according to an <strong>intent</strong>.</p>
+
+            <h2>5. The Future: Code as Frozen Thought</h2>
+            <p>In the BIP paradigm, "Source Code" is just a temporary artifact. It is <strong>Frozen Thought</strong>.</p>
+            <p>The real value is the <strong>Liquid Thought</strong>—the active process of the AI navigating patterns to fulfill an intent.</p>
+            <p>Eventually, we will not write code at all. We will simply refine the <strong>Intent</strong> and polish the <strong>Patterns</strong>. The system will handle the rest, regenerating the software in real-time to match the shifting context of reality.</p>
+            <p style="margin-top: 2rem; font-size: 1.2rem; color: var(--gold); font-style: italic; text-align: center;">This is not just automation. This is the birth of <strong>Digital Instinct</strong>.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
