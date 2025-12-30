@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn to build self-referential AI code agents using .NET 10, Ollama native tool calling, Microsoft.Extensions.AI, and Aspire orchestration. December 2025 production-ready tutorial.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content=".NET 10, Aspire, Ollama, AI Agents, Self-Referential Systems, PMCR-O, Tool Calling, Microsoft.Extensions.AI, OllamaSharp, Code Generation">
+    
+    <title>Building Self-Referential Code Agents in .NET — Part 1 | Shawn Bellazan</title>
+    
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-building-self-referential-agents-part1#article",
+      "headline": "Building Self-Referential Code Agents in .NET — Part 1: Infrastructure & Intent Engine",
+      "description": "Complete tutorial for building production-ready self-referential AI agents using .NET 10, Ollama native tool calling, and modern AI abstractions. December 2025 edition.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2025-12-30",
+      "dateModified": "2025-12-30",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": ".NET 10, Ollama, Microsoft.Extensions.AI, OllamaSharp, Aspire",
+      "proficiencyLevel": "Intermediate",
+      "articleBody": "Self-referential agents — systems that can read, critique, and improve their own code — represent one of the most exciting frontiers in local AI development...",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-building-self-referential-agents-part1"
+      }
+    }
+    </script>
+    
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <!-- Portfolio CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Article-specific enhancements */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+        }
+        
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+        }
+        
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+        
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+        
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(212, 165, 116, 0.2);
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        .article-content em {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0 1.5rem 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+        
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+            font-weight: 600;
+        }
+        
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+        
+        .copy-button.copied {
+            background: #4caf50;
+            border-color: #4caf50;
+            color: white;
+        }
+        
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        
+        .callout-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .architecture-diagram {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: monospace;
+            color: var(--gold);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .back-link:hover {
+            color: var(--text-primary);
+            transform: translateX(-5px);
+        }
+        
+        .series-nav {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .series-nav-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Article -->
+    <main class="article-container">
+        <a href="index.html#work" class="back-link">
+            <span>←</span> Back to Portfolio
+        </a>
+        
+        <article>
+            <header class="article-header">
+                <h1 class="article-title">Building Self-Referential Code Agents in .NET</h1>
+                <p style="font-size: 1.3rem; color: var(--gold-light); font-style: italic; margin-top: 0.5rem;">
+                    Part 1: Infrastructure & Intent Engine (December 2025 Edition)
+                </p>
+                <div class="article-meta">
+                    <div class="article-meta-item">
+                        <span>📅</span>
+                        <span>December 30, 2025</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <span>⏱️</span>
+                        <span>15 min read</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <span>🏷️</span>
+                        <span>.NET 10 • Ollama • AI Agents</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <p>Self-referential agents — systems that can read, critique, and improve their own code — represent one of the most exciting frontiers in local AI development. In 2024–early 2025 many prototypes relied on fragile regex parsers ("Golden Hammer" style) to extract tool calls from Ollama responses. By late 2025 this is no longer necessary.</p>
+
+                <p>In this first article we build a clean, modern <strong>intent engine</strong> foundation using:</p>
+
+                <ul>
+                    <li>.NET 10 (LTS)</li>
+                    <li>Microsoft.Extensions.AI abstractions</li>
+                    <li>Ollama (native tool calling + structured outputs)</li>
+                    <li>Aspire for local orchestration</li>
+                    <li>Strict first-person system prompts</li>
+                </ul>
+
+                <p>Goal: a minimal <strong>Planner</strong> agent that produces structured, minimal-viable plans — the starting point for a full PMCR-O-style self-improving loop (covered in Part 2).</p>
+
+                <h2>Step 1 – Why Self-Referential Agents?</h2>
+
+                <p>Most AI coding assistants generate one-shot code. A self-referential system closes the loop:</p>
+
+                <ol>
+                    <li><strong>Planner</strong> → creates minimal plan</li>
+                    <li><strong>Maker</strong> → writes code</li>
+                    <li><strong>Checker</strong> → validates (compile / test)</li>
+                    <li><strong>Reflector</strong> → diagnoses failures → refines intent → back to Planner</li>
+                </ol>
+
+                <p>This requires reliable <strong>tool calling</strong> (so agents can actually <em>do</em> things) and <strong>structured outputs</strong> (so we don't parse JSON by hand).</p>
+
+                <p>By December 2025, <strong>Ollama</strong> natively supports both — no more bracket-counting hacks.</p>
+
+                <h2>Step 2 – Architecture Overview (2025 Edition)</h2>
+
+                <div class="architecture-diagram">
+                    <pre style="color: var(--gold); text-align: left; font-size: 0.9rem;">
+[User Intent] 
+     ↓
+[Planner Agent]  ← IChatClient (Ollama) + native tools
+     ↓ (structured JSON plan)
+[Aspire Orchestration] → Redis / Postgres / Ollama container
+     ↓
+[Future: Maker / Checker / Reflector loop via Agent Framework]</pre>
+                </div>
+
+                <p>We use:</p>
+
+                <ul>
+                    <li><strong>Microsoft.Extensions.AI</strong> — unified <code>IChatClient</code> interface</li>
+                    <li><strong>OllamaSharp</strong> — recommended 2025 client (Microsoft's old provider deprecated)</li>
+                    <li><strong>Aspire</strong> — local dev dashboard + container lifetime</li>
+                    <li><strong>System.Text.Json</strong> schemas for tools & output</li>
+                </ul>
+
+                <h2>Step 3 – Project Setup</h2>
+
+                <p>Create a new Aspire solution:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash">dotnet new aspire -o SelfRefAgent
+cd SelfRefAgent</code></pre>
+                </div>
+
+                <p>Add packages (use latest stable as of Dec 2025):</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">XML</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-xml">&lt;!-- SelfRefAgent.AppHost.csproj --&gt;
+&lt;ItemGroup&gt;
+  &lt;PackageReference Include="CommunityToolkit.Aspire.Hosting.Ollama" Version="*" /&gt;
+  &lt;PackageReference Include="OllamaSharp" Version="*" /&gt;
+  &lt;PackageReference Include="Microsoft.Extensions.AI" Version="*" /&gt;
+  &lt;PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="*" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                </div>
+
+                <p>Update <code>AppHost.cs</code> for modern Ollama + GPU:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var builder = DistributedApplication.CreateBuilder(args);
+
+var ollama = builder.AddOllama("ollama", port: 11434)
+    .WithDataVolume()
+    .WithContainerRuntimeArgs("--gpus=all")
+    .WithEnvironment("OLLAMA_NUM_GPU", "999") // aggressive GPU usage
+    .WithLifetime(ContainerLifetime.Persistent);
+
+ollama.AddModel("qwen2.5-coder:7b-instruct");   // excellent tool caller
+ollama.AddModel("nomic-embed-text");             // future RAG
+
+var plannerService = builder.AddProject&lt;Projects.PlannerService&gt;("planner")
+    .WithReference(ollama);
+
+builder.Build().Run();</code></pre>
+                </div>
+
+                <h2>Step 4 – Native Tool Calling with Microsoft.Extensions.AI + OllamaSharp</h2>
+
+                <p>The biggest upgrade: <strong>no more custom parsers</strong>.</p>
+
+                <p>Ollama's <code>/api/chat</code> accepts a <code>tools</code> array (OpenAI-compatible format). Models like Qwen 2.5 Coder reliably return <code>tool_calls</code> when appropriate.</p>
+
+                <p>Register tools via <code>AITool</code> and let the abstraction handle serialization.</p>
+
+                <h3>PlannerTools.cs</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.Extensions.AI;
+using System.Text.Json.Serialization;
+
+public static class PlannerTools
+{
+    public static readonly AITool RecallPastSolution = AITool.Create(
+        nameof(RecallPastSolution),
+        "Searches memory for previous solutions to similar intents",
+        new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase },
+        parameters: new[]
+        {
+            new AIParameter("intent", "string", "The user intent to search for", required: true)
+        });
+
+    // Example future tool
+    public static readonly AITool CheckNuGetPackageVersion = AITool.Create(
+        nameof(CheckNuGetPackageVersion),
+        "Gets the latest stable version of a NuGet package",
+        parameters: new[]
+        {
+            new AIParameter("packageId", "string", "NuGet package ID", required: true)
+        });
+}</code></pre>
+                </div>
+
+                <h3>Register in Program.cs (PlannerService)</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">builder.Services.AddSingleton&lt;IChatClient&gt;(sp =>
+{
+    var ollamaClient = new OllamaApiClient("http://localhost:11434");
+    
+    return new ChatClientBuilder(ollamaClient.GetChatClient("qwen2.5-coder:7b-instruct"))
+        .UseFunctionCalling()                    // enables native tool handling
+        .UseStructuredOutputSupport()            // enables format: { type: "object", ... }
+        .Build();
+});
+
+// Later in service:
+public class PlannerService
+{
+    private readonly IChatClient _client;
+
+    public PlannerService(IChatClient client) => _client = client;
+
+    public async Task&lt;string&gt; PlanAsync(string userIntent)
+    {
+        var options = new ChatOptions
+        {
+            Tools = [PlannerTools.RecallPastSolution, PlannerTools.CheckNuGetPackageVersion],
+            // Optional: force structured plan output
+            AdditionalProperties = { ["format"] = /* Json schema for Plan */ }
+        };
+
+        var response = await _client.CompleteAsync(
+            new ChatMessage(ChatRole.User, userIntent),
+            options);
+
+        // response contains tool_calls if invoked, or direct text
+        return response.Text ?? JsonSerializer.Serialize(response.ToolCalls);
+    }
+}</code></pre>
+                </div>
+
+                <div class="callout">
+                    <div class="callout-title">Why this beats Golden Hammer</div>
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li>Native parsing → zero regex/bracket counting</li>
+                        <li>Streaming support preserved</li>
+                        <li>Parallel tool calls possible on strong models</li>
+                        <li>Schema validation happens at Ollama level</li>
+                    </ul>
+                </div>
+
+                <h2>Step 5 – Prompt Engineering: The "I AM" Mandate</h2>
+
+                <p>Prompt quality determines everything. In 2024–early 2025 many used "You are a helpful ..." style — this often leads to hallucinated role-play.</p>
+
+                <p><strong>Modern best practice (2025):</strong> pure <strong>first-person identity</strong> from the very first system message.</p>
+
+                <h3>Why first-person reduces hallucination</h3>
+
+                <ul>
+                    <li>Forces model to stay in-role (less "as an AI language model..." drift)</li>
+                    <li>Aligns with how top tool-calling models (Qwen, Llama-3.2 instruct) were fine-tuned</li>
+                    <li>Reduces meta-commentary → higher coherence in long chains</li>
+                </ul>
+
+                <h3>System prompt example (Planner)</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">private static readonly string PlannerSystemPrompt = $"""
+# IDENTITY
+I AM the Strategic Minimalist Planner in a self-improving code agent system.
+
+I plan the BARE MINIMUM that successfully builds — even one correct line if that's enough.
+
+I speak in first person. I take ownership: "I will...", "I recommend...".
+
+# RULES
+1. ALWAYS check memory first with RecallPastSolution tool
+2. Use CheckNuGetPackageVersion before suggesting any package
+3. Output ONLY the plan — no chit-chat, no apologies
+4. If I need more information, I ask ONE precise question
+5. Structure output as JSON if instructed
+
+# MEMORY
+I have access to past solutions. I search before planning.
+""";</code></pre>
+                </div>
+
+                <p>Pass via <code>ChatOptions.Instructions</code> or prepend as system message.</p>
+
+                <h2>Step 6 – Observability & Debugging</h2>
+
+                <p>Aspire dashboard shows:</p>
+
+                <ul>
+                    <li>Ollama health + GPU usage</li>
+                    <li>Request traces</li>
+                    <li>Model pull status</li>
+                </ul>
+
+                <p>Add OTLP for deeper traces:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">builder.AddOpenTelemetry()
+    .WithTracing(tracing => tracing.AddAspNetCoreInstrumentation());</code></pre>
+                </div>
+
+                <h2>Checkpoint – Run It</h2>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash">dotnet run --project SelfRefAgent.AppHost</code></pre>
+                </div>
+
+                <p>Browse <code>http://localhost:18888</code> → see Ollama + planner service.</p>
+
+                <p>Send test intent via gRPC or REST → observe native tool calls in logs.</p>
+
+                <h2>Next Steps (Teaser for Part 2)</h2>
+
+                <ul>
+                    <li>Multi-agent loop with <strong>Microsoft Agent Framework</strong> workflows</li>
+                    <li>Error reflection + intent refinement</li>
+                    <li>Playwright MCP tools integration</li>
+                    <li>Full self-repair cycle</li>
+                </ul>
+
+                <p>In Part 1 we eliminated the biggest technical debt — custom parsing — and set a clean foundation with native Ollama capabilities and disciplined prompt identity.</p>
+
+                <div class="series-nav">
+                    <div class="series-nav-title">Tutorial Series</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                        <strong style="color: var(--gold);">Part 1:</strong> Infrastructure & Intent Engine (You are here)<br>
+                        <strong>Part 2:</strong> Multi-Agent Loops & Self-Repair (Coming soon)
+                    </p>
+                </div>
+
+                <p style="text-align: center; margin-top: 3rem; font-style: italic; color: var(--text-tertiary);">
+                    Happy building in 2025! 🚀
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Shawn Delaine Bellazan | Tooensure LLC</p>
+        <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+    </footer>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navigation scroll effect
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
