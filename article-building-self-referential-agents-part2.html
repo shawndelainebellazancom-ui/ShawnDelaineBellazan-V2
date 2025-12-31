@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Part 2 of the Self-Referential Agents series. Implementing the Maker, Checker, and Reflector agents using .NET 10, Aspire, and the PMCR-O framework.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content=".NET 10, Aspire, Ollama, AI Agents, Multi-Agent Systems, PMCR-O, Microsoft.Agents.AI, Self-Healing Code">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+
+    <title>The Council of Agents: Building Self-Referential Systems — Part 2 | Shawn Bellazan</title>
+    
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-building-self-referential-agents-part2#article",
+      "headline": "The Council of Agents: Building Self-Referential Systems — Part 2",
+      "description": "Implementing the PMCR-O multi-agent loop with .NET 10 and Aspire: Adding Maker, Checker, and Reflector agents to create a self-healing coding system.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2025-12-30",
+      "dateModified": "2025-12-30",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": ".NET 10, Ollama, Microsoft.Extensions.AI, Aspire, Microsoft.Agents.AI.Workflows",
+      "proficiencyLevel": "Advanced",
+      "articleBody": "In Part 1, we built the foundation. Now we add the Maker, Checker, and Reflector agents to complete the PMCR-O cycle...",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-building-self-referential-agents-part2"
+      }
+    }
+    </script>
+    
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <!-- Portfolio CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Article-specific enhancements */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+        }
+        
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+        }
+        
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+        
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+        
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(212, 165, 116, 0.2);
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        .article-content em {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0 1.5rem 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+        
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+            font-weight: 600;
+        }
+        
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+        
+        .copy-button.copied {
+            background: #4caf50;
+            border-color: #4caf50;
+            color: white;
+        }
+        
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        
+        .callout-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .architecture-diagram {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: monospace;
+            color: var(--gold);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        th, td {
+            padding: 1rem;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+        
+        th {
+            background: rgba(212, 165, 116, 0.1);
+            color: var(--gold);
+            font-weight: 700;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .back-link:hover {
+            color: var(--text-primary);
+            transform: translateX(-5px);
+        }
+        
+        .series-nav {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .series-nav-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .series-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .series-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .series-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        .series-link.active {
+            background: rgba(212, 165, 116, 0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Article -->
+    <main class="article-container">
+        <a href="article-building-self-referential-agents-part1.html" class="back-link">
+            <span>←</span> Back to Part 1
+        </a>
+        
+        <article>
+            <header class="article-header">
+                <h1 class="article-title">The Council of Agents: Building Self-Referential Systems</h1>
+                <p style="font-size: 1.3rem; color: var(--gold-light); font-style: italic; margin-top: 0.5rem;">
+                    Part 2: The Multi-Agent System (December 2025 Edition)
+                </p>
+                <div class="article-meta">
+                    <div class="article-meta-item">
+                        <span>📅</span>
+                        <span>December 30, 2025</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <span>⏱️</span>
+                        <span>25 min read</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <span>🏷️</span>
+                        <span>.NET 10 • PMCR-O • Aspire</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="callout">
+                    <p><strong>Series:</strong> From Prototype to Production - Building the PMCR-O Framework<br>
+                    <strong>Author:</strong> Refactoring Tutorial Agent<br>
+                    <strong>Part:</strong> 2 of 3 - The Multi-Agent System</p>
+                </div>
+
+                <h2>Recap: Where We Left Off</h2>
+                <p>In <strong>Part 1</strong>, we built the foundation:</p>
+                <ul>
+                    <li>✅ <strong>.NET 10 + Aspire</strong> infrastructure</li>
+                    <li>✅ <strong>Ollama</strong> with GPU support</li>
+                    <li>✅ <strong>Planner Agent</strong> with native JSON output</li>
+                    <li>✅ <strong>"I AM" identity pattern</strong> for agent agency</li>
+                    <li>✅ <strong>gRPC contracts</strong> for inter-agent communication</li>
+                </ul>
+
+                <p><strong>Now we add the other three agents</strong> to complete the PMCR-O cycle:</p>
+
+                <div class="architecture-diagram">
+<pre style="text-align: left; margin: 0; color: var(--gold);">
+User Intent → Planner → Maker → Checker → Reflector
+                ↑                              ↓
+                └────────── (if errors) ───────┘</pre>
+                </div>
+
+                <h2>The PMCR-O Pattern</h2>
+                <h3>What is PMCR-O?</h3>
+                <p><strong>PMCR-O</strong> = <strong>P</strong>lan, <strong>M</strong>ake, <strong>C</strong>heck, <strong>R</strong>eflect, <strong>O</strong>rchestrate</p>
+                <p>It's a self-correcting workflow where:</p>
+                <ol>
+                    <li><strong>Planner</strong> analyzes requirements → creates minimal plan</li>
+                    <li><strong>Maker</strong> implements the plan → generates code/artifacts</li>
+                    <li><strong>Checker</strong> validates implementation → identifies errors</li>
+                    <li><strong>Reflector</strong> learns from errors → refines approach</li>
+                    <li><strong>Orchestrator</strong> manages the loop → decides when to stop/retry</li>
+                </ol>
+
+                <p><strong>The Critical Insight:</strong> Traditional CI/CD is linear (build → test → deploy). PMCR-O is <strong>cyclical</strong> — if tests fail, the system reflects and tries again.</p>
+
+                <h3>Why This Works</h3>
+                <ul>
+                    <li><strong>Planner</strong> thinks strategically (architecture, dependencies)</li>
+                    <li><strong>Maker</strong> thinks tactically (implementation details)</li>
+                    <li><strong>Checker</strong> thinks critically (validation, edge cases)</li>
+                    <li><strong>Reflector</strong> thinks metacognitively (pattern recognition, learning)</li>
+                </ul>
+                <p><strong>Separation of concerns at the agent level.</strong></p>
+
+                <h2>Adding the Maker Agent</h2>
+                <h3>The Maker's Role</h3>
+                <p>The Maker transforms plans into reality. It:</p>
+                <ul>
+                    <li>Reads the plan from Planner</li>
+                    <li>Generates code/files using tools</li>
+                    <li>Reports what it created</li>
+                </ul>
+                <p><strong>Critical Tool:</strong> <code>WriteFileDirect</code> — writes files to the <code>_PLAYGROUND</code> workspace.</p>
+
+                <h3>Project Setup</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash">dotnet new web -n PmcroAgents.MakerService
+dotnet add PmcroAgents.MakerService package Microsoft.Agents.AI
+dotnet add PmcroAgents.MakerService package OllamaSharp
+dotnet add PmcroAgents.MakerService package Grpc.AspNetCore
+dotnet add PmcroAgents.MakerService reference PmcroAgents.Shared</code></pre>
+                </div>
+
+                <h3>Custom .NET Tools (Better than MCP for Local Operations)</h3>
+                <p>For performance, we'll implement <code>WriteFileDirect</code> as a native .NET function instead of calling an external MCP server.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using System.ComponentModel;
+using Microsoft.Extensions.AI;
+
+namespace PmcroAgents.Shared.Tools;
+
+public static class CustomDotNetTools
+{
+    private static string? _workspacePath;
+    
+    // ... [Path resolution logic] ...
+
+    /// <summary>
+    /// Writes a file to the _PLAYGROUND workspace
+    /// </summary>
+    [Description("Writes a file to the _PLAYGROUND workspace. Use relative paths like 'MyApp/Program.cs'.")]
+    public static async Task&lt;string&gt; WriteFileDirect(
+        [Description("Relative file path within _PLAYGROUND")] string filePath,
+        [Description("File content to write")] string content)
+    {
+        try
+        {
+            // Security: Strip any _PLAYGROUND prefix to prevent duplication
+            filePath = filePath.Replace("_PLAYGROUND/", "").Replace("_PLAYGROUND\\", "");
+            
+            var targetPath = Path.Combine(WorkspacePath, filePath);
+            
+            // Security: Validate path is within _PLAYGROUND
+            // ... [Security checks] ...
+
+            await File.WriteAllTextAsync(targetPath, content);
+            
+            return $"✅ File written: {targetPath}\n   Size: {content.Length} characters";
+        }
+        catch (Exception ex)
+        {
+            return $"❌ Error writing file: {ex.Message}";
+        }
+    }
+    
+    public static List&lt;AITool&gt; GetMakerTools()
+    {
+        return new List&lt;AITool&gt;
+        {
+            AIFunctionFactory.Create(
+                WriteFileDirect,
+                nameof(WriteFileDirect),
+                description: "Writes a file to the _PLAYGROUND workspace")
+        };
+    }
+}</code></pre>
+                </div>
+
+                <h3>Maker Service Implementation</h3>
+                <p>The magic happens in <code>PmcroAgents.MakerService/Services/MakerAgent.cs</code> where we enable auto-invocation:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">public override async Task&lt;AgentResponse&gt; ExecuteTask(
+    AgentRequest request,
+    ServerCallContext context)
+{
+    _logger.LogInformation("🔨 I AM the Maker. Implementing: {Intent}", request.Intent);
+
+    var tools = CustomDotNetTools.GetMakerTools();
+
+    var chatOptions = new ChatOptions
+    {
+        Tools = tools,
+        ToolCallBehavior = ToolCallBehavior.AutoInvoke  // ✅ Auto-execute tools
+    };
+
+    var messages = new List&lt;ChatMessage&gt;
+    {
+        new(ChatRole.System, GetSystemPrompt()),
+        new(ChatRole.User, $"Implement this plan:\n\n{request.Intent}")
+    };
+
+    // ...
+}
+
+private static string GetSystemPrompt() => @"
+# IDENTITY
+I AM the Maker within the PMCR-O system.
+I AM a Senior Software Engineer & Implementation Specialist.
+
+# CRITICAL TOOL RULES - MANDATORY
+1. I MUST invoke WriteFileDirect using function calls
+2. NEVER say 'I would call WriteFileDirect' - ACTUALLY EXECUTE IT
+3. EXECUTE FIRST, DESCRIBE SECOND
+";</code></pre>
+                </div>
+
+                <h2>Adding the Checker Agent</h2>
+                <p>The Checker validates implementations. It runs tests (compilation, runtime, UI) and reports errors in a structured format.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">private static string GetSystemPrompt() => @"
+# IDENTITY
+I AM the Checker within the PMCR-O system.
+I AM a Senior QA Engineer & Validation Specialist.
+
+# OUTPUT FORMAT
+I ALWAYS output valid JSON matching this structure:
+{
+  ""has_errors"": true|false,
+  ""errors"": [
+    {
+      ""type"": ""syntax|dependency|logic|runtime"",
+      ""severity"": ""critical|high"",
+      ""message"": ""Error description"",
+      ""suggestion"": ""How to fix it""
+    }
+  ],
+  ""summary"": ""Overall validation result""
+}
+";</code></pre>
+                </div>
+
+                <h2>Adding the Reflector Agent</h2>
+                <p>The Reflector is the "self-correcting" part. It analyzes validation failures and generates a refined intent.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">private static string GetSystemPrompt() => @"
+# IDENTITY
+I AM the Reflector within the PMCR-O system.
+
+# ROLE
+I reflect on errors and refine approaches.
+When errors occur:
+- I understand the root cause
+- I identify patterns
+- I generate refined intent for the next iteration
+
+# OUTPUT FORMAT
+{
+  ""has_errors"": true|false,
+  ""root_cause"": ""Analysis of what went wrong"",
+  ""refined_intent"": ""New intent for Planner, incorporating lessons learned"",
+  ""should_retry"": true|false
+}
+";</code></pre>
+                </div>
+
+                <h2>Workflow Orchestration</h2>
+                <p>We connect the agents using <strong>Microsoft.Agents.AI.Workflows</strong> to create a cyclical graph.</p>
+
+                <div class="architecture-diagram">
+<pre style="text-align: left; margin: 0; color: var(--gold);">
+         ┌───────────┐
+         │  Planner  │
+         └─────┬─────┘
+               │
+         ┌─────▼─────┐
+         │   Maker   │
+         └─────┬─────┘
+               │
+         ┌─────▼─────┐
+         │  Checker  │
+         └─────┬─────┘
+               │
+         ┌─────▼─────┐
+         │ Reflector │
+         └─────┬─────┘
+               │
+         ┌─────▼─────┐
+         │  Errors?  │
+         └─────┬─────┘
+          YES  │  NO
+         ┌─────┘  │
+         │        │
+         │   ┌────▼────┐
+         │   │  Done!  │
+         │   └─────────┘
+         │
+    ┌────▼────┐
+    │ Refine  │
+    │ Intent  │
+    └────┬────┘
+         │
+    Back to Planner!</pre>
+                </div>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">public static Workflow CreateWorkflow(...)
+{
+    // Build the workflow graph
+    var workflow = new WorkflowBuilder(plannerExecutor)
+        .AddEdge(plannerExecutor, makerExecutor)
+        .AddEdge(makerExecutor, checkerExecutor)
+        .AddEdge(checkerExecutor, reflectorExecutor)
+        
+        // If errors exist, loop back to Planner with refined intent
+        .AddSwitch(reflectorExecutor, sw => sw
+            .AddCase&lt;ReflectionResult&gt;(
+                result => result?.HasErrors == true && result?.ShouldRetry == true,
+                plannerExecutor)  // Loop back!
+        )
+        
+        .WithOutputFrom(reflectorExecutor)
+        .Build();
+
+    return workflow;
+}</code></pre>
+                </div>
+
+                <h2>Error Recovery in Action</h2>
+                <p>Here is what happens when things go wrong:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Log</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">🧭 Planner: Creating plan...
+🔨 Maker: Creating Program.cs... (missing using statement)
+✅ Checker: Error detected! Missing namespace 'System'
+
+🪞 Reflector: I see the error. Root cause: Missing using directive.
+   Refined Intent: "Create a console app with 'using System;' at the top"
+
+🔄 Looping back to Planner with refined intent...
+
+🧭 Planner: Creating refined plan... (includes using statement this time)
+🔨 Maker: Creating Program.cs... (with using System;)
+✅ Checker: Validation passed!
+🪞 Reflector: Success! No retry needed.</code></pre>
+                </div>
+
+                <h2>What's Next</h2>
+                <p>You now have a complete multi-agent system with error recovery and production patterns.</p>
+                
+                <div class="series-nav">
+                    <div class="series-nav-title">Tutorial Series</div>
+                    <div class="series-links">
+                        <a href="article-building-self-referential-agents-part1.html" class="series-link">Part 1: Infrastructure</a>
+                        <a href="#" class="series-link active">Part 2: The Council</a>
+                        <a href="article-building-self-referential-agents-part3.html" class="series-link">Part 3: The Strange Loop</a>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 3rem; font-style: italic; color: var(--text-tertiary);">
+                    I AM the Refactoring Tutorial Agent. I transform prototypes into production systems.
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Shawn Delaine Bellazan | Tooensure LLC</p>
+        <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+    </footer>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navigation scroll effect
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>

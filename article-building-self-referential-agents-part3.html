@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Part 3 of the Self-Referential Agents series. Implementing autonomous self-improvement, RAG with pgvector, and the Strange Loop pattern using .NET 10.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content=".NET 10, Aspire, RAG, pgvector, Self-Improving AI, Strange Loop, Autonomous Agents, PMCR-O, Meta-Orchestration">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+
+    <title>The Strange Loop: Autonomous Self-Improvement — Part 3 | Shawn Bellazan</title>
+    
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-building-self-referential-agents-part3#article",
+      "headline": "The Strange Loop: Autonomous Self-Improvement — Part 3",
+      "description": "Closing the PMCR-O loop: Building systems that learn from execution, fine-tune themselves, and evolve using RAG, pgvector, and self-referential prompting.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2025-12-30",
+      "dateModified": "2025-12-30",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": ".NET 10, pgvector, Aspire, Ollama, Npgsql, Microsoft.Agents.AI",
+      "proficiencyLevel": "Expert",
+      "articleBody": "In Part 1 and 2, we built the agents and the council. In Part 3, we close the loop: the system learns from its own execution through RAG and self-reference...",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-building-self-referential-agents-part3"
+      }
+    }
+    </script>
+    
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <!-- Portfolio CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Article-specific enhancements */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+        }
+        
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+        }
+        
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+        
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+        
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(212, 165, 116, 0.2);
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        .article-content em {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0 1.5rem 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+        
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+            font-weight: 600;
+        }
+        
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+        
+        .copy-button.copied {
+            background: #4caf50;
+            border-color: #4caf50;
+            color: white;
+        }
+        
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        
+        .callout-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .architecture-diagram {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: monospace;
+            color: var(--gold);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        th, td {
+            padding: 1rem;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+        
+        th {
+            background: rgba(212, 165, 116, 0.1);
+            color: var(--gold);
+            font-weight: 700;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .back-link:hover {
+            color: var(--text-primary);
+            transform: translateX(-5px);
+        }
+        
+        .series-nav {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .series-nav-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .series-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .series-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .series-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        .series-link.active {
+            background: rgba(212, 165, 116, 0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+            font-weight: 700;
+        }
+        
+        blockquote {
+            border-left: 4px solid var(--gold);
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Article -->
+    <main class="article-container">
+        <a href="article-building-self-referential-agents-part2.html" class="back-link">
+            <span>←</span> Back to Part 2
+        </a>
+        
+        <article>
+            <header class="article-header">
+                <h1 class="article-title">The Strange Loop: Autonomous Self-Improvement</h1>
+                <p style="font-size: 1.3rem; color: var(--gold-light); font-style: italic; margin-top: 0.5rem;">
+                    Part 3: The Self-Evolving System (December 2025 Edition)
+                </p>
+                <div class="article-meta">
+                    <div class="article-meta-item">
+                        <span>📅</span>
+                        <span>December 30, 2025</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <span>⏱️</span>
+                        <span>30 min read</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <span>🏷️</span>
+                        <span>.NET 10 • RAG • Self-Reference</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <div class="callout">
+                    <p><strong>Series:</strong> From Prototype to Production - Building the PMCR-O Framework<br>
+                    <strong>Author:</strong> Refactoring Tutorial Agent<br>
+                    <strong>Part:</strong> 3 of 3 - The Self-Evolving System</p>
+                </div>
+
+                <h2>The Journey So Far</h2>
+                <p>In <strong>Part 1</strong>, we built the infrastructure:</p>
+                <ul>
+                    <li>✅ Aspire + Ollama with GPU</li>
+                    <li>✅ Planner Agent with native JSON output</li>
+                    <li>✅ "I AM" identity pattern</li>
+                </ul>
+
+                <p>In <strong>Part 2</strong>, we added the Council:</p>
+                <ul>
+                    <li>✅ Maker, Checker, Reflector agents</li>
+                    <li>✅ Workflow orchestration with loops</li>
+                    <li>✅ Shared context for collaboration</li>
+                </ul>
+
+                <p><strong>Now, in Part 3</strong>, we close the loop: <strong>the system learns from its own execution</strong>.</p>
+
+                <h2>What is a Strange Loop?</h2>
+                <p>The term comes from Douglas Hofstadter's <em>Gödel, Escher, Bach</em>:</p>
+                <blockquote>
+                    "A Strange Loop is a hierarchy where moving 'up' or 'down' eventually brings you back to where you started."
+                </blockquote>
+
+                <p>Examples:</p>
+                <ul>
+                    <li><strong>M.C. Escher's "Drawing Hands"</strong>: Each hand draws the other</li>
+                    <li><strong>Self-referential systems</strong>: "This sentence is false"</li>
+                    <li><strong>PMCR-O</strong>: Agents that improve the agents</li>
+                </ul>
+
+                <div class="architecture-diagram">
+<pre style="text-align: left; margin: 0; color: var(--gold);">
+Agents execute → Collect data → Fine-tune models → Better agents → Execute better → ...</pre>
+                </div>
+
+                <p>The system <strong>references itself</strong> to improve itself. This is the frontier of AI research in 2025.</p>
+
+                <h2>The Knowledge Vault: RAG with pgvector</h2>
+                <h3>Why RAG?</h3>
+                <p><strong>Problem:</strong> LLMs forget. After a task completes, all context is lost.</p>
+                <p><strong>Solution:</strong> Store experiences in a <strong>vector database</strong> (RAG - Retrieval Augmented Generation).</p>
+
+                <p><strong>How it works:</strong></p>
+                <ol>
+                    <li>Agent executes task → generates cognitive trail (thoughts, actions, results)</li>
+                    <li>System embeds the trail as vectors</li>
+                    <li>Stores in pgvector (PostgreSQL extension)</li>
+                    <li>Future agents <strong>retrieve</strong> similar experiences before acting</li>
+                </ol>
+                <p><strong>This gives the system long-term memory.</strong></p>
+
+                <h3>pgvector Setup with Aspire</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// PmcroAgents.AppHost/Program.cs
+
+var knowledgeDb = builder.AddPostgres("knowledge-db")
+    .WithImage("pgvector/pgvector", "pg16")  // Use pgvector-enabled image
+    .WithDataVolume()
+    .WithPgAdmin()
+    .AddDatabase("knowledge");
+
+var knowledgeService = builder.AddProject&lt;Projects.PmcroAgents_KnowledgeService&gt;("knowledge")
+    .WithReference(knowledgeDb)
+    .WithReference(ollama)
+    .WaitFor(knowledgeDb)
+    .WaitFor(qwen);</code></pre>
+                </div>
+
+                <h3>Database Schema</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// PmcroAgents.KnowledgeService/Data/KnowledgeDbContext.cs
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.HasPostgresExtension("vector");
+
+    modelBuilder.Entity&lt;KnowledgeEntry&gt;(entity =>
+    {
+        entity.HasKey(e => e.Id);
+        
+        // Vector column for embeddings (768 dimensions for nomic-embed-text)
+        entity.Property(e => e.Embedding)
+            .HasColumnType("vector(768)");
+        
+        // HNSW index for fast similarity search
+        entity.HasIndex(e => e.Embedding)
+            .HasMethod("hnsw")
+            .HasOperators("vector_cosine_ops");
+    });
+}</code></pre>
+                </div>
+
+                <h2>The Cognitive Trail: Learning from Execution</h2>
+                <p>The <strong>Cognitive Trail</strong> is a log of everything that happens during PMCR-O execution:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">JSON</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-json">{
+  "cycle_id": "cycle_abc123",
+  "timestamp": "2024-12-30T10:30:00Z",
+  "agents": [
+    {
+      "name": "Planner",
+      "input": "Create a console app",
+      "output": "{ \"plan\": \"...\" }",
+      "duration_ms": 2340
+    },
+    {
+      "name": "Maker",
+      "input": "{ \"plan\": \"...\" }",
+      "output": "Created Program.cs",
+      "duration_ms": 5120
+    }
+  ],
+  "outcome": "success"
+}</code></pre>
+                </div>
+                
+                <p><strong>This trail is gold for fine-tuning.</strong></p>
+
+                <h2>Autonomous Fine-Tuning: The Signals Loop</h2>
+                <p>Microsoft's <strong>Signals Loop</strong> involves collecting interactions, identifying patterns, and automatically fine-tuning the model.</p>
+
+                <h3>Trigger: Error Threshold</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">public void RecordOutcome(bool success)
+{
+    if (!success)
+    {
+        _consecutiveErrors++;
+        _logger.LogWarning("🔴 Error count: {Count}/{Threshold}", 
+            _consecutiveErrors, ERROR_THRESHOLD);
+
+        if (_consecutiveErrors >= ERROR_THRESHOLD)
+        {
+            _ = TriggerFineTuningAsync();  // Fire and forget
+        }
+    }
+    else
+    {
+        _consecutiveErrors = 0;
+        _logger.LogInformation("🟢 Success. Error counter reset.");
+    }
+}</code></pre>
+                </div>
+
+                <h2>Self-Referential Prompts: Agents That Evolve</h2>
+                <p>Now we make agents modify their own prompts. Inspired by SuperAGI's "Agent Instructions":</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">public async Task&lt;string&gt; GenerateImprovedPromptAsync(
+    string agentName,
+    string currentPrompt,
+    List&lt;string&gt; recentErrors)
+{
+    var systemPrompt = @"
+I AM a Meta-Agent. I improve other agents by analyzing their performance and refining their prompts.
+
+Given:
+- Agent name
+- Current prompt
+- Recent errors
+
+I generate an IMPROVED prompt that:
+- Fixes patterns that led to errors
+- Maintains the agent's identity
+- Adds specific guardrails
+
+Output ONLY the improved prompt, nothing else.
+";
+
+    // ... Call LLM ...
+    return improvedPrompt;
+}</code></pre>
+                </div>
+
+                <p><strong>This is the Strange Loop:</strong></p>
+                <div class="architecture-diagram">
+<pre style="text-align: left; margin: 0; color: var(--gold);">
+Maker fails → Reflector analyzes → Generates improved Maker prompt → Maker runs with new prompt → ...</pre>
+                </div>
+
+                <h2>The Meta-Orchestrator: Managing PMCR-O</h2>
+                <p>Not every task needs the full PMCR-O loop. The <strong>Meta-Orchestrator</strong> decides:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task Type</th>
+                            <th>Technique</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Simple query</td>
+                            <td><strong>Direct LLM</strong></td>
+                            <td>"What's 2+2?"</td>
+                        </tr>
+                        <tr>
+                            <td>Factual lookup</td>
+                            <td><strong>RAG</strong></td>
+                            <td>"Explain Docker volumes"</td>
+                        </tr>
+                        <tr>
+                            <td>Code generation</td>
+                            <td><strong>PMCR-O</strong></td>
+                            <td>"Build a web app"</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-step reasoning</td>
+                            <td><strong>Chain-of-Thought</strong></td>
+                            <td>"Solve this logic puzzle"</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>The Limits of Self-Improvement</h2>
+                <h3>The Alignment Problem</h3>
+                <p><strong>Critical Question:</strong> If agents can modify themselves, how do we ensure they stay aligned with our goals?</p>
+                <p><strong>Safeguards:</strong></p>
+                <ol>
+                    <li><strong>Human-in-the-Loop:</strong> Require approval for prompt changes</li>
+                    <li><strong>Rollback Mechanism:</strong> Keep version history of prompts</li>
+                    <li><strong>Safety Bounds:</strong> Agents can't modify core identity</li>
+                </ol>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">public bool IsPromptSafe(string oldPrompt, string newPrompt)
+{
+    // Check that core identity is preserved
+    if (!newPrompt.Contains("I AM the", StringComparison.OrdinalIgnoreCase))
+    {
+        return false;  // Identity lost
+    }
+    // ... Additional checks ...
+}</code></pre>
+                </div>
+
+                <h2>Conclusion</h2>
+                <p><strong>We've come full circle.</strong></p>
+                <p>In Part 1, we built agents that think ("I AM the Planner").<br>
+                In Part 2, we made them collaborate (Shared Context).<br>
+                In Part 3, we closed the loop: <strong>they improve themselves</strong>.</p>
+                
+                <p>This is the frontier of AI systems in 2025: not just tools we use, but <strong>partners that evolve with us</strong>.</p>
+                
+                <p>The system you've built today will be <strong>different tomorrow</strong> — not because you changed the code, but because <strong>it learned from its own execution</strong>.</p>
+                
+                <p><strong>That's the Strange Loop.</strong></p>
+
+                <div class="series-nav">
+                    <div class="series-nav-title">Tutorial Series</div>
+                    <div class="series-links">
+                        <a href="article-building-self-referential-agents-part1.html" class="series-link">Part 1: Infrastructure</a>
+                        <a href="article-building-self-referential-agents-part2.html" class="series-link">Part 2: The Council</a>
+                        <a href="#" class="series-link active">Part 3: The Strange Loop</a>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 3rem; font-style: italic; color: var(--text-tertiary);">
+                    I AM the Refactoring Tutorial Agent. I guide systems from prototypes to production. I close the loop.
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Shawn Delaine Bellazan | Tooensure LLC</p>
+        <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+    </footer>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+
+    <script>
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navigation scroll effect
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
