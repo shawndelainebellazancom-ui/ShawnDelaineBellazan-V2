@@ -929,6 +929,157 @@ _logger.LogError(
                     </ul>
                 </div>
 
+                <h2>2026 AI-Assisted Debugging Tools</h2>
+
+                <p>Modern debugging tools in 2026 leverage AI to automatically detect and fix PMCR-O loop issues. Here are the cutting-edge tools available:</p>
+
+                <h3>1. Ollama-Powered Debug Agent</h3>
+
+                <p>Use an AI agent to analyze your PMCR-O logs and suggest fixes:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// AI-Assisted Debug Agent
+public class AIDebugAgent
+{
+    private readonly IChatClient _chatClient;
+
+    public async Task&lt;DebugRecommendation&gt; AnalyzeLogsAsync(
+        string logContent,
+        CancellationToken cancellationToken = default)
+    {
+        var prompt = $@"I AM the PMCR-O Debug Agent.
+I ANALYZE logs to identify loop failures.
+I SUGGEST specific fixes with code examples.
+
+Analyze these PMCR-O logs and identify issues:
+
+{logContent}
+
+Output JSON with:
+- issue_type: [infinite_loop | deadlock | silent_failure | connection_error | json_parsing | memory_leak]
+- root_cause: string
+- fix_code: string (C# code example)
+- prevention: string[]";
+
+        var chatOptions = new ChatOptions
+        {
+            ResponseFormat = ChatResponseFormat.Json,
+            Temperature = 0.1 // Low temperature for precise analysis
+        };
+
+        var response = await _chatClient.CompleteChatAsync(
+            new ChatHistory { new ChatMessage(ChatRole.User, prompt) },
+            chatOptions,
+            cancellationToken);
+
+        return JsonSerializer.Deserialize&lt;DebugRecommendation&gt;(response.Content)
+            ?? throw new InvalidOperationException("Failed to parse debug recommendation");
+    }
+}</code></pre>
+                </div>
+
+                <h3>2. Real-Time Loop Detection with OpenTelemetry</h3>
+
+                <p>Use OpenTelemetry traces to automatically detect infinite loops:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Automatic loop detection via OpenTelemetry
+public class LoopDetectionMiddleware
+{
+    private readonly ILogger&lt;LoopDetectionMiddleware&gt; _logger;
+    private readonly Dictionary&lt;string, int&gt; _traceCounts = new();
+
+    public void OnTraceStart(string traceId, string operationName)
+    {
+        var key = $"{traceId}:{operationName}";
+        _traceCounts.TryGetValue(key, out var count);
+        _traceCounts[key] = count + 1;
+
+        if (count + 1 > 10) // Threshold for loop detection
+        {
+            _logger.LogWarning(
+                "Potential infinite loop detected: {Operation} in trace {TraceId}",
+                operationName, traceId);
+
+            // Trigger alert or circuit breaker
+            throw new InfiniteLoopException(
+                $"Operation {operationName} executed {count + 1} times in trace {traceId}");
+        }
+    }
+}</code></pre>
+                </div>
+
+                <h3>3. .NET 11 Preview: Enhanced Diagnostics</h3>
+
+                <p>.NET 11 introduces improved diagnostics for async operations and gRPC:</p>
+
+                <ul>
+                    <li><strong>Async Stack Traces:</strong> Full async call stacks showing where operations hang</li>
+                    <li><strong>gRPC Deadlock Detection:</strong> Automatic detection of blocking gRPC calls</li>
+                    <li><strong>Memory Profiling:</strong> Built-in memory leak detection for knowledge vaults</li>
+                    <li><strong>AI-Powered Suggestions:</strong> IDE integration that suggests fixes based on error patterns</li>
+                </ul>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// .NET 11: Enhanced async diagnostics
+// Enable in appsettings.json:
+{
+  "Diagnostics": {
+    "AsyncStackTrace": true,
+    "GrpcDeadlockDetection": true,
+    "MemoryProfiling": {
+      "Enabled": true,
+      "Threshold": "100MB"
+    }
+  }
+}
+
+// Automatic deadlock detection
+// .NET 11 will throw GrpcDeadlockException if blocking detected
+try
+{
+    var response = await plannerClient.ExecuteTaskAsync(request);
+}
+catch (GrpcDeadlockException ex)
+{
+    // .NET 11 provides detailed stack trace showing where deadlock occurred
+    _logger.LogError(ex, "gRPC deadlock detected: {StackTrace}", ex.AsyncStackTrace);
+}</code></pre>
+                </div>
+
+                <h3>4. Visual Studio 2026: AI Debug Assistant</h3>
+
+                <p>Visual Studio 2026 includes an AI-powered debug assistant that:</p>
+
+                <ul>
+                    <li>Analyzes breakpoints and suggests where to add more</li>
+                    <li>Identifies common PMCR-O patterns (infinite loops, deadlocks)</li>
+                    <li>Generates fix suggestions with code examples</li>
+                    <li>Learns from your debugging patterns to improve suggestions</li>
+                </ul>
+
+                <div class="callout">
+                    <h3>🔧 2026 Debugging Workflow</h3>
+                    <ol>
+                        <li><strong>Enable AI Debug Agent:</strong> Let AI analyze logs automatically</li>
+                        <li><strong>Use OpenTelemetry:</strong> Real-time loop detection in production</li>
+                        <li><strong>Leverage .NET 11 Diagnostics:</strong> Built-in async/gRPC debugging</li>
+                        <li><strong>IDE Integration:</strong> Visual Studio 2026 AI assistant for interactive debugging</li>
+                    </ol>
+                </div>
+
                 <h2>Conclusion</h2>
 
                 <p>PMCR-O loops fail in predictable patterns. Most issues stem from:</p>
