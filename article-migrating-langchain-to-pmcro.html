@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<!--
+    MIGRATING FROM LANGCHAIN TO PMCR-O: A COMPARISON GUIDE
+    Purpose: Guide for developers migrating from LangChain to PMCR-O framework.
+    Tech Stack: LangChain, PMCR-O, .NET 10, comparison patterns.
+    Keywords: LangChain vs PMCR-O, AI framework comparison 2026, switch to PMCR-O, migrate LangChain to .NET.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete migration guide from LangChain to PMCR-O. Compare architectures, patterns, and learn step-by-step migration strategies for autonomous AI agents.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="LangChain vs PMCR-O, AI framework comparison 2026, switch to PMCR-O, migrate LangChain to .NET, LangChain migration guide">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-migrating-langchain-to-pmcro.html">
+    <meta property="og:title" content="Migrating from LangChain to PMCR-O: A Comparison Guide | Shawn Bellazan">
+    <meta property="og:description" content="Complete migration guide from LangChain to PMCR-O. Compare architectures, patterns, and learn step-by-step migration strategies.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Migrating from LangChain to PMCR-O">
+    <meta name="twitter:description" content="Step-by-step guide to migrating from LangChain to PMCR-O framework.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>Migrating from LangChain to PMCR-O: A Comparison Guide | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-migrating-langchain-to-pmcro#article",
+      "headline": "Migrating from LangChain to PMCR-O: A Comparison Guide",
+      "description": "Complete migration guide from LangChain to PMCR-O framework, comparing architectures, patterns, and providing step-by-step migration strategies for autonomous AI agents.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": "LangChain, PMCR-O, .NET 10",
+      "proficiencyLevel": "Intermediate",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-migrating-langchain-to-pmcro"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["LangChain", "PMCR-O", "Migration", "AI Framework", "Comparison"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-migrating-langchain-to-pmcro.html">
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles - reuse from previous articles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: rgba(212, 165, 116, 0.1);
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .migration-step {
+            background: var(--gray);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .migration-step h4 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 20 min read</div>
+
+            <div class="article-content">
+                <h1>Migrating from LangChain to PMCR-O: A Comparison Guide</h1>
+
+                <p>You've built agents with LangChain. They work, but you're hitting limits: Python-only, complex chains, and no built-in self-improvement. PMCR-O offers a different path: .NET-native, self-referential agents that evolve through strange loops.</p>
+
+                <p>This guide shows you how to migrate from LangChain to PMCR-O, mapping patterns and architectures.</p>
+
+                <div class="callout">
+                    <strong>🎯 Migration Philosophy:</strong> LangChain is a tool for building agents. PMCR-O is a framework for building <em>autonomous</em> agents. The migration isn't just code—it's a shift from instruction-following to identity-embodying.
+                </div>
+
+                <h2>Architecture Comparison</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>LangChain</th>
+                            <th>PMCR-O</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Language</strong></td>
+                            <td>Python</td>
+                            <td>.NET 10 (C#)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Architecture</strong></td>
+                            <td>Chain-based (linear workflows)</td>
+                            <td>Strange loop (self-referential cycles)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agent Pattern</strong></td>
+                            <td>ReAct (Reason + Act)</td>
+                            <td>PMCR-O (Planner-Maker-Checker-Reflector-Orchestrator)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Identity</strong></td>
+                            <td>Second-person ("You are...")</td>
+                            <td>First-person ("I AM...")</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory</strong></td>
+                            <td>Conversation memory, vector stores</td>
+                            <td>Cognitive trails (externalized, persistent)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Self-Improvement</strong></td>
+                            <td>Manual (you update prompts)</td>
+                            <td>Built-in (Reflector evolves through cycles)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Communication</strong></td>
+                            <td>Function calls, REST APIs</td>
+                            <td>gRPC microservices + REST gateway</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Orchestration</strong></td>
+                            <td>LangGraph, custom workflows</td>
+                            <td>Microsoft Agents AI Workflows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deployment</strong></td>
+                            <td>FastAPI, Flask, Docker</td>
+                            <td>.NET Aspire, Kubernetes, Azure</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Pattern Mapping: LangChain → PMCR-O</h2>
+
+                <h3>1. Simple Agent → Planner Agent</h3>
+
+                <div class="migration-step">
+                    <h4>LangChain Pattern</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">Python</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-python">from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+
+llm = OpenAI(temperature=0)
+tools = [search_tool, calculator_tool]
+
+agent = initialize_agent(
+    tools,
+    llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+response = agent.run("What is the weather in Seattle?")</code></pre>
+                    </div>
+
+                    <h4>PMCR-O Equivalent</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">C#</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-csharp">// Planner Agent Service (gRPC)
+public class PlannerAgentService : AgentService.AgentServiceBase
+{
+    private readonly IChatClient _chatClient;
+    private readonly AgentMcpToolsHelper _mcpToolsHelper;
+
+    public override async Task&lt;AgentResponse&gt; ExecuteTask(
+        AgentRequest request,
+        ServerCallContext context)
+    {
+        // Get tools (equivalent to LangChain tools)
+        var mcpTools = await _mcpToolsHelper.GetPlannerToolsAsync();
+
+        // Create agent with BIP identity
+        var agent = new ChatClientAgent(
+            _chatClient,
+            new ChatClientAgentOptions
+            {
+                Name = "Planner",
+                ChatOptions = new ChatOptions
+                {
+                    Instructions = @"I AM the Planner.
+I TRANSFER complex intent into minimal viable plans.",
+                    Tools = mcpTools
+                }
+            });
+
+        var thread = agent.GetNewThread();
+        var response = await agent.RunAsync(
+            new ChatMessage(ChatRole.User, request.Intent),
+            thread);
+
+        return new AgentResponse
+        {
+            Content = response.Text,
+            Success = true
+        };
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>2. Chain → PMCR-O Workflow</h3>
+
+                <div class="migration-step">
+                    <h4>LangChain Pattern</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">Python</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-python">from langchain.chains import LLMChain, SimpleSequentialChain
+
+plan_chain = LLMChain(llm=llm, prompt=plan_prompt)
+code_chain = LLMChain(llm=llm, prompt=code_prompt)
+
+overall_chain = SimpleSequentialChain(
+    chains=[plan_chain, code_chain],
+    verbose=True
+)
+
+result = overall_chain.run("Build a REST API")</code></pre>
+                    </div>
+
+                    <h4>PMCR-O Equivalent</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">C#</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-csharp">// Orchestrator coordinates PMCR-O phases
+public class OrchestrationApiController : ControllerBase
+{
+    [HttpPost("execute")]
+    public async Task&lt;IActionResult&gt; ExecuteAsync([FromBody] AgentRequest request)
+    {
+        // 1. Planner phase (equivalent to plan_chain)
+        var plannerResponse = await _plannerClient.ExecuteTaskAsync(
+            new AgentRequest { Intent = request.Intent });
+
+        // 2. Maker phase (equivalent to code_chain)
+        var makerResponse = await _makerClient.ExecuteTaskAsync(
+            new AgentRequest { Intent = plannerResponse.Content });
+
+        // 3. Checker phase (validation)
+        var checkerResponse = await _checkerClient.ExecuteTaskAsync(
+            new AgentRequest { Intent = makerResponse.Content });
+
+        // 4. Reflector phase (self-improvement)
+        var reflectorResponse = await _reflectorClient.ExecuteTaskAsync(
+            new AgentRequest { Intent = checkerResponse.Content });
+
+        return Ok(new
+        {
+            Plan = plannerResponse.Content,
+            Artifact = makerResponse.Content,
+            Validation = checkerResponse.Content,
+            Reflection = reflectorResponse.Content
+        });
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>3. Memory → Cognitive Trails</h3>
+
+                <div class="migration-step">
+                    <h4>LangChain Pattern</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">Python</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-python">from langchain.memory import ConversationBufferMemory
+
+memory = ConversationBufferMemory()
+agent = initialize_agent(
+    tools, llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+    memory=memory
+)
+
+# Memory persists within conversation
+response = agent.run("What did I ask about earlier?")</code></pre>
+                    </div>
+
+                    <h4>PMCR-O Equivalent</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">C#</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-csharp">// Cognitive trails persist beyond sessions
+public class PlannerAgentService : AgentService.AgentServiceBase
+{
+    private readonly KnowledgeVaultService _knowledgeVault;
+
+    public override async Task&lt;AgentResponse&gt; ExecuteTask(
+        AgentRequest request,
+        ServerCallContext context)
+    {
+        // Query past cognitive trails (semantic search)
+        var pastSolutions = await _knowledgeVault.SearchAsync(
+            request.Intent, topK: 3);
+
+        // Build context from past solutions
+        var contextPrompt = pastSolutions.Any()
+            ? $"Similar past solutions:\n{string.Join("\n", pastSolutions.Select(s => $"- {s.Content}"))}"
+            : "No similar past solutions found.";
+
+        // Generate plan with context
+        var response = await GeneratePlanAsync(request.Intent, contextPrompt);
+
+        // Store this plan as cognitive trail
+        await _knowledgeVault.StoreAsync(
+            response.Content,
+            source: "planner",
+            metadata: JsonSerializer.Serialize(new { Intent = request.Intent }));
+
+        return new AgentResponse { Content = response.Content, Success = true };
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>4. Vector Store → pgvector Knowledge Vault</h3>
+
+                <div class="migration-step">
+                    <h4>LangChain Pattern</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">Python</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-python">from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+
+embeddings = OpenAIEmbeddings()
+vectorstore = Chroma.from_documents(documents, embeddings)
+
+# Similarity search
+docs = vectorstore.similarity_search("authentication", k=3)</code></pre>
+                    </div>
+
+                    <h4>PMCR-O Equivalent</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="code-language">C#</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code class="language-csharp">// pgvector with PostgreSQL
+public class KnowledgeVaultService
+{
+    private readonly KnowledgeDbContext _db;
+    private readonly EmbeddingService _embeddingService;
+
+    public async Task&lt;List&lt;KnowledgeItem&gt;&gt; SearchAsync(string query, int topK = 5)
+    {
+        // Generate embedding
+        var queryEmbedding = await _embeddingService.GenerateEmbeddingAsync(query);
+
+        // Vector similarity search (cosine similarity)
+        var results = await _db.KnowledgeEntries
+            .Select(k =&gt; new
+            {
+                Item = k,
+                Similarity = EF.Functions.VectorCosineSimilarity(k.Embedding, queryEmbedding)
+            })
+            .Where(x =&gt; x.Similarity &gt;= 0.7)
+            .OrderByDescending(x =&gt; x.Similarity)
+            .Take(topK)
+            .Select(x =&gt; x.Item)
+            .ToListAsync();
+
+        return results;
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <h2>Step-by-Step Migration Guide</h2>
+
+                <h3>Step 1: Identify Your LangChain Components</h3>
+
+                <p>Map your LangChain code to PMCR-O equivalents:</p>
+                <ul>
+                    <li><strong>Agents</strong> → PMCR-O Agent Services (Planner, Maker, etc.)</li>
+                    <li><strong>Chains</strong> → Orchestrator workflows</li>
+                    <li><strong>Tools</strong> → MCP Tools (Model Context Protocol)</li>
+                    <li><strong>Memory</strong> → Knowledge Vault (pgvector)</li>
+                    <li><strong>Vector Stores</strong> → PostgreSQL with pgvector</li>
+                    <li><strong>Prompts</strong> → BIP prompts (identity-first)</li>
+                </ul>
+
+                <h3>Step 2: Convert Prompts to BIP</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text"># LangChain Prompt
+"You are a helpful assistant. When the user asks a question, think step by step and provide a clear answer."
+
+# PMCR-O BIP Prompt
+IDENTITY: I AM the Helpful Architect.
+I TRANSFER user questions into clear, actionable answers.
+I EVOLVE through feedback on my responses.
+
+@constraints {
+MANDATORY: Think step by step before responding.
+FORBIDDEN: Generic advice without concrete actions.
+}</code></pre>
+                </div>
+
+                <h3>Step 3: Migrate Tools to MCP</h3>
+
+                <p>LangChain tools become MCP tools in PMCR-O:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// MCP Tool (equivalent to LangChain tool)
+public class WebSearchTool
+{
+    [Tool("web_search", "Search the web for current information")]
+    public async Task&lt;string&gt; SearchWebAsync([ToolParameter("query")] string query)
+    {
+        // Implementation
+        var results = await _httpClient.GetStringAsync($"https://api.search.com?q={query}");
+        return results;
+    }
+}
+
+// Register in agent
+var mcpTools = new[] { new WebSearchTool() };
+var agent = new ChatClientAgent(_chatClient, new ChatClientAgentOptions
+{
+    ChatOptions = new ChatOptions { Tools = mcpTools }
+});</code></pre>
+                </div>
+
+                <h3>Step 4: Set Up PMCR-O Infrastructure</h3>
+
+                <p>Create the PMCR-O project structure:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Create PMCR-O solution
+dotnet new sln -n PmcroMigration
+
+# Create services (matching your LangChain agents)
+dotnet new webapi -n PmcroMigration.PlannerService
+dotnet new webapi -n PmcroMigration.MakerService
+dotnet new webapi -n PmcroMigration.CheckerService
+dotnet new webapi -n PmcroMigration.ReflectorService
+dotnet new webapi -n PmcroMigration.OrchestrationApi
+
+# Add Aspire orchestration
+dotnet new console -n PmcroMigration.AppHost
+
+# Add packages
+dotnet add package Microsoft.Agents.AI
+dotnet add package Microsoft.Extensions.AI
+dotnet add package OllamaSharp
+dotnet add package Grpc.AspNetCore</code></pre>
+                </div>
+
+                <h3>Step 5: Migrate Data</h3>
+
+                <p>If you have existing LangChain data:</p>
+                <ul>
+                    <li><strong>Vector Store Data:</strong> Export embeddings, import to pgvector</li>
+                    <li><strong>Conversation History:</strong> Convert to cognitive trail format</li>
+                    <li><strong>Tool Configurations:</strong> Map to MCP tool definitions</li>
+                </ul>
+
+                <h2>When to Migrate</h2>
+
+                <div class="callout">
+                    <h3>✅ Migrate to PMCR-O When:</h3>
+                    <ul>
+                        <li>You need .NET integration (existing .NET codebase)</li>
+                        <li>You want self-improving agents (Reflector phase)</li>
+                        <li>You need enterprise-grade deployment (Aspire, Kubernetes)</li>
+                        <li>You want first-person identity (BIP vs prompt engineering)</li>
+                        <li>You need persistent cognitive trails (beyond conversation memory)</li>
+                        <li>You want gRPC microservices architecture</li>
+                    </ul>
+                </div>
+
+                <div class="callout">
+                    <h3>⚠️ Stay with LangChain When:</h3>
+                    <ul>
+                        <li>You're Python-only (no .NET infrastructure)</li>
+                        <li>You need LangChain's extensive tool ecosystem</li>
+                        <li>You have simple, linear workflows (no self-improvement needed)</li>
+                        <li>You're prototyping quickly (LangChain has faster iteration)</li>
+                    </ul>
+                </div>
+
+                <h2>Migration Timeline</h2>
+
+                <p><strong>Week 1:</strong> Set up PMCR-O infrastructure, convert one agent</p>
+                <p><strong>Week 2:</strong> Migrate remaining agents, convert prompts to BIP</p>
+                <p><strong>Week 3:</strong> Migrate tools to MCP, set up knowledge vault</p>
+                <p><strong>Week 4:</strong> Parallel run (LangChain + PMCR-O), validate results</p>
+                <p><strong>Week 5:</strong> Cutover to PMCR-O, decommission LangChain</p>
+
+                <h2>Common Migration Challenges</h2>
+
+                <h3>Challenge 1: Python → C# Syntax</h3>
+                <p><strong>Solution:</strong> Use C# async/await patterns. PMCR-O is fully async, matching Python's async nature.</p>
+
+                <h3>Challenge 2: LangChain Tools → MCP Tools</h3>
+                <p><strong>Solution:</strong> MCP tools use the same pattern (function calling). Map LangChain tool signatures to MCP tool definitions.</p>
+
+                <h3>Challenge 3: Prompt Engineering → BIP</h3>
+                <p><strong>Solution:</strong> Convert "You are..." to "I AM...". Add @constraints instead of step-by-step instructions. See <a href="article-bip-vs-chain-of-thought.html" style="color: var(--gold);">BIP vs Chain-of-Thought</a> for details.</p>
+
+                <h2>Conclusion</h2>
+
+                <p>Migrating from LangChain to PMCR-O isn't just a code change—it's a shift from building agents to building <em>autonomous</em> agents. PMCR-O's strange loops enable self-improvement that LangChain's linear chains can't match.</p>
+
+                <p>If you're ready to move beyond instruction-following to identity-embodying, PMCR-O is the path forward.</p>
+
+                <div class="callout">
+                    <p><strong>🔗 Related Resources:</strong></p>
+                    <ul>
+                        <li><a href="article-pmcro-quickstart-30-minutes.html" style="color: var(--gold);">PMCR-O Quickstart</a> - Build your first PMCR-O agent</li>
+                        <li><a href="article-bip-vs-chain-of-thought.html" style="color: var(--gold);">BIP vs Chain-of-Thought</a> - Understand the prompt difference</li>
+                        <li><a href="article-building-self-referential-agents-part1.html" style="color: var(--gold);">Building Self-Referential Agents Part 1</a> - Infrastructure setup</li>
+                        <li><a href="pmcro-codex.html" style="color: var(--gold);">PMCR-O Codex</a> - Framework documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+            const text = codeBlock.textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

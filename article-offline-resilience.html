@@ -74,6 +74,8 @@
     </script>
     
     <link rel="canonical" href="https://shawndelainebellazan.com/article-offline-resilience.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <link rel="stylesheet" href="style.css">
     
     <style>
@@ -235,7 +237,7 @@
                 <li><a href="index.html#work">Work</a></li>
                 <li><a href="pmcro-codex.html">PMCR-O</a></li>
                 <li><a href="pmcro-prompt-library.html">Agents</a></li>
-                <li><a href="index.html#articles">Articles</a></li>
+                <li><a href="articles.html">Articles</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </div>
@@ -448,5 +450,50 @@
 
     <script src="site.js"></script>
     <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-kotlin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        /**
+         * Copy code block to clipboard
+         * Enterprise-grade: Handles clipboard API with fallback for file:// protocol
+         */
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+            
+            const text = codeBlock.textContent;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+        
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
 </body>
 </html>

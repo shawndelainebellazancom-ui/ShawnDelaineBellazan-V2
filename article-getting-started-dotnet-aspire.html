@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete guide to setting up .NET Aspire for PMCR-O projects. Learn to create AppHost, configure ServiceDefaults, and orchestrate microservices with one F5.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content=".NET Aspire, ServiceDefaults, Microservices Orchestration, PMCR-O, .NET 10, Aspire Setup">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-getting-started-dotnet-aspire.html">
+    <meta property="og:title" content="Getting Started with .NET Aspire for PMCR-O | Shawn Bellazan">
+    <meta property="og:description" content="Complete guide to setting up .NET Aspire for PMCR-O projects. Learn to create AppHost, configure ServiceDefaults, and orchestrate microservices.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Getting Started with .NET Aspire for PMCR-O">
+    <meta name="twitter:description" content="Complete guide to setting up .NET Aspire for PMCR-O projects.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    
+    <title>Getting Started with .NET Aspire for PMCR-O | Shawn Bellazan</title>
+    
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Getting Started with .NET Aspire for PMCR-O",
+      "description": "Complete guide to setting up .NET Aspire for PMCR-O projects. Learn to create AppHost, configure ServiceDefaults, and orchestrate microservices with one F5.",
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-getting-started-dotnet-aspire"
+      },
+      "keywords": [".NET Aspire", "ServiceDefaults", "Microservices Orchestration", "PMCR-O"]
+    }
+    </script>
+    
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-getting-started-dotnet-aspire.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+        
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+        
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+        
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" style="margin-top: 80px;">
+        <section class="hero">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: var(--gold); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">
+                    Getting Started with .NET Aspire for PMCR-O
+                </h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; color: var(--text-tertiary); font-style: italic;">
+                    Orchestrate microservices with one F5. Set up ServiceDefaults. Build resilient agent architectures.
+                </p>
+            </div>
+        </section>
+
+        <div class="article-container">
+            <a href="articles.html" class="back-link">← Back to Articles</a>
+            
+            <div class="article-meta">
+                By Shawn Delaine Bellazan • January 1, 2026 • 10 min read
+            </div>
+
+            <div class="article-content">
+                <p><strong>.NET Aspire</strong> is Microsoft's orchestration framework for cloud-native .NET applications. For PMCR-O projects, it provides service discovery, observability, and container management—allowing you to run your entire agent ecosystem with a single F5.</p>
+
+                <p>This guide walks you through setting up Aspire for PMCR-O, including the critical <strong>ServiceDefaults</strong> project that provides shared infrastructure for all your agent services.</p>
+
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li><strong>.NET 10 SDK</strong> (or later)</li>
+                    <li><strong>Docker Desktop</strong> (for container orchestration)</li>
+                    <li><strong>Visual Studio 2022</strong> or <strong>VS Code</strong> with C# extension</li>
+                </ul>
+
+                <h2>Step 1: Create Solution Structure</h2>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Create solution
+mkdir PmcroAgents
+cd PmcroAgents
+dotnet new sln -n PmcroAgents
+
+# Create AppHost (orchestrator)
+dotnet new aspire-apphost -n PmcroAgents.AppHost
+
+# Create ServiceDefaults (shared infrastructure)
+dotnet new classlib -n PmcroAgents.ServiceDefaults
+
+# Add to solution
+dotnet sln add PmcroAgents.AppHost
+dotnet sln add PmcroAgents.ServiceDefaults</code></pre>
+                </div>
+
+                <h2>Step 2: Configure ServiceDefaults</h2>
+                
+                <p><strong>ServiceDefaults</strong> is the shared project that provides common infrastructure for all your services: OpenTelemetry, health checks, service discovery, and HTTP resilience.</p>
+
+                <h3>ServiceDefaults.csproj</h3>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">XML</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-xml">&lt;Project Sdk="Microsoft.NET.Sdk"&gt;
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;net10.0&lt;/TargetFramework&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+    &lt;IsAspireSharedProject&gt;true&lt;/IsAspireSharedProject&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;ItemGroup&gt;
+    &lt;FrameworkReference Include="Microsoft.AspNetCore.App" /&gt;
+    &lt;PackageReference Include="Microsoft.Extensions.Http.Resilience" /&gt;
+    &lt;PackageReference Include="Microsoft.Extensions.ServiceDiscovery" /&gt;
+    &lt;PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" /&gt;
+    &lt;PackageReference Include="OpenTelemetry.Extensions.Hosting" /&gt;
+    &lt;PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" /&gt;
+    &lt;PackageReference Include="OpenTelemetry.Instrumentation.Http"/&gt;
+    &lt;PackageReference Include="OpenTelemetry.Instrumentation.Runtime" /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;</code></pre>
+                </div>
+
+                <h3>Extensions.cs (ServiceDefaults)</h3>
+                
+                <p>This extension method configures OpenTelemetry, health checks, service discovery, and HTTP resilience for all services:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.ServiceDiscovery;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
+
+namespace Microsoft.Extensions.Hosting
+{
+    public static class Extensions
+    {
+        public static TBuilder AddServiceDefaults&lt;TBuilder&gt;(this TBuilder builder) 
+            where TBuilder : IHostApplicationBuilder
+        {
+            builder.ConfigureOpenTelemetry();
+            builder.AddDefaultHealthChecks();
+            builder.Services.AddServiceDiscovery();
+            
+            builder.Services.ConfigureHttpClientDefaults(http =&gt;
+            {
+                http.AddStandardResilienceHandler();
+                http.AddServiceDiscovery();
+            });
+
+            return builder;
+        }
+
+        public static TBuilder ConfigureOpenTelemetry&lt;TBuilder&gt;(this TBuilder builder) 
+            where TBuilder : IHostApplicationBuilder
+        {
+            builder.Logging.AddOpenTelemetry(logging =&gt;
+            {
+                logging.IncludeFormattedMessage = true;
+                logging.IncludeScopes = true;
+            });
+
+            builder.Services.AddOpenTelemetry()
+                .WithMetrics(metrics =&gt;
+                {
+                    metrics.AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation()
+                        .AddRuntimeInstrumentation();
+                })
+                .WithTracing(tracing =&gt;
+                {
+                    tracing.AddSource(builder.Environment.ApplicationName)
+                        .AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation();
+                });
+
+            return builder;
+        }
+
+        public static TBuilder AddDefaultHealthChecks&lt;TBuilder&gt;(this TBuilder builder) 
+            where TBuilder : IHostApplicationBuilder
+        {
+            builder.Services.AddHealthChecks()
+                .AddCheck("self", () =&gt; HealthCheckResult.Healthy(), ["live"]);
+
+            return builder;
+        }
+
+        public static WebApplication MapDefaultEndpoints(this WebApplication app)
+        {
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapHealthChecks("/health");
+                app.MapHealthChecks("/alive", new HealthCheckOptions
+                {
+                    Predicate = r =&gt; r.Tags.Contains("live")
+                });
+            }
+
+            return app;
+        }
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 3: Create Your First Service</h2>
+                
+                <p>Now create a service that uses ServiceDefaults:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Create service project
+dotnet new web -n PmcroAgents.PlannerService
+
+# Add ServiceDefaults reference
+cd PmcroAgents.PlannerService
+dotnet add reference ../PmcroAgents.ServiceDefaults
+
+# Add to solution
+cd ..
+dotnet sln add PmcroAgents.PlannerService</code></pre>
+                </div>
+
+                <h3>Program.cs (Service)</h3>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+
+// Add ServiceDefaults (OpenTelemetry, health checks, service discovery)
+builder.AddServiceDefaults();
+
+var app = builder.Build();
+
+// Map health check endpoints
+app.MapDefaultEndpoints();
+
+app.MapGet("/", () =&gt; "Planner Service is running");
+
+app.Run();</code></pre>
+                </div>
+
+                <h2>Step 4: Configure AppHost</h2>
+                
+                <p>The AppHost orchestrates all services. Update <code>PmcroAgents.AppHost/Program.cs</code>:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var builder = DistributedApplication.CreateBuilder(args);
+
+// Add your service
+var plannerService = builder.AddProject&lt;Projects.PmcroAgents_PlannerService&gt;("planner");
+
+builder.Build().Run();</code></pre>
+                </div>
+
+                <h2>Step 5: Run Everything</h2>
+                
+                <p>Set <code>PmcroAgents.AppHost</code> as your startup project and press F5. Aspire will:</p>
+                <ul>
+                    <li>Start all services</li>
+                    <li>Open the Aspire dashboard (observability UI)</li>
+                    <li>Enable service discovery between services</li>
+                    <li>Configure OpenTelemetry tracing</li>
+                </ul>
+
+                <div class="callout">
+                    <p><strong>Why ServiceDefaults Matters:</strong> Without it, each service would need to configure OpenTelemetry, health checks, and service discovery individually. ServiceDefaults centralizes this configuration, making your architecture <strong>resilient by design</strong>—a core PMCR-O principle.</p>
+                </div>
+
+                <h2>Next Steps</h2>
+                <ul>
+                    <li>Read <a href="article-setting-up-ollama-gpu.html" style="color: var(--gold);">Setting Up Ollama with GPU Support</a></li>
+                    <li>Read <a href="article-creating-first-pmcro-agent.html" style="color: var(--gold);">Creating Your First PMCR-O Agent</a></li>
+                    <li>Explore the <a href="articles.html" style="color: var(--gold);">complete article library</a></li>
+                </ul>
+
+                <div class="callout" style="margin: 3rem 0; text-align: center;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Build Your Own Strange Loop</h3>
+                    <p>The PMCR-O framework is open. Star the repository. Fork it. Seed your own intent.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: underline; font-weight: 600;">View on GitHub →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-xml.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

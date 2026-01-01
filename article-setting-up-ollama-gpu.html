@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Configure Ollama for local LLM inference with NVIDIA GPU acceleration. Learn container setup, model management, and performance optimization for PMCR-O agents.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="Ollama, GPU Setup, Local LLM, NVIDIA GPU, LLM Inference, PMCR-O, AI Agents">
+    <meta name="theme-color" content="#d4a574">
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-setting-up-ollama-gpu.html">
+    <meta property="og:title" content="Setting Up Ollama with GPU Support | Shawn Bellazan">
+    <meta property="og:description" content="Configure Ollama for local LLM inference with NVIDIA GPU acceleration. Learn container setup, model management, and performance optimization.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Setting Up Ollama with GPU Support">
+    <meta name="twitter:description" content="Configure Ollama for local LLM inference with NVIDIA GPU acceleration.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <title>Setting Up Ollama with GPU Support | Shawn Bellazan</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Setting Up Ollama with GPU Support",
+      "description": "Configure Ollama for local LLM inference with NVIDIA GPU acceleration. Learn container setup, model management, and performance optimization for PMCR-O agents.",
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-setting-up-ollama-gpu"
+      },
+      "keywords": ["Ollama", "GPU Setup", "Local LLM", "NVIDIA GPU", "LLM Inference"]
+    }
+    </script>
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-setting-up-ollama-gpu.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
+        .article-meta { color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 2rem; }
+        .article-content h2 { font-size: 2rem; color: var(--gold); margin: 3rem 0 1.5rem; font-weight: var(--font-weight-bold); }
+        .article-content h3 { font-size: 1.5rem; color: var(--gold-light); margin: 2rem 0 1rem; }
+        .code-block-wrapper { position: relative; margin: 2rem 0; background: var(--gray); border: 1px solid var(--light-gray); border-radius: 8px; overflow: hidden; }
+        .code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--light-gray); }
+        .code-language { color: var(--gold); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .copy-button { padding: 0.4rem 1rem; font-size: 0.8rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); cursor: pointer; border-radius: 4px; transition: all var(--transition-fast); }
+        .copy-button:hover { background: var(--gold); color: var(--darker); }
+        pre[class*="language-"] { margin: 0; padding: 1.5rem; overflow-x: auto; }
+        .callout { background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%); border-left: 4px solid var(--gold); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; }
+        .back-link { display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 2rem; font-weight: 600; }
+        .back-link:hover { color: var(--gold-light); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content" style="margin-top: 80px;">
+        <section class="hero">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: var(--gold); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">Setting Up Ollama with GPU Support</h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; color: var(--text-tertiary); font-style: italic;">Accelerate local LLM inference from 30-60s to 2-5s with NVIDIA GPU passthrough.</p>
+            </div>
+        </section>
+        <div class="article-container">
+            <a href="articles.html" class="back-link">← Back to Articles</a>
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 8 min read</div>
+            <div class="article-content">
+                <p><strong>Ollama</strong> is the open-source local LLM server that powers PMCR-O agents. With GPU acceleration, inference time drops from 30-60 seconds (CPU) to 2-5 seconds (GPU), making real-time agent interactions feasible.</p>
+
+                <p>This guide shows you how to configure Ollama with NVIDIA GPU support in .NET Aspire for PMCR-O projects.</p>
+
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li><strong>NVIDIA GPU</strong> with 8GB+ VRAM (RTX 3060 or better)</li>
+                    <li><strong>NVIDIA Drivers</strong> installed (version 535+ recommended)</li>
+                    <li><strong>Docker Desktop</strong> with WSL2 backend (Windows) or native Docker (Linux)</li>
+                    <li><strong>.NET Aspire</strong> project set up (see <a href="article-getting-started-dotnet-aspire.html" style="color: var(--gold);">Getting Started with .NET Aspire</a>)</li>
+                </ul>
+
+                <h2>Step 1: Verify GPU Availability</h2>
+                <p>Check that Docker can access your GPU:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Check NVIDIA driver
+nvidia-smi
+
+# Check Docker GPU support
+docker run --rm --gpus all nvidia/cuda:12.0.0-base-ubuntu22.04 nvidia-smi</code></pre>
+                </div>
+
+                <h2>Step 2: Configure Ollama in Aspire AppHost</h2>
+                <p>Update your <code>PmcroAgents.AppHost/Program.cs</code> to add Ollama with GPU support:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using CommunityToolkit.Aspire.Hosting.Ollama;
+
+var builder = DistributedApplication.CreateBuilder(args);
+
+// ==============================================================================
+// OLLAMA - LOCAL LLM SERVER WITH GPU
+// ==============================================================================
+
+var ollama = builder.AddOllama("ollama", port: 11434)
+    .WithDataVolume()                              // Persist models between runs
+    .WithLifetime(ContainerLifetime.Persistent)    // Keep container running
+    .WithContainerRuntimeArgs("--gpus=all");       // Enable NVIDIA GPU passthrough
+
+// ==============================================================================
+// LLM MODELS - THE COUNCIL
+// ==============================================================================
+
+var qwen = ollama.AddModel("qwen2.5-coder:7b");    // The Planner (7.4GB download)
+
+builder.Build().Run();</code></pre>
+                </div>
+
+                <h2>Step 3: Understanding GPU Passthrough</h2>
+                <p>The <code>--gpus=all</code> flag gives the Ollama container access to your NVIDIA GPU. This enables:</p>
+                <ul>
+                    <li><strong>CUDA acceleration:</strong> Matrix operations run on GPU</li>
+                    <li><strong>Faster inference:</strong> 2-5s per response vs 30-60s on CPU</li>
+                    <li><strong>Batch processing:</strong> Handle multiple agent requests simultaneously</li>
+                </ul>
+
+                <div class="callout">
+                    <p><strong>CPU Fallback:</strong> If GPU is unavailable, Ollama automatically falls back to CPU. Performance degrades but functionality remains.</p>
+                </div>
+
+                <h2>Step 4: Model Selection</h2>
+                <p>PMCR-O recommends these models for different agent roles:</p>
+                
+                <h3>qwen2.5-coder:7b (Recommended for Code Agents)</h3>
+                <ul>
+                    <li><strong>Size:</strong> 7.4GB</li>
+                    <li><strong>VRAM Required:</strong> 8GB+</li>
+                    <li><strong>Best For:</strong> Planner, Maker, Checker agents</li>
+                    <li><strong>Why:</strong> Strong tool-calling compliance, structured output support</li>
+                </ul>
+
+                <h3>phi3 (Lightweight Creative Agent)</h3>
+                <ul>
+                    <li><strong>Size:</strong> 3.8GB</li>
+                    <li><strong>VRAM Required:</strong> 4GB+</li>
+                    <li><strong>Best For:</strong> Reflector, creative tasks</li>
+                    <li><strong>Why:</strong> Fast inference, good for brainstorming</li>
+                </ul>
+
+                <h3>nomic-embed-text (Embeddings for RAG)</h3>
+                <ul>
+                    <li><strong>Size:</strong> 274MB</li>
+                    <li><strong>VRAM Required:</strong> 1GB+</li>
+                    <li><strong>Best For:</strong> Knowledge Service, vector search</li>
+                </ul>
+
+                <h2>Step 5: First Run and Model Download</h2>
+                <p>When you run the AppHost for the first time, Ollama will automatically download the specified models:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">[Ollama] Pulling model qwen2.5-coder:7b...
+[Ollama] Downloading 7.4GB (this may take 10-15 minutes on first run)
+[Ollama] Model ready. GPU acceleration enabled.</code></pre>
+                </div>
+
+                <p>Models are stored in a Docker volume and persist between runs. You only download once.</p>
+
+                <h2>Step 6: Verify GPU Usage</h2>
+                <p>After starting Ollama, verify GPU is being used:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Check GPU utilization
+nvidia-smi
+
+# You should see Ollama process using GPU memory
+# Look for: "ollama" process with GPU memory usage</code></pre>
+                </div>
+
+                <h2>Step 7: Connect Your Agent Service</h2>
+                <p>Your agent services connect to Ollama via the connection string injected by Aspire:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// In your agent service (e.g., PlannerService/Program.cs)
+var ollamaUri = builder.Configuration.GetConnectionString("ollama") 
+    ?? "http://localhost:11434";
+var modelId = "qwen2.5-coder:7b";
+
+builder.Services.AddHttpClient("ollama", client =>
+{
+    client.BaseAddress = new Uri(ollamaUri);
+    client.Timeout = Timeout.InfiniteTimeSpan;  // LLM inference can take time
+})
+.AddStandardResilienceHandler(options =>
+{
+    options.AttemptTimeout.Timeout = TimeSpan.FromMinutes(3);
+    options.TotalRequestTimeout.Timeout = TimeSpan.FromMinutes(5);
+});
+
+// Register IChatClient
+builder.Services.AddSingleton&lt;IChatClient&gt;(sp =>
+{
+    var httpClient = sp.GetRequiredService&lt;IHttpClientFactory&gt;().CreateClient("ollama");
+    var baseClient = new OllamaApiClient(httpClient, modelId);
+    
+    return new ChatClientBuilder(baseClient)
+        .UseFunctionInvocation()  // Enables tool calling
+        .Build();
+});</code></pre>
+                </div>
+
+                <h2>Performance Optimization</h2>
+                
+                <h3>1. Model Quantization</h3>
+                <p>For lower VRAM usage, use quantized models:</p>
+                <ul>
+                    <li><code>qwen2.5-coder:7b-q4_0</code> - 4-bit quantization (4GB VRAM)</li>
+                    <li><code>qwen2.5-coder:7b-q8_0</code> - 8-bit quantization (6GB VRAM)</li>
+                </ul>
+
+                <h3>2. Batch Size Tuning</h3>
+                <p>Ollama processes requests in batches. For multiple concurrent agents, increase batch size:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var ollama = builder.AddOllama("ollama", port: 11434)
+    .WithDataVolume()
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithContainerRuntimeArgs("--gpus=all")
+    .WithEnvironment("OLLAMA_NUM_GPU", "1")
+    .WithEnvironment("OLLAMA_NUM_PARALLEL", "4");  // Process 4 requests concurrently</code></pre>
+                </div>
+
+                <h2>Troubleshooting</h2>
+                
+                <h3>GPU Not Detected</h3>
+                <p>Check Docker GPU support:</p>
+                <ul>
+                    <li>Windows: Enable WSL2 backend in Docker Desktop settings</li>
+                    <li>Linux: Install <code>nvidia-container-toolkit</code></li>
+                    <li>Verify: <code>docker run --rm --gpus all nvidia/cuda:12.0.0-base-ubuntu22.04 nvidia-smi</code></li>
+                </ul>
+
+                <h3>Out of Memory Errors</h3>
+                <p>If you get OOM errors:</p>
+                <ul>
+                    <li>Use a smaller model (phi3 instead of qwen2.5-coder:7b)</li>
+                    <li>Use quantized models (q4_0 or q8_0)</li>
+                    <li>Reduce <code>OLLAMA_NUM_PARALLEL</code> to 1</li>
+                </ul>
+
+                <h3>Slow Inference</h3>
+                <p>If inference is still slow:</p>
+                <ul>
+                    <li>Verify GPU is being used: <code>nvidia-smi</code> should show Ollama process</li>
+                    <li>Check GPU memory: Ensure enough VRAM for the model</li>
+                    <li>Update NVIDIA drivers to latest version</li>
+                </ul>
+
+                <h2>Next Steps</h2>
+                <ul>
+                    <li>Read <a href="article-introduction-microsoft-agent-framework.html" style="color: var(--gold);">Introduction to Microsoft Agent Framework</a></li>
+                    <li>Read <a href="article-creating-first-pmcro-agent.html" style="color: var(--gold);">Creating Your First PMCR-O Agent</a></li>
+                    <li>Explore the <a href="articles.html" style="color: var(--gold);">complete article library</a></li>
+                </ul>
+
+                <div class="callout" style="margin: 3rem 0; text-align: center;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Build Your Own Strange Loop</h3>
+                    <p>The PMCR-O framework is open. Star the repository. Fork it. Seed your own intent.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: underline; font-weight: 600;">View on GitHub →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

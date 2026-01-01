@@ -8,6 +8,13 @@
  * - Mobile nav menu toggle with focus trap + escape close
  * - Navbar "scrolled" state
  * - Lightweight accessibility audit logging (non-blocking)
+ * - Navigation consistency: Logo serves as Home link (prevents duplicate Home links)
+ * - Prism.js integration for enterprise-grade code highlighting
+ *
+ * Navigation Rules:
+ * - Logo always links to home (index.html or #home on index page)
+ * - Home text link only appears on index.html (for #home section anchor)
+ * - All other pages: Logo = Home, no duplicate Home link in nav menu
  */
 (function () {
   'use strict';
@@ -221,19 +228,30 @@
   }
 
   // Ensure core site navigation links exist on every page (without duplicates).
+  // NOTE: Logo already serves as Home link, so we skip Home in nav menu to avoid duplicates.
   function ensurePrimaryNavLinks() {
     const navMenu = document.querySelector('.nav-menu');
     if (!navMenu) return;
 
     const onIndex = isIndexPage();
-    const links = [
-      { href: onIndex ? '#home' : 'index.html#home', label: 'Home' },
-      { href: onIndex ? '#work' : 'index.html#work', label: 'Work' },
-      { href: 'pmcro-codex.html', label: 'Docs' },
-      { href: 'pmcro-prompt-library.html', label: 'Agents' },
-      { href: onIndex ? '#articles' : 'index.html#articles', label: 'Articles' },
-      { href: onIndex ? '#contact' : 'index.html#contact', label: 'Contact' }
-    ];
+    // Logo serves as Home link - only add Home text link on index.html (for section anchor)
+    const links = onIndex 
+      ? [
+          { href: '#home', label: 'Home' }, // On index.html, Home links to #home section
+          { href: '#work', label: 'Work' },
+          { href: 'pmcro-codex.html', label: 'Docs' },
+          { href: 'pmcro-prompt-library.html', label: 'Agents' },
+          { href: 'articles.html', label: 'Articles' },
+          { href: '#contact', label: 'Contact' }
+        ]
+      : [
+          // On other pages, logo already links to index.html (home), so skip Home text link
+          { href: 'index.html#work', label: 'Work' },
+          { href: 'pmcro-codex.html', label: 'Docs' },
+          { href: 'pmcro-prompt-library.html', label: 'Agents' },
+          { href: 'articles.html', label: 'Articles' },
+          { href: 'index.html#contact', label: 'Contact' }
+        ];
 
     const existing = new Set(Array.from(navMenu.querySelectorAll('a')).map(a => normalizeHref(a.getAttribute('href'))));
 

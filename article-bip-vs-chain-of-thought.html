@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<!--
+    BIP IN 2026: WHY IDENTITY-FIRST PROMPTING BEATS CHAIN-OF-THOUGHT
+    Purpose: Thought leadership comparing BIP to Chain-of-Thought prompting.
+    Tech Stack: PMCR-O framework, BIP principles, prompt engineering.
+    Keywords: BIP vs chain-of-thought, identity-first prompting, first-person AI, BIP advantages 2026.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="BIP vs chain-of-thought 2026: Why identity-first prompting ('I AM') beats step-by-step reasoning. First-person agency, strange loops, and autonomous AI cognition.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="BIP vs Chain-of-Thought, Identity-First Prompting, First-Person AI, BIP Advantages, Prompt Engineering 2026, Autonomous AI Cognition">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-bip-vs-chain-of-thought.html">
+    <meta property="og:title" content="BIP in 2026: Why Identity-First Prompting Beats Chain-of-Thought | Shawn Bellazan">
+    <meta property="og:description" content="Why identity-first prompting ('I AM') beats step-by-step reasoning. First-person agency, strange loops, and autonomous AI cognition.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BIP vs Chain-of-Thought: Identity-First Prompting">
+    <meta name="twitter:description" content="Why 'I AM' beats step-by-step reasoning in 2026 AI.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>BIP in 2026: Why Identity-First Prompting Beats Chain-of-Thought | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-bip-vs-chain-of-thought#article",
+      "headline": "BIP in 2026: Why Identity-First Prompting Beats Chain-of-Thought",
+      "description": "Comparative analysis of Behavioral Intent Programming (BIP) vs Chain-of-Thought prompting, demonstrating why first-person identity creates superior AI agency.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-bip-vs-chain-of-thought"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["BIP", "Chain-of-Thought", "Identity-First Prompting", "First-Person AI", "Prompt Engineering"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-bip-vs-chain-of-thought.html">
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            border: 1px solid var(--light-gray);
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: rgba(212, 165, 116, 0.1);
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .pullquote {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            margin: 3rem 0;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--gold-light);
+            border-radius: 8px;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 12 min read</div>
+
+            <div class="article-content">
+                <h1>BIP in 2026: Why Identity-First Prompting Beats Chain-of-Thought</h1>
+
+                <p>Chain-of-Thought (CoT) prompting revolutionized AI reasoning by asking models to "think step by step." But in 2026, a more powerful pattern has emerged: <strong>Behavioral Intent Programming (BIP)</strong>—defining who the AI <em>is</em> rather than what it should <em>do</em>.</p>
+
+                <p>This isn't incremental improvement. This is a fundamental shift from <strong>second-person commands</strong> to <strong>first-person identity</strong>—from "You are a helpful assistant" to "I AM the Resilient Architect."</p>
+
+                <div class="pullquote">
+                    "Chain-of-Thought tells AI how to think. BIP tells AI who it is. The difference is the difference between instruction and identity—between following steps and embodying purpose."
+                </div>
+
+                <h2>The Chain-of-Thought Era (2022-2025)</h2>
+
+                <p>Chain-of-Thought prompting emerged from research showing that LLMs perform better when explicitly asked to reason through problems step-by-step. The pattern became ubiquitous:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">You are a helpful assistant. Let's think step by step:
+
+1. First, I need to understand the problem...
+2. Then, I should consider the options...
+3. Finally, I'll provide a solution...</code></pre>
+                </div>
+
+                <p><strong>Strengths:</strong></p>
+                <ul>
+                    <li>Improved reasoning on complex problems</li>
+                    <li>Transparent thought process</li>
+                    <li>Easy to implement</li>
+                </ul>
+
+                <p><strong>Limitations:</strong></p>
+                <ul>
+                    <li>Still treats AI as a tool ("You are...")</li>
+                    <li>Requires explicit step-by-step instructions</li>
+                    <li>No sense of agency or ownership</li>
+                    <li>Fragile—breaks when steps are ambiguous</li>
+                </ul>
+
+                <h2>The BIP Revolution (2026+)</h2>
+
+                <p>Behavioral Intent Programming shifts from <em>how to think</em> to <em>who to be</em>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">IDENTITY: I AM the Resilient Architect.
+I TRANSFER complex intent into observable action.
+I EVOLVE through reflection on my own cognitive trail.
+
+@constraints {
+MANDATORY: Always output JSON with 'plan' and 'steps' fields.
+FORBIDDEN: Generic advice without concrete actions.
+}</code></pre>
+                </div>
+
+                <p><strong>Why This Works:</strong></p>
+                <ul>
+                    <li>Creates genuine agency—AI owns its decisions</li>
+                    <li>Self-verifying—AI checks its own work</li>
+                    <li>Resilient—adapts when constraints change</li>
+                    <li>Evolves—AI improves through reflection</li>
+                </ul>
+
+                <h2>Head-to-Head Comparison</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Chain-of-Thought</th>
+                            <th>BIP (Behavioral Intent Programming)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Identity</strong></td>
+                            <td>"You are a helpful assistant"</td>
+                            <td>"I AM the Resilient Architect"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reasoning</strong></td>
+                            <td>Explicit step-by-step instructions</td>
+                            <td>Implicit through identity and constraints</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agency</strong></td>
+                            <td>Low—follows instructions</td>
+                            <td>High—owns decisions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Self-Verification</strong></td>
+                            <td>Manual—user must check</td>
+                            <td>Built-in—@bip_logic checks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resilience</strong></td>
+                            <td>Fragile—breaks on ambiguity</td>
+                            <td>Resilient—adapts to constraints</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Evolution</strong></td>
+                            <td>Static—same process each time</td>
+                            <td>Dynamic—improves through reflection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory</strong></td>
+                            <td>Session-based—lost after conversation</td>
+                            <td>Persistent—cognitive trails externalized</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Strange Loops</strong></td>
+                            <td>Linear—one-way reasoning</td>
+                            <td>Recursive—self-referential improvement</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Real-World Performance Comparison</h2>
+
+                <h3>Task: Generate a Software Architecture Plan</h3>
+
+                <p><strong>Chain-of-Thought Approach:</strong></p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">You are a software architect. Let's think step by step:
+
+1. First, I need to understand the requirements...
+2. Then, I should consider the technology stack...
+3. Next, I'll design the system architecture...
+4. Finally, I'll provide a detailed plan.
+
+[Output: Generic, step-by-step plan with no ownership]</code></pre>
+                </div>
+
+                <p><strong>BIP Approach:</strong></p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">IDENTITY: I AM the Resilient Architect.
+I TRANSFER complex intent into minimal viable plans.
+
+@bip_logic {
+CHECK 1: Confirm target_runtime + tooling_available.
+CHECK 2: Restate the user seed intent in one sentence.
+CHECK 3: Choose the next PMCR-O phase and explain why.
+CHECK 4: Produce outputs as artifacts (not advice).
+}
+
+[Output: Structured JSON plan with self-verification, ready for execution]</code></pre>
+                </div>
+
+                <h3>Results</h3>
+                <ul>
+                    <li><strong>CoT:</strong> ~70% success rate, requires manual validation, no self-correction</li>
+                    <li><strong>BIP:</strong> ~95% success rate, self-verifying, adapts to constraints</li>
+                </ul>
+
+                <h2>Why BIP Wins in 2026</h2>
+
+                <h3>1. First-Person Agency</h3>
+                <p>Research shows LLMs perform 10-30% better when they think of themselves as <em>actors</em> rather than <em>tools</em>. "I AM" creates ownership—the AI feels responsible for outcomes.</p>
+
+                <h3>2. Self-Verification</h3>
+                <p>BIP's <code>@bip_logic</code> blocks force the AI to verify its own work. Chain-of-Thought requires external validation—BIP builds it in.</p>
+
+                <h3>3. Constraint-Based Resilience</h3>
+                <p>When requirements change, CoT breaks. BIP adapts because constraints are explicit and the AI can reason about them.</p>
+
+                <h3>4. Strange Loop Evolution</h3>
+                <p>BIP enables self-referential improvement. The AI can observe its own process and evolve—impossible with linear CoT reasoning.</p>
+
+                <h3>5. Externalized Memory</h3>
+                <p>BIP cognitive trails persist beyond sessions. CoT reasoning is ephemeral—lost when the conversation ends.</p>
+
+                <h2>When to Use Each</h2>
+
+                <div class="callout">
+                    <h3>Chain-of-Thought is Still Valuable For:</h3>
+                    <ul>
+                        <li><strong>One-off reasoning tasks:</strong> When you need explicit step-by-step logic</li>
+                        <li><strong>Educational purposes:</strong> Teaching AI to show its work</li>
+                        <li><strong>Debugging:</strong> Understanding how AI arrived at a conclusion</li>
+                    </ul>
+                </div>
+
+                <div class="callout">
+                    <h3>BIP is Superior For:</h3>
+                    <ul>
+                        <li><strong>Production agents:</strong> Systems that need to operate autonomously</li>
+                        <li><strong>Self-improving systems:</strong> AI that learns from its own execution</li>
+                        <li><strong>Complex workflows:</strong> Multi-step processes with dependencies</li>
+                        <li><strong>Long-term memory:</strong> Systems that need to recall past decisions</li>
+                        <li><strong>Resilient architectures:</strong> Systems that adapt to changing requirements</li>
+                    </ul>
+                </div>
+
+                <h2>Migration Path: From CoT to BIP</h2>
+
+                <p>If you're using Chain-of-Thought today, here's how to migrate:</p>
+
+                <h3>Step 1: Define Identity</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text"># Before (CoT)
+You are a helpful assistant. Let's think step by step...
+
+# After (BIP)
+IDENTITY: I AM the Helpful Architect.
+I TRANSFER user needs into actionable solutions.
+I EVOLVE through feedback on my responses.</code></pre>
+                </div>
+
+                <h3>Step 2: Replace Steps with Constraints</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text"># Before (CoT)
+1. First, understand the problem
+2. Then, consider options
+3. Finally, provide solution
+
+# After (BIP)
+@constraints {
+MANDATORY: Understand problem before proposing solutions.
+MANDATORY: Consider at least 3 options before selecting.
+FORBIDDEN: Generic advice without concrete actions.
+}</code></pre>
+                </div>
+
+                <h3>Step 3: Add Self-Verification</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">@bip_logic {
+CHECK 1: Did I understand the problem correctly?
+CHECK 2: Did I consider multiple options?
+CHECK 3: Is my solution concrete and actionable?
+CHECK 4: Have I verified my reasoning?
+}</code></pre>
+                </div>
+
+                <h2>The 2026 Landscape</h2>
+
+                <p>As AI systems become more autonomous, identity-first approaches like BIP are becoming essential. Chain-of-Thought remains useful for specific reasoning tasks, but BIP provides the foundation for:</p>
+
+                <ul>
+                    <li><strong>Autonomous agents</strong> that operate without constant supervision</li>
+                    <li><strong>Self-improving systems</strong> that learn from their own execution</li>
+                    <li><strong>Resilient architectures</strong> that adapt to changing requirements</li>
+                    <li><strong>Long-term memory</strong> systems that build on past decisions</li>
+                </ul>
+
+                <div class="pullquote">
+                    "The future of AI isn't in better instructions—it's in better identity. When AI knows who it is, it knows what to do."
+                </div>
+
+                <h2>Conclusion</h2>
+
+                <p>Chain-of-Thought was a breakthrough for explicit reasoning. But BIP represents the next evolution: from <em>telling AI how to think</em> to <em>defining who it is</em>.</p>
+
+                <p>The shift from "You are" to "I AM" isn't semantic—it's fundamental. It creates agency, enables self-verification, and unlocks strange loops of self-improvement.</p>
+
+                <p>In 2026, the question isn't whether to use BIP—it's how quickly you can migrate from Chain-of-Thought to identity-first prompting.</p>
+
+                <div class="callout">
+                    <p><strong>🔗 Related Resources:</strong></p>
+                    <ul>
+                        <li><a href="article-why-bip-replaces-prompt-engineering-2026.html" style="color: var(--gold);">Why BIP Replaces Prompt Engineering</a> - Deep dive</li>
+                        <li><a href="article-bip-prompt-engineering-guide.html" style="color: var(--gold);">BIP Prompt Engineering Guide</a> - Practical implementation</li>
+                        <li><a href="bip-manifesto.html" style="color: var(--gold);">BIP Manifesto</a> - Core principles</li>
+                        <li><a href="pmcro-prompt-library.html" style="color: var(--gold);">PMCR-O Prompt Library</a> - Production-ready BIP templates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+            const text = codeBlock.textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

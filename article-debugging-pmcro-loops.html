@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<!--
+    DEBUGGING PMCR-O LOOPS: COMMON PITFALLS AND FIXES
+    Purpose: Practical troubleshooting guide for PMCR-O agent loops, strange loops, and error recovery.
+    Tech Stack: .NET 10, Aspire, gRPC, Microsoft Agents AI, Ollama, OpenTelemetry.
+    Keywords: debug PMCR-O agents, PMCR-O error handling, strange loop debugging, PMCR-O troubleshooting.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete debugging guide for PMCR-O loops. Common pitfalls, error patterns, and fixes for Planner, Maker, Checker, Reflector, and Orchestrator agents.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="debug PMCR-O agents, PMCR-O error handling, strange loop debugging, PMCR-O troubleshooting, agent loop errors, PMCR-O fixes">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-debugging-pmcro-loops.html">
+    <meta property="og:title" content="Debugging PMCR-O Loops: Common Pitfalls and Fixes | Shawn Bellazan">
+    <meta property="og:description" content="Complete debugging guide for PMCR-O agent loops. Common pitfalls, error patterns, and production-ready fixes.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Debugging PMCR-O Loops: Troubleshooting Guide">
+    <meta name="twitter:description" content="Common pitfalls and fixes for PMCR-O agent loops.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>Debugging PMCR-O Loops: Common Pitfalls and Fixes | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-debugging-pmcro-loops#article",
+      "headline": "Debugging PMCR-O Loops: Common Pitfalls and Fixes",
+      "description": "Complete debugging guide for PMCR-O agent loops, covering common error patterns, troubleshooting strategies, and production-ready fixes for all PMCR-O phases.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": ".NET 10, Aspire, gRPC, Microsoft Agents AI, Ollama, OpenTelemetry",
+      "proficiencyLevel": "Intermediate",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-debugging-pmcro-loops"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["PMCR-O", "Debugging", "Error Handling", "Troubleshooting", "Agent Loops"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-debugging-pmcro-loops.html">
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .callout.error {
+            border-left-color: #ff4444;
+            background: linear-gradient(135deg, rgba(255, 68, 68, 0.1) 0%, rgba(255, 68, 68, 0.05) 100%);
+        }
+
+        .callout.success {
+            border-left-color: #44ff44;
+            background: linear-gradient(135deg, rgba(68, 255, 68, 0.1) 0%, rgba(68, 255, 68, 0.05) 100%);
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .error-pattern {
+            background: rgba(255, 68, 68, 0.1);
+            border-left: 4px solid #ff4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .error-pattern h4 {
+            color: #ff6666;
+            margin-top: 0;
+        }
+
+        .fix-pattern {
+            background: rgba(68, 255, 68, 0.1);
+            border-left: 4px solid #44ff44;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .fix-pattern h4 {
+            color: #66ff66;
+            margin-top: 0;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 18 min read</div>
+
+            <div class="article-content">
+                <h1>Debugging PMCR-O Loops: Common Pitfalls and Fixes</h1>
+
+                <p>PMCR-O agents operate in strange loops—self-referential cycles that can spiral into infinite recursion, deadlock, or silent failures. This guide covers the most common debugging scenarios you'll encounter in production.</p>
+
+                <div class="callout">
+                    <strong>🎯 Debugging Philosophy:</strong> PMCR-O loops fail in predictable patterns. Once you recognize the pattern, the fix is usually straightforward. This guide maps symptoms to solutions.
+                </div>
+
+                <h2>1. The Infinite Loop: Planner Never Completes</h2>
+
+                <div class="error-pattern">
+                    <h4>❌ Symptom</h4>
+                    <ul>
+                        <li>Planner agent runs indefinitely</li>
+                        <li>No response from gRPC service</li>
+                        <li>OpenTelemetry shows continuous activity</li>
+                        <li>Ollama logs show repeated requests</li>
+                    </ul>
+                </div>
+
+                <h3>Root Causes</h3>
+
+                <p><strong>A. Missing Timeout Configuration</strong></p>
+                <p>Ollama requests can hang indefinitely if timeouts aren't configured. Check your HttpClient setup:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: No timeout
+builder.Services.AddHttpClient("ollama", client =>
+{
+    client.BaseAddress = uri;
+    // Missing: client.Timeout = ...
+});
+
+// ✅ GOOD: Infinite timeout, let resilience handler control it
+builder.Services.AddHttpClient("ollama", client =>
+{
+    client.BaseAddress = uri;
+    client.Timeout = Timeout.InfiniteTimeSpan; // Let resilience handler manage
+})
+.AddStandardResilienceHandler(options =>
+{
+    options.AttemptTimeout.Timeout = TimeSpan.FromMinutes(3);
+    options.TotalRequestTimeout.Timeout = TimeSpan.FromMinutes(5);
+    options.Retry.MaxRetryAttempts = 2;
+});</code></pre>
+                </div>
+
+                <p><strong>B. Missing UseFunctionInvocation Middleware</strong></p>
+                <p>If your IChatClient isn't configured with function invocation, tool calls will hang:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: Missing UseFunctionInvocation
+builder.Services.AddSingleton&lt;IChatClient&gt;(sp =>
+{
+    var httpClient = sp.GetRequiredService&lt;IHttpClientFactory&gt;().CreateClient("ollama");
+    var baseClient = new OllamaApiClient(httpClient, modelId);
+    return baseClient; // Missing middleware!
+});
+
+// ✅ GOOD: With function invocation
+builder.Services.AddSingleton&lt;IChatClient&gt;(sp =>
+{
+    var httpClient = sp.GetRequiredService&lt;IHttpClientFactory&gt;().CreateClient("ollama");
+    var baseClient = new OllamaApiClient(httpClient, modelId);
+    
+    return new ChatClientBuilder(baseClient)
+        .UseFunctionInvocation() // ✅ Critical middleware
+        .Build();
+});</code></pre>
+                </div>
+
+                <div class="fix-pattern">
+                    <h4>✅ Fix</h4>
+                    <ol>
+                        <li>Add timeout configuration to HttpClient</li>
+                        <li>Ensure UseFunctionInvocation middleware is registered</li>
+                        <li>Add circuit breaker to prevent cascading failures</li>
+                        <li>Monitor OpenTelemetry traces for stuck requests</li>
+                    </ol>
+                </div>
+
+                <h2>2. The Deadlock: Agents Waiting for Each Other</h2>
+
+                <div class="error-pattern">
+                    <h4>❌ Symptom</h4>
+                    <ul>
+                        <li>Orchestrator calls Planner, then hangs</li>
+                        <li>Planner waits for Maker, Maker waits for Checker</li>
+                        <li>gRPC calls timeout after 5 minutes</li>
+                        <li>No error logs, just silence</li>
+                    </ul>
+                </div>
+
+                <h3>Root Cause: Synchronous gRPC Calls in Async Context</h3>
+
+                <p>If you're calling gRPC services synchronously or with blocking waits, you'll deadlock:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: Blocking wait
+var plannerResponse = plannerClient.ExecuteTask(request).ResponseAsync.Result; // Deadlock!
+
+// ✅ GOOD: Fully async
+var plannerResponse = await plannerClient.ExecuteTaskAsync(request, cancellationToken);</code></pre>
+                </div>
+
+                <h3>Root Cause: Missing Cancellation Tokens</h3>
+
+                <p>Without cancellation tokens, long-running operations can't be aborted:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: No cancellation token
+public override async Task&lt;AgentResponse&gt; ExecuteTask(
+    AgentRequest request,
+    ServerCallContext context)
+{
+    var response = await _chatClient.CompleteChatAsync(history); // Can't cancel!
+}
+
+// ✅ GOOD: With cancellation
+public override async Task&lt;AgentResponse&gt; ExecuteTask(
+    AgentRequest request,
+    ServerCallContext context)
+{
+    var cancellationToken = context.CancellationToken;
+    var response = await _chatClient.CompleteChatAsync(history, cancellationToken);
+}</code></pre>
+                </div>
+
+                <div class="fix-pattern">
+                    <h4>✅ Fix</h4>
+                    <ol>
+                        <li>Always use <code>await</code>, never <code>.Result</code> or <code>.Wait()</code></li>
+                        <li>Pass <code>context.CancellationToken</code> to all async operations</li>
+                        <li>Configure gRPC deadline: <code>context.Deadline</code></li>
+                        <li>Use <code>Task.WhenAll</code> for parallel agent calls, not sequential</li>
+                    </ol>
+                </div>
+
+                <h2>3. The Silent Failure: Agent Returns Empty Response</h2>
+
+                <div class="error-pattern">
+                    <h4>❌ Symptom</h4>
+                    <ul>
+                        <li>Agent returns <code>Success = true</code> but <code>Content = ""</code></li>
+                        <li>No exceptions logged</li>
+                        <li>Ollama returns valid response, but agent doesn't process it</li>
+                    </ul>
+                </div>
+
+                <h3>Root Cause: Missing Null Checks</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: No null check
+var response = await agent.RunAsync(message, thread);
+var planContent = response.Text; // Can be null!
+
+return new AgentResponse
+{
+    Content = planContent, // Empty string if null
+    Success = true
+};
+
+// ✅ GOOD: Defensive null handling
+var response = await agent.RunAsync(message, thread);
+var planContent = response.Text ?? "[No plan generated]";
+
+if (string.IsNullOrWhiteSpace(planContent))
+{
+    _logger.LogWarning("Agent returned empty response for intent: {Intent}", request.Intent);
+    return new AgentResponse
+    {
+        Content = "Agent failed to generate response. Check logs for details.",
+        Success = false
+    };
+}
+
+return new AgentResponse
+{
+    Content = planContent,
+    Success = true
+};</code></pre>
+                </div>
+
+                <div class="fix-pattern">
+                    <h4>✅ Fix</h4>
+                    <ol>
+                        <li>Always check <code>response.Text</code> for null/empty</li>
+                        <li>Log warnings when responses are empty</li>
+                        <li>Return <code>Success = false</code> for empty responses</li>
+                        <li>Add validation in Orchestrator before passing to next phase</li>
+                    </ol>
+                </div>
+
+                <h2>4. The Strange Loop: Infinite Reflection</h2>
+
+                <div class="error-pattern">
+                    <h4>❌ Symptom</h4>
+                    <ul>
+                        <li>Reflector keeps reflecting on its own reflections</li>
+                        <li>Knowledge vault fills with duplicate entries</li>
+                        <li>Agent performance degrades over time</li>
+                        <li>No exit condition from reflection loop</li>
+                    </ul>
+                </div>
+
+                <h3>Root Cause: Missing Loop Detection</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: No loop detection
+public override async Task&lt;AgentResponse&gt; ExecuteTask(
+    AgentRequest request,
+    ServerCallContext context)
+{
+    var reflection = await Reflect(request.Intent);
+    var deeperReflection = await Reflect(reflection);
+    var evenDeeper = await Reflect(deeperReflection); // Infinite!
+}
+
+// ✅ GOOD: With loop detection
+private readonly HashSet&lt;string&gt; _processedIntents = new();
+private const int MaxReflectionDepth = 3;
+
+public override async Task&lt;AgentResponse&gt; ExecuteTask(
+    AgentRequest request,
+    ServerCallContext context)
+{
+    var intentHash = HashIntent(request.Intent);
+    
+    if (_processedIntents.Contains(intentHash))
+    {
+        _logger.LogWarning("Detected reflection loop for intent: {Intent}", request.Intent);
+        return new AgentResponse
+        {
+            Content = "Reflection loop detected. Stopping to prevent infinite recursion.",
+            Success = false
+        };
+    }
+
+    _processedIntents.Add(intentHash);
+    
+    try
+    {
+        var reflection = await ReflectWithDepth(request.Intent, MaxReflectionDepth);
+        return new AgentResponse { Content = reflection, Success = true };
+    }
+    finally
+    {
+        _processedIntents.Remove(intentHash); // Clean up after processing
+    }
+}
+
+private string HashIntent(string intent) =&gt; 
+    System.Security.Cryptography.SHA256.HashData(
+        System.Text.Encoding.UTF8.GetBytes(intent))
+    .Select(b =&gt; b.ToString("x2"))
+    .Aggregate((a, b) =&gt; a + b);</code></pre>
+                </div>
+
+                <div class="fix-pattern">
+                    <h4>✅ Fix</h4>
+                    <ol>
+                        <li>Track processed intents with hash set</li>
+                        <li>Set maximum reflection depth (e.g., 3 levels)</li>
+                        <li>Log warnings when loops are detected</li>
+                        <li>Clean up tracking after processing completes</li>
+                    </ol>
+                </div>
+
+                <h2>5. The Connection Error: Ollama Unreachable</h2>
+
+                <div class="error-pattern">
+                    <h4>❌ Symptom</h4>
+                    <ul>
+                        <li><code>HttpRequestException: Connection refused</code></li>
+                        <li>All agents fail with same error</li>
+                        <li>Ollama service is running but agents can't connect</li>
+                    </ul>
+                </div>
+
+                <h3>Root Cause: Incorrect Connection String</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: Hardcoded localhost
+var ollamaUri = "http://localhost:11434";
+
+// ✅ GOOD: From Aspire connection string
+var ollamaUri = builder.Configuration.GetConnectionString("ollama") 
+    ?? "http://localhost:11434";
+
+if (!Uri.TryCreate(ollamaUri, UriKind.Absolute, out var uri))
+{
+    _logger.LogError("Invalid Ollama URI: {Uri}", ollamaUri);
+    uri = new Uri("http://localhost:11434"); // Fallback
+}
+
+// Verify connection on startup
+builder.Services.AddHostedService&lt;OllamaHealthCheckService&gt;();</code></pre>
+                </div>
+
+                <h3>Root Cause: Missing Service Discovery</h3>
+
+                <p>In Aspire, services discover each other via connection strings. Ensure Ollama is registered:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// In AppHost.cs
+var ollama = builder.AddOllama("ollama", port: 11434)
+    .WithDataVolume()
+    .WithLifetime(ContainerLifetime.Persistent);
+
+// Services reference Ollama
+var planner = builder.AddProject&lt;Projects.ProjectName_PlannerService&gt;("planner-agent")
+    .WithReference(ollama) // ✅ This creates connection string
+    .WaitFor(llama);</code></pre>
+                </div>
+
+                <div class="fix-pattern">
+                    <h4>✅ Fix</h4>
+                    <ol>
+                        <li>Use Aspire connection strings, not hardcoded URLs</li>
+                        <li>Verify URI parsing with <code>Uri.TryCreate</code></li>
+                        <li>Add health check service to verify Ollama on startup</li>
+                        <li>Use circuit breaker to fail fast when Ollama is down</li>
+                    </ol>
+                </div>
+
+                <h2>6. The JSON Parsing Error: Structured Output Fails</h2>
+
+                <div class="error-pattern">
+                    <h4>❌ Symptom</h4>
+                    <ul>
+                        <li><code>JsonException: The JSON value could not be converted</code></li>
+                        <li>Agent returns valid text but JSON parsing fails</li>
+                        <li>Ollama returns JSON but with extra text/markdown</li>
+                    </ul>
+                </div>
+
+                <h3>Root Cause: Missing ResponseFormat Configuration</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ❌ BAD: No response format
+var chatOptions = new ChatOptions();
+var response = await _chatClient.CompleteChatAsync(history, chatOptions);
+var plan = JsonSerializer.Deserialize&lt;PlanResponse&gt;(response.Content); // Fails!
+
+// ✅ GOOD: With JSON response format
+var chatOptions = new ChatOptions
+{
+    ResponseFormat = ChatResponseFormat.Json, // ✅ Forces JSON output
+    AdditionalProperties = new Dictionary&lt;string, object?&gt;
+    {
+        ["schema"] = JsonSerializer.Serialize(new
+        {
+            type = "object",
+            properties = new
+            {
+                plan = new { type = "string" },
+                steps = new { type = "array" }
+            },
+            required = new[] { "plan", "steps" }
+        })
+    }
+};
+
+var response = await _chatClient.CompleteChatAsync(history, chatOptions);
+var plan = JsonSerializer.Deserialize&lt;PlanResponse&gt;(response.Content); // Works!</code></pre>
+                </div>
+
+                <h3>Root Cause: Extra Markdown Wrapping</h3>
+
+                <p>Even with <code>ResponseFormat.Json</code>, some models wrap JSON in markdown:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ✅ GOOD: Strip markdown code blocks
+private T ParseStructuredOutput&lt;T&gt;(string content)
+{
+    // Remove markdown code blocks if present
+    content = System.Text.RegularExpressions.Regex.Replace(
+        content,
+        @"```json\s*|\s*```",
+        "",
+        System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+    content = content.Trim();
+
+    try
+    {
+        return JsonSerializer.Deserialize&lt;T&gt;(content) 
+            ?? throw new InvalidOperationException("Failed to deserialize JSON");
+    }
+    catch (JsonException ex)
+    {
+        _logger.LogError(ex, "Failed to parse JSON: {Content}", content);
+        throw;
+    }
+}</code></pre>
+                </div>
+
+                <div class="fix-pattern">
+                    <h4>✅ Fix</h4>
+                    <ol>
+                        <li>Always set <code>ResponseFormat = ChatResponseFormat.Json</code></li>
+                        <li>Provide JSON schema in <code>AdditionalProperties</code></li>
+                        <li>Strip markdown code blocks before parsing</li>
+                        <li>Wrap parsing in try-catch with detailed error logs</li>
+                    </ol>
+                </div>
+
+                <h2>7. The Memory Leak: Knowledge Vault Grows Unbounded</h2>
+
+                <div class="error-pattern">
+                    <h4>❌ Symptom</h4>
+                    <ul>
+                        <li>PostgreSQL database grows continuously</li>
+                        <li>Vector search becomes slow</li>
+                        <li>Memory usage increases over time</li>
+                        <li>No cleanup of old cognitive trails</li>
+                    </ul>
+                </div>
+
+                <h3>Root Cause: No Retention Policy</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ✅ GOOD: Background service to clean old entries
+public class KnowledgeVaultCleanupService : BackgroundService
+{
+    private readonly KnowledgeDbContext _db;
+    private readonly ILogger&lt;KnowledgeVaultCleanupService&gt; _logger;
+    private readonly TimeSpan _retentionPeriod = TimeSpan.FromDays(90);
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            try
+            {
+                var cutoffDate = DateTime.UtcNow - _retentionPeriod;
+                
+                var deleted = await _db.KnowledgeEntries
+                    .Where(e =&gt; e.CreatedAt &lt; cutoffDate)
+                    .ExecuteDeleteAsync(stoppingToken);
+
+                if (deleted &gt; 0)
+                {
+                    _logger.LogInformation("Cleaned up {Count} old knowledge entries", deleted);
+                }
+
+                // Run cleanup daily
+                await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during knowledge vault cleanup");
+                await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
+            }
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="fix-pattern">
+                    <h4>✅ Fix</h4>
+                    <ol>
+                        <li>Implement retention policy (e.g., 90 days)</li>
+                        <li>Create background service to clean old entries</li>
+                        <li>Archive important trails before deletion</li>
+                        <li>Monitor database size and query performance</li>
+                    </ol>
+                </div>
+
+                <h2>Debugging Tools & Techniques</h2>
+
+                <h3>1. OpenTelemetry Tracing</h3>
+                <p>Use Aspire dashboard to trace agent calls:</p>
+                <ul>
+                    <li>View gRPC call latency</li>
+                    <li>Identify slow agents</li>
+                    <li>Track request flow through PMCR-O phases</li>
+                </ul>
+
+                <h3>2. Structured Logging</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ✅ GOOD: Structured logging with context
+_logger.LogInformation(
+    "🧭 I am the Planner. I am analyzing the intent: {Intent}",
+    request.Intent);
+
+_logger.LogError(
+    ex,
+    "❌ Planner failed for intent: {Intent}. Error: {Error}",
+    request.Intent,
+    ex.Message);</code></pre>
+                </div>
+
+                <h3>3. Health Checks</h3>
+                <p>Add health checks for each agent service:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">builder.Services.AddHealthChecks()
+    .AddCheck("ollama", () =&gt;
+    {
+        // Verify Ollama is reachable
+        using var client = new HttpClient();
+        var response = client.GetAsync("http://localhost:11434/api/tags").Result;
+        return response.IsSuccessStatusCode
+            ? HealthCheckResult.Healthy()
+            : HealthCheckResult.Unhealthy("Ollama unreachable");
+    })
+    .AddCheck("postgres", () =&gt;
+    {
+        // Verify PostgreSQL connection
+        // ...
+    });</code></pre>
+                </div>
+
+                <h2>Prevention Checklist</h2>
+
+                <div class="callout success">
+                    <h3>✅ Before Deploying to Production</h3>
+                    <ul>
+                        <li>✅ Configure HttpClient timeouts and resilience handlers</li>
+                        <li>✅ Add <code>UseFunctionInvocation</code> middleware</li>
+                        <li>✅ Pass cancellation tokens to all async operations</li>
+                        <li>✅ Implement loop detection for Reflector</li>
+                        <li>✅ Add null checks for agent responses</li>
+                        <li>✅ Use Aspire connection strings, not hardcoded URLs</li>
+                        <li>✅ Configure <code>ResponseFormat.Json</code> for structured output</li>
+                        <li>✅ Implement knowledge vault retention policy</li>
+                        <li>✅ Add health checks for all dependencies</li>
+                        <li>✅ Enable OpenTelemetry tracing</li>
+                    </ul>
+                </div>
+
+                <h2>Conclusion</h2>
+
+                <p>PMCR-O loops fail in predictable patterns. Most issues stem from:</p>
+                <ol>
+                    <li><strong>Missing timeouts</strong> → Infinite loops</li>
+                    <li><strong>Blocking async calls</strong> → Deadlocks</li>
+                    <li><strong>Missing null checks</strong> → Silent failures</li>
+                    <li><strong>No loop detection</strong> → Infinite reflection</li>
+                    <li><strong>Hardcoded URLs</strong> → Connection errors</li>
+                    <li><strong>Missing JSON format</strong> → Parsing errors</li>
+                    <li><strong>No retention policy</strong> → Memory leaks</li>
+                </ol>
+
+                <p>Follow the patterns in this guide, and your PMCR-O system will be production-ready.</p>
+
+                <div class="callout">
+                    <p><strong>🔗 Related Resources:</strong></p>
+                    <ul>
+                        <li><a href="article-pmcro-quickstart-30-minutes.html" style="color: var(--gold);">PMCR-O Quickstart</a> - Build the foundation</li>
+                        <li><a href="article-building-self-referential-agents-part2.html" style="color: var(--gold);">Building Self-Referential Agents Part 2</a> - Multi-agent patterns</li>
+                        <li><a href="pmcro-codex.html#the-infinite-loop" style="color: var(--gold);">PMCR-O Codex</a> - Framework architecture</li>
+                        <li><a href="article-pmcro-pgvector-integration.html" style="color: var(--gold);">PMCR-O and pgvector</a> - Knowledge vault setup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+            const text = codeBlock.textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

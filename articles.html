@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<!--
+    PMCR-O ARTICLES INDEX PAGE
+    Purpose: Central hub for all PMCR-O framework tutorials, guides, and thought leadership articles.
+    Design: Enterprise-grade, state-of-the-art, cutting-edge UI/UX with Prism.js code highlighting.
+    SEO: Schema.org CollectionPage, OpenGraph, Twitter Cards, canonical URLs.
+    Navigation: Logo serves as Home link (no duplicate Home in nav menu).
+    Tech Stack Alignment: All PMCR-O articles reference PostgreSQL/.NET (not Room/Kotlin).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete library of PMCR-O framework tutorials, guides, and thought leadership articles. Learn to build self-referential AI agents with .NET 10, Aspire, and Microsoft Agent Framework.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="PMCR-O Tutorials, .NET Aspire, Microsoft Agent Framework, Ollama, AI Agents, Self-Referential Systems, BIP, Behavioral Intent Programming">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shawndelainebellazan.com/articles.html">
+    <meta property="og:title" content="PMCR-O Articles & Tutorials | Shawn Bellazan">
+    <meta property="og:description" content="Complete library of PMCR-O framework tutorials, guides, and thought leadership articles.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PMCR-O Articles & Tutorials">
+    <meta name="twitter:description" content="Complete library of PMCR-O framework tutorials, guides, and thought leadership articles.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    
+    <title>PMCR-O Articles & Tutorials | Shawn Bellazan</title>
+    
+    <!-- Schema.org CollectionPage (2025 Standards) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://shawndelainebellazan.com/articles#page",
+      "name": "PMCR-O Articles & Tutorials",
+      "description": "Complete library of PMCR-O framework tutorials, guides, and thought leadership articles.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/articles"
+      }
+    }
+    </script>
+    
+    <link rel="canonical" href="https://shawndelainebellazan.com/articles.html">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .articles-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .articles-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+        }
+
+        .articles-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .articles-hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .articles-category {
+            margin-bottom: 4rem;
+        }
+
+        .articles-category h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .articles-category p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .article-card {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all var(--transition-fast);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.2);
+        }
+
+        .article-card-header {
+            margin-bottom: 1rem;
+        }
+
+        .article-card-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-card-meta {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
+        }
+
+        .article-card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-card-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color var(--transition-fast);
+        }
+
+        .article-card-link:hover {
+            color: var(--gold-light);
+        }
+
+        .article-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(212, 165, 116, 0.2);
+            color: var(--gold);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .article-badge.tutorial {
+            background: rgba(212, 165, 116, 0.2);
+        }
+
+        .article-badge.thought-leadership {
+            background: rgba(212, 165, 116, 0.15);
+        }
+
+        .article-badge.philosophy {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-card {
+            background: var(--gray-light);
+            border-color: var(--light-gray);
+        }
+
+        :root[data-theme="light"] .article-card-title {
+            color: var(--gold-dark);
+        }
+
+        /* Category Filters */
+        .articles-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            font-family: var(--font-base);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .filter-btn.active {
+            background: var(--gold);
+            color: var(--darker);
+            border-color: var(--gold);
+        }
+
+        .filter-btn:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* Hide categories when filtered */
+        .articles-category[data-category].hidden {
+            display: none;
+        }
+
+        /* Light mode filter buttons */
+        :root[data-theme="light"] .filter-btn {
+            background: var(--gray-light);
+            border-color: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        :root[data-theme="light"] .filter-btn:hover {
+            border-color: var(--gold-dark);
+            color: var(--gold-dark);
+            background: rgba(212, 165, 116, 0.15);
+        }
+
+        :root[data-theme="light"] .filter-btn.active {
+            background: var(--gold-dark);
+            color: var(--text-primary);
+            border-color: var(--gold-dark);
+        }
+
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .articles-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html" class="active">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="articles-container">
+            <div class="articles-hero">
+                <h1>PMCR-O Articles & Tutorials</h1>
+                <p>Complete guides for building self-referential AI agents with .NET 10, Aspire, and the PMCR-O framework. From setup to production.</p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="articles-filters" role="group" aria-label="Filter articles by category">
+                <button class="filter-btn active" data-category="all" aria-pressed="true">All Articles</button>
+                <button class="filter-btn" data-category="getting-started" aria-pressed="false">Getting Started</button>
+                <button class="filter-btn" data-category="building-agents" aria-pressed="false">Building Agents</button>
+                <button class="filter-btn" data-category="prompt-engineering" aria-pressed="false">Prompt Engineering</button>
+                <button class="filter-btn" data-category="thought-leadership" aria-pressed="false">Thought Leadership</button>
+                <button class="filter-btn" data-category="engineering" aria-pressed="false">Engineering</button>
+            </div>
+
+            <!-- Getting Started Tutorials -->
+            <section class="articles-category" data-category="getting-started">
+                <h2>🚀 Getting Started</h2>
+                <p>Step-by-step tutorials to set up your PMCR-O development environment and build your first agent.</p>
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">PMCR-O Quickstart: 30 Minutes to Production</h3>
+                            <div class="article-card-meta">Beginner • 15 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete autonomous AI agent in 30 minutes. .NET 10, Aspire orchestration, Ollama LLM, PostgreSQL knowledge vault. Zero to production-ready.
+                        </p>
+                        <a href="article-pmcro-quickstart-30-minutes.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">Implementing a PMCR-O Chatbot</h3>
+                            <div class="article-card-meta">Intermediate • 12 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Build a chatbot that evolves through conversation. Complete SignalR implementation with real-time responses and memory persistence.
+                        </p>
+                        <a href="article-implementing-pmcro-chatbot.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">Getting Started with .NET Aspire</h3>
+                            <div class="article-card-meta">Setup • 10 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete guide to setting up .NET Aspire for PMCR-O projects. Learn to create AppHost, configure ServiceDefaults, and orchestrate microservices with one F5.
+                        </p>
+                        <a href="article-getting-started-dotnet-aspire.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">Setting Up Ollama with GPU Support</h3>
+                            <div class="article-card-meta">Setup • 8 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Configure Ollama for local LLM inference with NVIDIA GPU acceleration. Learn container setup, model management, and performance optimization.
+                        </p>
+                        <a href="article-setting-up-ollama-gpu.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">Introduction to Microsoft Agent Framework</h3>
+                            <div class="article-card-meta">Framework • 12 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Master Microsoft.Extensions.AI and Microsoft.Agents.AI. Learn tool calling, workflow orchestration, and production-ready error handling for PMCR-O agents.
+                        </p>
+                        <a href="article-introduction-microsoft-agent-framework.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">Creating Your First PMCR-O Agent</h3>
+                            <div class="article-card-meta">Tutorial • 15 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Build the Planner agent from scratch. Learn BIP (Behavioral Intent Programming), first-person identity prompts, and agent architecture patterns.
+                        </p>
+                        <a href="article-creating-first-pmcro-agent.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">Structured Output with JSON Schema</h3>
+                            <div class="article-card-meta">Advanced • 10 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Replace fragile regex parsing with native LLM structured output. Learn JSON Schema validation, type safety, and production-ready response handling.
+                        </p>
+                        <a href="article-structured-output-json-schema.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Prompt Engineering -->
+            <section class="articles-category" data-category="prompt-engineering">
+                <h2>📝 Prompt Engineering</h2>
+                <p>Master BIP (Behavioral Intent Programming) and learn to use production-ready PMCR-O prompts.</p>
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Guide</span>
+                            <h3 class="article-card-title">How to Use PMCR-O Prompts</h3>
+                            <div class="article-card-meta">Guide • 12 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete guide to using PMCR-O prompts from the prompt library. Learn how to copy, customize, and deploy agent prompts in Cursor, ChatGPT, Grok, and Claude.
+                        </p>
+                        <a href="article-how-to-use-pmcro-prompts.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Guide</span>
+                            <h3 class="article-card-title">BIP Prompt Engineering Guide</h3>
+                            <div class="article-card-meta">Advanced • 15 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete guide to Behavioral Intent Programming (BIP) prompt engineering. Learn identity-first prompts, self-verification, tool-gating, and recursive learning patterns.
+                        </p>
+                        <a href="article-bip-prompt-engineering-guide.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge thought-leadership">Comparison</span>
+                            <h3 class="article-card-title">BIP vs Chain-of-Thought: Why Identity-First Wins</h3>
+                            <div class="article-card-meta">2026 • 12 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Why identity-first prompting ("I AM") beats step-by-step reasoning. First-person agency, strange loops, and autonomous AI cognition in 2026.
+                        </p>
+                        <a href="article-bip-vs-chain-of-thought.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Building Series -->
+            <section class="articles-category">
+                <h2>🏗️ Building Self-Referential Agents</h2>
+                <p>Complete series: From infrastructure to production-ready multi-agent systems with error recovery and self-improvement.</p>
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Series Part 1</span>
+                            <h3 class="article-card-title">Building Self-Referential Agents — Part 1</h3>
+                            <div class="article-card-meta">Infrastructure • 15 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            The Infrastructure of Intent. Set up .NET 10 + Aspire, configure Ollama, and build your first Planner agent with structured JSON output.
+                        </p>
+                        <a href="article-building-self-referential-agents-part1.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Series Part 2</span>
+                            <h3 class="article-card-title">Building Self-Referential Agents — Part 2</h3>
+                            <div class="article-card-meta">Multi-Agent • 18 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            The Council. Build Maker, Checker, and Reflector agents. Learn shared context, workflow orchestration, and error recovery patterns.
+                        </p>
+                        <a href="article-building-self-referential-agents-part2.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Series Part 3</span>
+                            <h3 class="article-card-title">Building Self-Referential Agents — Part 3</h3>
+                            <div class="article-card-meta">Strange Loop • 20 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            The Strange Loop. Close the feedback cycle. Build the Orchestrator, implement self-improvement, and create agents that evolve through their own execution.
+                        </p>
+                        <a href="article-building-self-referential-agents-part3.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Thought Leadership -->
+            <section class="articles-category" data-category="thought-leadership">
+                <h2>💡 Thought Leadership</h2>
+                <p>Philosophical foundations, architectural insights, and the future of AI cognition through PMCR-O and BIP.</p>
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge thought-leadership">Ethics</span>
+                            <h3 class="article-card-title">The Ethics of Self-Referential AI</h3>
+                            <div class="article-card-meta">2026 • 12 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            PMCR-O and AGI safety: How strange loops, cognitive trails, and first-person identity address the ethical challenges of autonomous agents.
+                        </p>
+                        <a href="article-ethics-self-referential-ai.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge thought-leadership">Thought Leadership</span>
+                            <h3 class="article-card-title">Why BIP Replaces Prompt Engineering</h3>
+                            <div class="article-card-meta">2026 • 10 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            The shift from "you" to "I". Why Behavioral Intent Programming defines the resilient future of AI cognition through first-person agency and strange loops.
+                        </p>
+                        <a href="article-why-bip-replaces-prompt-engineering-2026.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge philosophy">Philosophy</span>
+                            <h3 class="article-card-title">The PMCR-O Loop: Consciousness as Code</h3>
+                            <div class="article-card-meta">Philosophy • 12 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            The loop that creates itself through its own iterations. A philosophical exploration of Dynamic Orchestration, Thought Locking, and the "I" Narrative.
+                        </p>
+                        <a href="pmcro-consciousness.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge philosophy">Philosophy</span>
+                            <h3 class="article-card-title">Thought Transfer: When AI Becomes a Mirror</h3>
+                            <div class="article-card-meta">Cognitive Science • 10 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            How PMCR-O bridges human and AI cognition through dialogue, not monologue. Moving beyond "Chat" to genuine thought transfer through recursive reflection.
+                        </p>
+                        <a href="thought-transfer.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Engineering & Architecture -->
+            <section class="articles-category" data-category="engineering">
+                <h2>⚙️ Engineering & Architecture</h2>
+                <p>Real-world patterns, resilient systems, and production-ready architectures.</p>
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Engineering</span>
+                            <h3 class="article-card-title">The Code That Survives — Offline Resilience</h3>
+                            <div class="article-card-meta">Architecture • 8 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            When the connection dies, the truth must reside locally. Deep-dive into offline-first mobile architecture with Kotlin Multiplatform and Room Database.
+                        </p>
+                        <a href="article-offline-resilience.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Tutorial</span>
+                            <h3 class="article-card-title">PMCR-O and Vector Databases: Enhancing Memory with pgvector</h3>
+                            <div class="article-card-meta">RAG • 15 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete guide to integrating pgvector with PMCR-O for RAG. Learn vector embeddings, similarity search, and cognitive trail persistence using PostgreSQL.
+                        </p>
+                        <a href="article-pmcro-pgvector-integration.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Troubleshooting</span>
+                            <h3 class="article-card-title">Debugging PMCR-O Loops: Common Pitfalls and Fixes</h3>
+                            <div class="article-card-meta">Debugging • 18 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete debugging guide for PMCR-O agent loops. Common pitfalls, error patterns, and production-ready fixes for all PMCR-O phases.
+                        </p>
+                        <a href="article-debugging-pmcro-loops.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge engineering">Security</span>
+                            <h3 class="article-card-title">PMCR-O Security Best Practices: Protecting Autonomous Agents</h3>
+                            <div class="article-card-meta">Enterprise • 20 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete security guide for PMCR-O agents. Authentication, authorization, input validation, secrets management, and production-ready security patterns.
+                        </p>
+                        <a href="article-pmcro-security-best-practices.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge engineering">Scaling</span>
+                            <h3 class="article-card-title">Scaling PMCR-O: From Prototype to Enterprise Deployment</h3>
+                            <div class="article-card-meta">Enterprise • 22 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete guide to scaling PMCR-O from prototype to enterprise. Load balancing, horizontal scaling, Kubernetes deployment, and production-ready patterns.
+                        </p>
+                        <a href="article-scaling-pmcro-enterprise.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+
+                    <article class="article-card">
+                        <div class="article-card-header">
+                            <span class="article-badge tutorial">Migration</span>
+                            <h3 class="article-card-title">Migrating from LangChain to PMCR-O: A Comparison Guide</h3>
+                            <div class="article-card-meta">Migration • 20 min read</div>
+                        </div>
+                        <p class="article-card-description">
+                            Complete migration guide from LangChain to PMCR-O. Compare architectures, patterns, and learn step-by-step migration strategies for autonomous AI agents.
+                        </p>
+                        <a href="article-migrating-langchain-to-pmcro.html" class="article-card-link">
+                            Read Article →
+                        </a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%); border-radius: 8px; border: 2px solid var(--gold);">
+                <h2 style="color: var(--gold); margin-bottom: 1rem;">Build Your Own Strange Loop</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">
+                    The PMCR-O framework is open. The reference implementation is available. The prompts are ready to copy.
+                </p>
+                <p style="margin-bottom: 2rem;">
+                    <strong style="color: var(--gold);">Star the repository. Fork it. Seed your own intent.</strong>
+                </p>
+                <p>
+                    <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: underline; font-weight: 600; font-size: 1.1rem;">View on GitHub →</a>
+                </p>
+                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-tertiary);">
+                    Copy production-ready prompts from the <a href="pmcro-prompt-library.html" style="color: var(--gold);">PMCR-O Prompt Library</a>.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <script>
+        /**
+         * Article Category Filtering
+         * Enterprise-grade: Smooth UX with accessibility support
+         */
+        (function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const categories = document.querySelectorAll('.articles-category[data-category]');
+
+            if (!filterButtons.length || !categories.length) return;
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.getAttribute('data-category');
+
+                    // Update active state
+                    filterButtons.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+
+                    // Filter categories
+                    categories.forEach(cat => {
+                        if (category === 'all' || cat.getAttribute('data-category') === category) {
+                            cat.classList.remove('hidden');
+                        } else {
+                            cat.classList.add('hidden');
+                        }
+                    });
+
+                    // Smooth scroll to top of articles (if filtered)
+                    if (category !== 'all') {
+                        const firstVisible = document.querySelector('.articles-category[data-category]:not(.hidden)');
+                        if (firstVisible) {
+                            firstVisible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

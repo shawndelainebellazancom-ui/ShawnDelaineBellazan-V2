@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<!--
+    SCALING PMCR-O: FROM PROTOTYPE TO ENTERPRISE DEPLOYMENT
+    Purpose: Enterprise scaling guide for PMCR-O systems.
+    Tech Stack: .NET 10, Aspire, Kubernetes, load balancing, horizontal scaling.
+    Keywords: scale PMCR-O agents, enterprise AI agents 2026, .NET scaling autonomous systems, PMCR-O production deployment.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete guide to scaling PMCR-O from prototype to enterprise. Load balancing, horizontal scaling, Kubernetes deployment, and production-ready patterns for autonomous AI systems.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="scale PMCR-O agents, enterprise AI agents 2026, .NET scaling autonomous systems, PMCR-O production deployment, Kubernetes PMCR-O, horizontal scaling AI">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-scaling-pmcro-enterprise.html">
+    <meta property="og:title" content="Scaling PMCR-O: From Prototype to Enterprise Deployment | Shawn Bellazan">
+    <meta property="og:description" content="Complete guide to scaling PMCR-O from prototype to enterprise. Load balancing, horizontal scaling, and production-ready patterns.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Scaling PMCR-O to Enterprise">
+    <meta name="twitter:description" content="From prototype to enterprise deployment with PMCR-O.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>Scaling PMCR-O: From Prototype to Enterprise Deployment | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-scaling-pmcro-enterprise#article",
+      "headline": "Scaling PMCR-O: From Prototype to Enterprise Deployment",
+      "description": "Complete guide to scaling PMCR-O autonomous agents from prototype to enterprise production, covering horizontal scaling, load balancing, Kubernetes deployment, and performance optimization.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": ".NET 10, Aspire, Kubernetes, Load Balancing",
+      "proficiencyLevel": "Advanced",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-scaling-pmcro-enterprise"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["PMCR-O", "Scaling", "Enterprise", "Kubernetes", "Load Balancing"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-scaling-pmcro-enterprise.html">
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles - reuse from previous articles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .scaling-metrics {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .scaling-metrics h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .metric-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 22 min read</div>
+
+            <div class="article-content">
+                <h1>Scaling PMCR-O: From Prototype to Enterprise Deployment</h1>
+
+                <p>Your PMCR-O prototype works. Now it needs to handle 10,000 concurrent requests, process millions of cognitive trails, and maintain sub-second latency. This guide shows you how to scale PMCR-O from prototype to enterprise production.</p>
+
+                <div class="scaling-metrics">
+                    <h3>Enterprise Scale Targets</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">10,000+</div>
+                            <div class="metric-label">Concurrent Requests</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">&lt;500ms</div>
+                            <div class="metric-label">P95 Latency</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">99.9%</div>
+                            <div class="metric-label">Uptime SLA</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">1M+</div>
+                            <div class="metric-label">Cognitive Trails/Day</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>1. Horizontal Scaling Architecture</h2>
+
+                <h3>Stateless Agent Services</h3>
+
+                <p>PMCR-O agents must be stateless to scale horizontally. All state lives in external systems (PostgreSQL, Redis, Knowledge Vault):</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ✅ GOOD: Stateless service (can scale horizontally)
+public class PlannerAgentService : AgentService.AgentServiceBase
+{
+    private readonly IChatClient _chatClient;
+    private readonly IHttpClientFactory _httpClientFactory; // ✅ Stateless HTTP client
+
+    // No in-memory state - all state in external systems
+    public override async Task&lt;AgentResponse&gt; ExecuteTask(
+        AgentRequest request,
+        ServerCallContext context)
+    {
+        // All state comes from request or external systems
+        var knowledge = await FetchKnowledgeFromVault(request.Intent);
+        var response = await ProcessWithKnowledge(request, knowledge);
+        return response;
+    }
+}
+
+// ❌ BAD: Stateful service (can't scale)
+public class PlannerAgentService : AgentService.AgentServiceBase
+{
+    private readonly Dictionary&lt;string, string&gt; _cache = new(); // ❌ In-memory state
+    // ...
+}</code></pre>
+                </div>
+
+                <h3>Load Balancing gRPC Services</h3>
+
+                <p>Use a gRPC-aware load balancer (e.g., Envoy, NGINX, or cloud load balancers):</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">YAML</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-yaml"># Kubernetes Service with load balancing
+apiVersion: v1
+kind: Service
+metadata:
+  name: planner-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 50051
+    targetPort: 50051
+    protocol: TCP
+  selector:
+    app: planner-agent
+---
+# Deployment with multiple replicas
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planner-agent
+spec:
+  replicas: 5  # ✅ Scale horizontally
+  selector:
+    matchLabels:
+      app: planner-agent
+  template:
+    metadata:
+      labels:
+        app: planner-agent
+    spec:
+      containers:
+      - name: planner
+        image: your-registry/pmcro-planner:latest
+        ports:
+        - containerPort: 50051</code></pre>
+                </div>
+
+                <h2>2. Database Scaling</h2>
+
+                <h3>PostgreSQL Read Replicas</h3>
+
+                <p>Scale knowledge vault reads with read replicas:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Configure read/write splitting
+builder.Services.AddDbContext&lt;KnowledgeDbContext&gt;(options =&gt;
+{
+    // Write to primary
+    options.UseNpgsql(primaryConnectionString, npgsqlOptions =&gt;
+    {
+        npgsqlOptions.UseVector();
+    });
+});
+
+// Read from replicas
+builder.Services.AddDbContext&lt;KnowledgeReadDbContext&gt;(options =&gt;
+{
+    options.UseNpgsql(replicaConnectionString, npgsqlOptions =&gt;
+    {
+        npgsqlOptions.UseVector();
+    });
+});
+
+// Use read context for queries
+public class KnowledgeVaultService
+{
+    private readonly KnowledgeDbContext _writeDb;
+    private readonly KnowledgeReadDbContext _readDb;
+
+    public async Task&lt;List&lt;KnowledgeItem&gt;&gt; SearchAsync(string query)
+    {
+        // ✅ Read from replica
+        return await _readDb.KnowledgeEntries
+            .Where(k =&gt; EF.Functions.VectorCosineSimilarity(k.Embedding, queryEmbedding) &gt; 0.7)
+            .ToListAsync();
+    }
+
+    public async Task StoreAsync(KnowledgeItem item)
+    {
+        // ✅ Write to primary
+        _writeDb.KnowledgeEntries.Add(item);
+        await _writeDb.SaveChangesAsync();
+    }
+}</code></pre>
+                </div>
+
+                <h3>Connection Pooling</h3>
+
+                <p>Configure Npgsql connection pooling for high concurrency:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Configure connection string with pooling
+var connectionString = new NpgsqlConnectionStringBuilder
+{
+    Host = "postgres-primary",
+    Database = "knowledge",
+    Username = "pmcro",
+    Password = password,
+    MaxPoolSize = 100, // ✅ Increase pool size
+    MinPoolSize = 10,
+    ConnectionIdleLifetime = 300, // 5 minutes
+    ConnectionPruningInterval = 10 // Prune every 10 seconds
+}.ToString();
+
+builder.Services.AddDbContext&lt;KnowledgeDbContext&gt;(options =&gt;
+    options.UseNpgsql(connectionString));</code></pre>
+                </div>
+
+                <h2>3. Caching Strategy</h2>
+
+                <h3>Redis for Agent Response Caching</h3>
+
+                <p>Cache frequently accessed plans and artifacts:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Add Redis caching
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("redis");
+});
+
+// Cache agent responses
+public class CachedPlannerService
+{
+    private readonly IDistributedCache _cache;
+    private readonly PlannerAgentService _planner;
+
+    public async Task&lt;AgentResponse&gt; ExecuteTaskAsync(AgentRequest request)
+    {
+        // Generate cache key from intent
+        var cacheKey = $"planner:{HashIntent(request.Intent)}";
+
+        // Try cache first
+        var cached = await _cache.GetStringAsync(cacheKey);
+        if (cached != null)
+        {
+            return JsonSerializer.Deserialize&lt;AgentResponse&gt;(cached);
+        }
+
+        // Generate response
+        var response = await _planner.ExecuteTask(request, context);
+
+        // Cache for 1 hour
+        await _cache.SetStringAsync(
+            cacheKey,
+            JsonSerializer.Serialize(response),
+            new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1)
+            });
+
+        return response;
+    }
+}</code></pre>
+                </div>
+
+                <h2>4. Message Queue for Async Processing</h2>
+
+                <p>For long-running agent tasks, use message queues:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Add Azure Service Bus (or RabbitMQ, etc.)
+builder.Services.AddAzureServiceBusClient(builder.Configuration.GetConnectionString("ServiceBus"));
+
+// Queue agent tasks
+public class OrchestrationApiController : ControllerBase
+{
+    private readonly ServiceBusClient _serviceBus;
+    private readonly ILogger&lt;OrchestrationApiController&gt; _logger;
+
+    [HttpPost("execute-async")]
+    public async Task&lt;IActionResult&gt; ExecuteAsync([FromBody] AgentRequest request)
+    {
+        // Queue task instead of processing synchronously
+        var sender = _serviceBus.CreateSender("pmcro-tasks");
+        await sender.SendMessageAsync(new ServiceBusMessage(JsonSerializer.Serialize(request)));
+
+        // Return immediately
+        return Accepted(new { TaskId = Guid.NewGuid(), Status = "Queued" });
+    }
+}
+
+// Background worker processes queue
+public class AgentTaskProcessor : BackgroundService
+{
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        var receiver = _serviceBus.CreateReceiver("pmcro-tasks");
+        
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            var message = await receiver.ReceiveMessageAsync(cancellationToken: stoppingToken);
+            if (message != null)
+            {
+                var request = JsonSerializer.Deserialize&lt;AgentRequest&gt;(message.Body.ToString());
+                await ProcessAgentTask(request);
+                await receiver.CompleteMessageAsync(message);
+            }
+        }
+    }
+}</code></pre>
+                </div>
+
+                <h2>5. Kubernetes Deployment</h2>
+
+                <h3>Deployment Configuration</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">YAML</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planner-agent
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: planner-agent
+  template:
+    metadata:
+      labels:
+        app: planner-agent
+    spec:
+      containers:
+      - name: planner
+        image: your-registry/pmcro-planner:latest
+        ports:
+        - containerPort: 50051
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        - name: ConnectionStrings__ollama
+          valueFrom:
+            secretKeyRef:
+              name: pmcro-secrets
+              key: ollama-connection
+        livenessProbe:
+          exec:
+            command: ["grpc_health_probe", "-addr=:50051"]
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command: ["grpc_health_probe", "-addr=:50051"]
+          initialDelaySeconds: 10
+          periodSeconds: 5</code></pre>
+                </div>
+
+                <h3>Horizontal Pod Autoscaling</h3>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">YAML</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-yaml">apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: planner-agent-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: planner-agent
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15</code></pre>
+                </div>
+
+                <h2>6. Performance Optimization</h2>
+
+                <h3>Batch Processing</h3>
+
+                <p>Process multiple intents in batches:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Process multiple intents in parallel
+public async Task&lt;List&lt;AgentResponse&gt;&gt; ExecuteBatchAsync(List&lt;AgentRequest&gt; requests)
+{
+    // Process in parallel (with concurrency limit)
+    var semaphore = new SemaphoreSlim(10); // Max 10 concurrent
+    var tasks = requests.Select(async request =&gt;
+    {
+        await semaphore.WaitAsync();
+        try
+        {
+            return await ExecuteTask(request, context);
+        }
+        finally
+        {
+            semaphore.Release();
+        }
+    });
+
+    return (await Task.WhenAll(tasks)).ToList();
+}</code></pre>
+                </div>
+
+                <h3>Async I/O Everywhere</h3>
+
+                <p>Never block on I/O operations:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// ✅ GOOD: Fully async
+public async Task&lt;AgentResponse&gt; ExecuteTaskAsync(AgentRequest request)
+{
+    var knowledge = await _knowledgeVault.SearchAsync(request.Intent);
+    var plan = await _planner.GeneratePlanAsync(request.Intent, knowledge);
+    var artifact = await _maker.CreateArtifactAsync(plan);
+    return artifact;
+}
+
+// ❌ BAD: Blocking I/O
+public AgentResponse ExecuteTask(AgentRequest request)
+{
+    var knowledge = _knowledgeVault.SearchAsync(request.Intent).Result; // Blocks!
+    // ...
+}</code></pre>
+                </div>
+
+                <h2>7. Monitoring & Observability</h2>
+
+                <h3>OpenTelemetry Metrics</h3>
+
+                <p>Track key metrics for scaling decisions:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Track custom metrics
+private static readonly Meter Meter = new("PMCR-O.Agents");
+private static readonly Counter&lt;long&gt; RequestsProcessed = Meter.CreateCounter&lt;long&gt;(
+    "pmcro.requests.processed",
+    "requests",
+    "Total number of agent requests processed");
+
+private static readonly Histogram&lt;double&gt; RequestLatency = Meter.CreateHistogram&lt;double&gt;(
+    "pmcro.request.latency",
+    "ms",
+    "Agent request processing latency");
+
+public override async Task&lt;AgentResponse&gt; ExecuteTask(
+    AgentRequest request,
+    ServerCallContext context)
+{
+    var stopwatch = Stopwatch.StartNew();
+    
+    try
+    {
+        var response = await ProcessRequest(request);
+        
+        RequestsProcessed.Add(1, new("agent", "planner"), new("status", "success"));
+        RequestLatency.Record(stopwatch.ElapsedMilliseconds);
+        
+        return response;
+    }
+    catch (Exception ex)
+    {
+        RequestsProcessed.Add(1, new("agent", "planner"), new("status", "error"));
+        throw;
+    }
+}</code></pre>
+                </div>
+
+                <h2>8. Cost Optimization</h2>
+
+                <h3>Ollama Model Selection</h3>
+
+                <p>Use smaller models for simple tasks, larger models for complex reasoning:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Route to appropriate model based on complexity
+public class ModelRouter
+{
+    public string SelectModel(string intent, int estimatedComplexity)
+    {
+        return estimatedComplexity switch
+        {
+            &lt; 3 =&gt; "phi3", // ✅ Small, fast model for simple tasks
+            &lt; 7 =&gt; "qwen2.5-coder:7b", // Medium model
+            _ =&gt; "llama3.2-finetuned" // ✅ Large model for complex tasks
+        };
+    }
+}</code></pre>
+                </div>
+
+                <h2>9. Production Deployment Checklist</h2>
+
+                <div class="callout">
+                    <h3>✅ Enterprise Scaling Checklist</h3>
+                    <ul>
+                        <li>✅ All services are stateless</li>
+                        <li>✅ Load balancer configured for gRPC</li>
+                        <li>✅ Database read replicas configured</li>
+                        <li>✅ Connection pooling optimized</li>
+                        <li>✅ Redis caching implemented</li>
+                        <li>✅ Message queue for async processing</li>
+                        <li>✅ Kubernetes HPA configured</li>
+                        <li>✅ Resource limits set (CPU/memory)</li>
+                        <li>✅ Health checks configured</li>
+                        <li>✅ OpenTelemetry metrics enabled</li>
+                        <li>✅ Logging centralized</li>
+                        <li>✅ Cost optimization (model routing)</li>
+                    </ul>
+                </div>
+
+                <h2>Conclusion</h2>
+
+                <p>Scaling PMCR-O to enterprise requires:</p>
+                <ol>
+                    <li><strong>Stateless services</strong> for horizontal scaling</li>
+                    <li><strong>Load balancing</strong> for request distribution</li>
+                    <li><strong>Database scaling</strong> (read replicas, connection pooling)</li>
+                    <li><strong>Caching</strong> to reduce load</li>
+                    <li><strong>Message queues</strong> for async processing</li>
+                    <li><strong>Kubernetes</strong> for orchestration</li>
+                    <li><strong>Monitoring</strong> for data-driven scaling decisions</li>
+                </ol>
+
+                <p>Follow these patterns, and your PMCR-O system will scale from prototype to enterprise production.</p>
+
+                <div class="callout">
+                    <p><strong>🔗 Related Resources:</strong></p>
+                    <ul>
+                        <li><a href="article-pmcro-quickstart-30-minutes.html" style="color: var(--gold);">PMCR-O Quickstart</a> - Build the foundation</li>
+                        <li><a href="article-pmcro-security-best-practices.html" style="color: var(--gold);">PMCR-O Security Best Practices</a> - Secure your deployment</li>
+                        <li><a href="article-pmcro-pgvector-integration.html" style="color: var(--gold);">PMCR-O and pgvector</a> - Scale knowledge vault</li>
+                        <li><a href="pmcro-codex.html" style="color: var(--gold);">PMCR-O Codex</a> - Framework architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+            const text = codeBlock.textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

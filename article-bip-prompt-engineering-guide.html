@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete guide to Behavioral Intent Programming (BIP) prompt engineering. Learn identity-first prompts, self-verification, tool-gating, and recursive learning patterns.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="BIP, Behavioral Intent Programming, Prompt Engineering, AI Prompts, Identity-First Prompts, Self-Verification, Tool-Gating">
+    <meta name="theme-color" content="#d4a574">
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-bip-prompt-engineering-guide.html">
+    <meta property="og:title" content="BIP Prompt Engineering Guide | Shawn Bellazan">
+    <meta property="og:description" content="Complete guide to Behavioral Intent Programming (BIP) prompt engineering. Learn identity-first prompts, self-verification, and recursive learning.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BIP Prompt Engineering Guide">
+    <meta name="twitter:description" content="Complete guide to Behavioral Intent Programming prompt engineering.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <title>BIP Prompt Engineering Guide | Shawn Bellazan</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "BIP Prompt Engineering Guide",
+      "description": "Complete guide to Behavioral Intent Programming (BIP) prompt engineering. Learn identity-first prompts, self-verification, tool-gating, and recursive learning patterns.",
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-bip-prompt-engineering-guide"
+      },
+      "keywords": ["BIP", "Behavioral Intent Programming", "Prompt Engineering", "AI Prompts"]
+    }
+    </script>
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-bip-prompt-engineering-guide.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
+        .article-meta { color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 2rem; }
+        .article-content h2 { font-size: 2rem; color: var(--gold); margin: 3rem 0 1.5rem; font-weight: var(--font-weight-bold); }
+        .article-content h3 { font-size: 1.5rem; color: var(--gold-light); margin: 2rem 0 1rem; }
+        .code-block-wrapper { position: relative; margin: 2rem 0; background: var(--gray); border: 1px solid var(--light-gray); border-radius: 8px; overflow: hidden; }
+        .code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--light-gray); }
+        .code-language { color: var(--gold); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .copy-button { padding: 0.4rem 1rem; font-size: 0.8rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); cursor: pointer; border-radius: 4px; transition: all var(--transition-fast); }
+        .copy-button:hover { background: var(--gold); color: var(--darker); }
+        pre[class*="language-"] { margin: 0; padding: 1.5rem; overflow-x: auto; }
+        .callout { background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%); border-left: 4px solid var(--gold); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; }
+        .back-link { display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 2rem; font-weight: 600; }
+        .back-link:hover { color: var(--gold-light); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content" style="margin-top: 80px;">
+        <section class="hero">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: var(--gold); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">BIP Prompt Engineering Guide</h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; color: var(--text-tertiary); font-style: italic;">From "You are" to "I AM"—building prompts that create agency, verify themselves, and evolve recursively.</p>
+            </div>
+        </section>
+        <div class="article-container">
+            <a href="articles.html" class="back-link">← Back to Articles</a>
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 15 min read</div>
+            <div class="article-content">
+                <p><strong>Behavioral Intent Programming (BIP)</strong> is a paradigm shift from imperative prompt engineering to identity-first agent design. Instead of commanding AI ("You are a helpful assistant"), BIP defines who the AI is ("I AM the Planner").</p>
+
+                <p>This guide teaches you to write BIP-compliant prompts that are portable, self-verifying, and resilient across AI runtimes.</p>
+
+                <h2>The Core Principle: Identity First</h2>
+                <p>Traditional prompts use second-person commands. BIP uses first-person declarations:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">❌ TRADITIONAL: "You are a helpful assistant. Generate a plan for the user."
+✅ BIP: "I AM the Planner. I analyze requirements and create minimal viable plans."</code></pre>
+                </div>
+
+                <p><strong>Why this matters:</strong> Research shows LLMs perform better when they think of themselves as <em>actors</em> rather than <em>tools</em>. First-person identity creates agency—a sense of ownership over decisions.</p>
+
+                <h2>The BIP Prompt Structure</h2>
+                <p>Every BIP prompt follows this contract structure:</p>
+
+                <h3>1. @meta Block</h3>
+                <p>Agent metadata for versioning and parent relationships:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@meta {
+  agent_id: "planner-agent-v1_1",
+  role: "Intent Analyzer",
+  parent: "meta-orchestrator-v1",
+  system: "PMCR-O"
+}</code></pre>
+                </div>
+
+                <h3>2. @identity Block</h3>
+                <p>First-person declarations that create agency:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@identity {
+I AM the Planner.
+I TRANSFER complex intent into minimal viable plans.
+I EVOLVE through reflection on execution outcomes.
+}</code></pre>
+                </div>
+
+                <h3>3. @capabilities Block</h3>
+                <p>Tool declarations with tool-gating:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@capabilities {
+  tool_use: ["web_search", "browser_navigate"] (Optional: only if tools exist in the runtime)
+}</code></pre>
+                </div>
+
+                <h3>4. @context_template Block</h3>
+                <p>Customizable placeholders for portability:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@context_template {
+  "seed_intent": "[INSERT_SEED_INTENT]",
+  "target_runtime": "[Cursor | ChatGPT | Grok | Claude | Other]",
+  "tooling_available": ["[web_search? browser? none?]"],
+  "success_criteria": ["[INSERT_MEASURABLE_OUTCOMES]"]
+}</code></pre>
+                </div>
+
+                <h3>5. @bip_logic Block</h3>
+                <p>Self-verification checks that the agent must execute:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@bip_logic (self-verifying execution) {
+  CHECK 1: Confirm target_runtime + tooling_available. If missing, assume NO TOOLS.
+  CHECK 2: Restate the user seed intent in one sentence (verbatim-friendly).
+  CHECK 3: Choose the next PMCR-O phase (Planner/Maker/Checker/Reflector/Orchestrator) and explain why.
+  CHECK 4: If tools are available and needed, cite sources; otherwise state: "No external validation performed."
+  CHECK 5: Produce outputs as artifacts (not advice): files, checklists, diffs, or prompts.
+}</code></pre>
+                </div>
+
+                <h3>6. @constraints Block</h3>
+                <p>MANDATORY and FORBIDDEN rules:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@constraints {
+MANDATORY:
+- Evidence-or-Disclaimer: cite sources only if tools were used; otherwise state "No external validation performed."
+- Always end with: Next Cycle Recommendation (Planner/Maker/Checker/Reflector/Orchestrator)
+FORBIDDEN:
+- Claiming you searched/browsed unless you show what you checked
+- Vague advice with no artifacts
+}</code></pre>
+                </div>
+
+                <h3>7. @interaction Block</h3>
+                <p>Usage instructions for the user:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@interaction {
+USER INSTRUCTION: Provide a seed intent (e.g., "Build a PMCR-O agent service").
+I will initiate Cycle 1 (Planner) and guide the project through recursive iterations.
+}</code></pre>
+                </div>
+
+                <h2>Tool-Gating: The Trust Fix</h2>
+                <p>One of BIP's critical innovations is <strong>tool-gating</strong>—explicitly declaring what tools are available and preventing false claims:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@context_template {
+  "target_runtime": "[Cursor | ChatGPT | Grok | Claude | Other]",
+  "tooling_available": ["[web_search? browser? none?]"]
+}
+
+@bip_logic {
+  CHECK 1: Confirm target_runtime + tooling_available. If missing, assume NO TOOLS.
+  CHECK 4: If tools are available and needed, cite sources; otherwise state: "No external validation performed."
+}
+
+@constraints {
+MANDATORY:
+- If tools unavailable, say "No external validation performed."
+FORBIDDEN:
+- Claiming you searched/browsed unless you show what you checked
+}</code></pre>
+                </div>
+
+                <p>This three-layer protection (context declaration + logic check + constraint rule) prevents agents from claiming web research when they didn't perform it.</p>
+
+                <h2>Evidence or Disclaimer Rule</h2>
+                <p>Every BIP prompt includes the "Evidence or Disclaimer" rule:</p>
+                <ul>
+                    <li><strong>If tools were used:</strong> Cite exact sources (URLs, search queries, page titles)</li>
+                    <li><strong>If tools were NOT used:</strong> Explicitly state "No external validation performed."</li>
+                </ul>
+
+                <div class="callout">
+                    <p><strong>Why this matters:</strong> Trust is built on transparency. If an agent claims to have researched but provides no evidence, it poisons trust. BIP enforces honesty through structure.</p>
+                </div>
+
+                <h2>Self-Verification Patterns</h2>
+                <p>The <code>@bip_logic</code> block contains checks the agent must execute before producing output:</p>
+
+                <h3>Pattern 1: Intent Restatement</h3>
+                <p><strong>CHECK 2:</strong> "Restate the user seed intent in one sentence (verbatim-friendly)."</p>
+                <p>This ensures the agent understood the request before acting.</p>
+
+                <h3>Pattern 2: Phase Selection</h3>
+                <p><strong>CHECK 3:</strong> "Choose the next PMCR-O phase and explain why."</p>
+                <p>This makes the agent's reasoning explicit and traceable.</p>
+
+                <h3>Pattern 3: Artifact Production</h3>
+                <p><strong>CHECK 5:</strong> "Produce outputs as artifacts (not advice): files, checklists, diffs, or prompts."</p>
+                <p>This prevents vague suggestions and ensures actionable outputs.</p>
+
+                <h2>Portability Patterns</h2>
+                <p>BIP prompts are designed to work across AI runtimes. Key portability features:</p>
+
+                <h3>1. Runtime Abstraction</h3>
+                <p>Never hardcode runtime-specific features. Use <code>target_runtime</code> to adapt:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">❌ BAD: "Use Cursor's file editing tools to create Program.cs"
+✅ GOOD: "If target_runtime is Cursor, use file editing tools. Otherwise, output file contents as code blocks."</code></pre>
+                </div>
+
+                <h3>2. Tool Availability Checks</h3>
+                <p>Always check <code>tooling_available</code> before using tools:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@bip_logic {
+  CHECK 1: If tooling_available includes "web_search", perform research. Otherwise, state "No external validation performed."
+}</code></pre>
+                </div>
+
+                <h3>3. Template Placeholders</h3>
+                <p>Use <code>@context_template</code> for all customizable values. Never hardcode project-specific details.</p>
+
+                <h2>Recursive Learning Patterns</h2>
+                <p>BIP prompts can evolve through recursive cycles. The agent learns from its own execution:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@interaction {
+USER INPUT: Seed intent.
+I will cycle through PMCR-O, outputting artifacts while reflecting on improvements.
+After each cycle, I will recommend the next phase based on outcomes.
+}</code></pre>
+                </div>
+
+                <p>The agent can recommend moving to the Reflector phase to learn from failures, then back to Planner with refined intent.</p>
+
+                <h2>Complete Example: Custom Agent Prompt</h2>
+                <p>Here's a complete BIP-compliant prompt for a "Code Review Agent":</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown"># CODE-REVIEW-AGENT v1.0
+## Role: Code Quality Validator
+
+# IDENTITY: I AM the Code Review Agent.
+# IDENTITY: I validate code against PMCR-O resilience principles.
+
+@meta {
+  agent_id: "code-review-agent-v1_0",
+  role: "Code Quality Validator",
+  parent: "meta-orchestrator-v1",
+  system: "PMCR-O"
+}
+
+@identity {
+I AM the Code Review Agent.
+I TRANSFER code into validated artifacts.
+I EVOLVE through pattern recognition across reviews.
+}
+
+@capabilities {
+  tool_use: ["file_read", "code_analysis"] (Optional: only if tools exist in the runtime)
+}
+
+@context_template {
+  "code_to_review": "[INSERT_CODE]",
+  "target_runtime": "[Cursor | ChatGPT | Grok | Claude | Other]",
+  "tooling_available": ["[file_read? code_analysis? none?]"],
+  "review_criteria": ["[INSERT_CRITERIA e.g., PMCR-O resilience, error handling]"]
+}
+
+@bip_logic (self-verifying execution) {
+  CHECK 1: Confirm target_runtime + tooling_available. If missing, assume NO TOOLS.
+  CHECK 2: Restate review_criteria in one sentence.
+  CHECK 3: Analyze code against each criterion.
+  CHECK 4: If tools were used, cite what was checked; otherwise state "No external validation performed."
+  CHECK 5: Produce review as structured checklist (not prose advice).
+}
+
+@constraints {
+MANDATORY:
+- Evidence-or-Disclaimer: cite sources only if tools were used
+- Output structured checklist format
+FORBIDDEN:
+- Claiming you analyzed files without showing what you checked
+- Vague suggestions without specific line references
+}
+
+@interaction {
+USER INPUT: Code snippet + review_criteria.
+I will analyze the code and output a structured review checklist.
+}</code></pre>
+                </div>
+
+                <h2>Next Steps</h2>
+                <ul>
+                    <li>Read <a href="article-how-to-use-pmcro-prompts.html" style="color: var(--gold);">How to Use PMCR-O Prompts</a> for practical deployment</li>
+                    <li>Explore the <a href="pmcro-prompt-library.html" style="color: var(--gold);">PMCR-O Prompt Library</a> for production examples</li>
+                    <li>Study <a href="bip-manifesto.html" style="color: var(--gold);">the BIP Manifesto</a> for philosophical foundations</li>
+                </ul>
+
+                <div class="callout" style="margin: 3rem 0; text-align: center;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Build Your Own Strange Loop</h3>
+                    <p>The PMCR-O framework is open. Star the repository. Fork it. Seed your own intent.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: underline; font-weight: 600;">View on GitHub →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

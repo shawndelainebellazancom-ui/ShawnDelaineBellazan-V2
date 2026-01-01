@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+    SHAWN DELAINE BELLAZAN - PORTFOLIO HOMEPAGE
+    Purpose: Main landing page showcasing work, skills, philosophy, and PMCR-O framework.
+    Design: Enterprise-grade, state-of-the-art, cutting-edge single-page application.
+    SEO: Schema.org Person, Organization, WebPage, OpenGraph, Twitter Cards.
+    Navigation: Single-page with section anchors (#home, #work, etc.). Logo links to #home.
+    Tech Stack: HTML5, CSS3 (Gold/Dark Theme), Vanilla JS (No Frameworks), .NET 10 backend.
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -251,6 +259,7 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- Navigation -->
+<!-- NOTE: Logo serves as Home link. On index.html, Home link in nav menu is for section anchor (#home), not duplicate. -->
 <nav role="navigation" aria-label="Main navigation">
     <div class="container">
         <a href="#home" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
@@ -265,7 +274,7 @@
             <li><a href="pmcro-codex.html">Docs</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#philosophy">Philosophy</a></li>
-            <li><a href="#articles">Articles</a></li>
+                <li><a href="articles.html">Articles</a></li>
             <li><a href="#achievements">Achievements</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -294,7 +303,7 @@
                     ✨ Available for Full-Time, Contract & Consulting Opportunities
                 </p>
                 <div class="hero-cta">
-                    <a href="#contact" class="btn">LET'S BUILD SOMETHING RESILIENT</a>
+                    <a href="#contact" class="btn" data-cta="hero-consultation" data-source="homepage">LET'S BUILD SOMETHING RESILIENT</a>
                 </div>
             </div>
         </div>
@@ -568,6 +577,57 @@
         </div>
     </section>
 
+    <!-- Featured Articles Carousel -->
+    <section id="articles" class="articles-carousel" aria-labelledby="articles-heading">
+        <div class="container">
+            <h2 id="articles-heading" class="fade-in">FEATURED ARTICLES</h2>
+            <p class="articles-intro fade-in">
+                Deep dives into PMCR-O framework, BIP prompt engineering, and self-referential AI architecture.
+                <a href="articles.html" class="articles-link" data-cta="view-all-articles" data-source="homepage">View all articles →</a>
+            </p>
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <article class="article-preview fade-in active">
+                        <div class="article-preview-content">
+                            <div class="article-category">Thought Leadership</div>
+                            <h3>Why BIP Replaces Traditional Prompt Engineering in 2026</h3>
+                            <p>The shift from "you" to "I" — and why it matters for the future of AI cognition.</p>
+                            <a href="article-why-bip-replaces-prompt-engineering-2026.html" class="article-read-more" data-cta="featured-article-bip" data-source="homepage">Read Article →</a>
+                        </div>
+                        <div class="article-preview-image" aria-hidden="true">💎</div>
+                    </article>
+
+                    <article class="article-preview fade-in">
+                        <div class="article-preview-content">
+                            <div class="article-category">Tutorial</div>
+                            <h3>Creating Your First PMCR-O Agent: The Planner</h3>
+                            <p>Build the Planner agent from scratch with BIP principles, first-person identity, and structured output.</p>
+                            <a href="article-creating-first-pmcro-agent.html" class="article-read-more" data-cta="featured-article-planner" data-source="homepage">Read Article →</a>
+                        </div>
+                        <div class="article-preview-image" aria-hidden="true">🧠</div>
+                    </article>
+
+                    <article class="article-preview fade-in">
+                        <div class="article-preview-content">
+                            <div class="article-category">Engineering</div>
+                            <h3>Structured Output with JSON Schema</h3>
+                            <p>Replace fragile regex parsing with native LLM structured output for production-ready PMCR-O agents.</p>
+                            <a href="article-structured-output-json-schema.html" class="article-read-more" data-cta="featured-article-structured" data-source="homepage">Read Article →</a>
+                        </div>
+                        <div class="article-preview-image" aria-hidden="true">⚙️</div>
+                    </article>
+                </div>
+                <div class="carousel-indicators">
+                    <button class="indicator active" data-slide="0" aria-label="View BIP article"></button>
+                    <button class="indicator" data-slide="1" aria-label="View Planner article"></button>
+                    <button class="indicator" data-slide="2" aria-label="View Structured Output article"></button>
+                </div>
+                <button class="carousel-prev" aria-label="Previous article">‹</button>
+                <button class="carousel-next" aria-label="Next article">›</button>
+            </div>
+        </div>
+    </section>
+
     <!-- Philosophy Section -->
     <section id="philosophy" class="philosophy" aria-labelledby="philosophy-heading">
         <div class="container">
@@ -779,14 +839,14 @@
                 </div>
                 <div class="contact-item">
                     <p class="contact-label">GitHub</p>
-                    <p><a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer">github.com/shawndelainebellazancom-ui</a></p>
+                    <p><a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" data-cta="github-profile" data-source="homepage">github.com/shawndelainebellazancom-ui</a></p>
                 </div>
                 <div class="contact-item">
                     <p class="contact-label">LinkedIn</p>
-                    <p><a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer">linkedin.com/in/shawn-bellazan</a></p>
+                    <p><a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" data-cta="linkedin-profile" data-source="homepage">linkedin.com/in/shawn-bellazan</a></p>
                 </div>
                 <div class="contact-cta">
-                    <a href="mailto:shawndelainebellazan.com@gmail.com" class="btn">START THE CONVERSATION</a>
+                    <a href="mailto:shawndelainebellazan.com@gmail.com?subject=Consultation%20Inquiry%20-%20PMCR-O%20Framework&body=Hi%20Shawn,%0A%0AI%20came%20across%20your%20PMCR-O%20framework%20and%20would%20like%20to%20discuss%20a%20consultation.%0A%0A[Please%20describe%20your%20project%20or%20opportunity]%0A%0ABest,%0A[Your%20Name]" class="btn" data-cta="email-consultation" data-source="homepage">START THE CONVERSATION</a>
                 </div>
             </div>
         </div>
@@ -806,5 +866,86 @@
 
 <script src="site.js"></script>
 <script src="main.js"></script>
+<script>
+    // Featured Articles Carousel
+    (function() {
+        const carousel = document.querySelector('.carousel-wrapper');
+        const articles = document.querySelectorAll('.article-preview');
+        const indicators = document.querySelectorAll('.indicator');
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+
+        if (!carousel || !articles.length) return;
+
+        let currentSlide = 0;
+        let autoplayInterval;
+
+        function showSlide(index) {
+            // Update active states
+            articles.forEach((article, i) => {
+                article.classList.toggle('active', i === index);
+            });
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+                indicator.setAttribute('aria-pressed', i === index);
+            });
+
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % articles.length;
+            showSlide(nextIndex);
+        }
+
+        function prevSlide() {
+            const prevIndex = currentSlide === 0 ? articles.length - 1 : currentSlide - 1;
+            showSlide(prevIndex);
+        }
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        function stopAutoplay() {
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+            }
+        }
+
+        // Event listeners
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => showSlide(index));
+        });
+
+        // Pause autoplay on hover
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('mouseenter', stopAutoplay);
+            carouselContainer.addEventListener('mouseleave', startAutoplay);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                nextSlide();
+            }
+        });
+
+        // Start autoplay
+        startAutoplay();
+
+        // Initialize first slide
+        showSlide(0);
+    })();
+</script>
 </body>
 </html>

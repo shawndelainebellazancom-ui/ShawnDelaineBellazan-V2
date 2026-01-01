@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+    PMCR-O CODEX v2.0 - COMPLETE FRAMEWORK DOCUMENTATION
+    Purpose: Definitive technical documentation for the PMCR-O self-referential AI cognition system.
+    Design: Enterprise-grade, state-of-the-art, cutting-edge documentation with sidebar navigation.
+    SEO: Schema.org TechArticle, OpenGraph, Twitter Cards, canonical URLs.
+    Navigation: Sidebar for long-form docs, top nav for site-wide links.
+    Tech Stack: All examples use .NET 10, PostgreSQL (pgvector), Entity Framework Core, Npgsql.
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -287,6 +295,104 @@
             font-size: 1.1rem;
         }
 
+        /* ==================== SEARCH BAR ==================== */
+        .sidebar-search {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--sidebar-border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 3rem 0.75rem 1rem;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 3px;
+            transition: all var(--transition-fast);
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-clear:hover {
+            color: var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .search-results {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 0.5rem;
+        }
+
+        .search-result-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--sidebar-border);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .search-result-item:hover {
+            background: rgba(212, 165, 116, 0.1);
+            padding-left: 0.5rem;
+        }
+
+        .search-result-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .search-result-section {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-no-results {
+            padding: 0.5rem 0;
+            color: var(--text-tertiary);
+            font-style: italic;
+            text-align: center;
+        }
+
         /* ==================== MAIN CONTENT ==================== */
         .main-content {
             margin-left: var(--sidebar-width);
@@ -531,12 +637,21 @@
                 <!-- Theme toggle is injected/enabled by site.js (BIP: safe if missing) -->
             </div>
 
+            <!-- Search Bar -->
+            <div class="sidebar-search">
+                <div class="search-input-wrapper">
+                    <input type="text" id="codex-search" class="search-input" placeholder="Search the Codex..." aria-label="Search documentation">
+                    <button type="button" class="search-clear" aria-label="Clear search" style="display: none;">×</button>
+                </div>
+                <div class="search-results" id="search-results" aria-live="polite" aria-atomic="true"></div>
+            </div>
+
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <ul class="nav-links">
                         <li><a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>Back to Home</a></li>
                         <li><a href="pmcro-prompt-library.html" class="nav-link"><span class="nav-icon">🧩</span>Agents Library</a></li>
-                        <li><a href="index.html#articles" class="nav-link"><span class="nav-icon">📝</span>Articles</a></li>
+                        <li><a href="articles.html" class="nav-link"><span class="nav-icon">📝</span>Articles</a></li>
                         <li><a href="index.html#contact" class="nav-link"><span class="nav-icon">✉️</span>Contact</a></li>
                     </ul>
                 </div>
@@ -1209,6 +1324,136 @@
                 sidebar.classList.remove('open');
             }
         });
+
+        // Codex Search Functionality
+        (function() {
+            const searchInput = document.getElementById('codex-search');
+            const searchClear = document.querySelector('.search-clear');
+            const searchResults = document.getElementById('search-results');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            if (!searchInput || !searchResults) return;
+
+            // Build searchable content index
+            const searchIndex = [];
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const targetId = href.substring(1);
+                    const section = document.getElementById(targetId);
+                    if (section) {
+                        const title = section.querySelector('h2')?.textContent || link.textContent.replace(/^[^\w]+/, '').trim();
+                        const content = section.textContent.toLowerCase();
+                        searchIndex.push({
+                            id: targetId,
+                            title: title,
+                            content: content,
+                            link: link
+                        });
+                    }
+                }
+            });
+
+            // Search function
+            function performSearch(query) {
+                const results = [];
+                const queryLower = query.toLowerCase().trim();
+
+                if (queryLower.length < 2) {
+                    searchResults.innerHTML = '';
+                    return;
+                }
+
+                searchIndex.forEach(item => {
+                    const titleMatch = item.title.toLowerCase().includes(queryLower);
+                    const contentMatch = item.content.includes(queryLower);
+
+                    if (titleMatch || contentMatch) {
+                        results.push({
+                            ...item,
+                            score: (titleMatch ? 3 : 0) + (contentMatch ? 1 : 0)
+                        });
+                    }
+                });
+
+                // Sort by relevance
+                results.sort((a, b) => b.score - a.score);
+
+                displayResults(results, query);
+            }
+
+            // Display results
+            function displayResults(results, query) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="search-no-results">No results found for "' + query + '"</div>';
+                    return;
+                }
+
+                const html = results.map(result => `
+                    <div class="search-result-item" data-target="${result.id}">
+                        <div class="search-result-title">${highlightText(result.title, query)}</div>
+                        <div class="search-result-section">${result.link.closest('.nav-section-title')?.textContent || 'General'}</div>
+                    </div>
+                `).join('');
+
+                searchResults.innerHTML = html;
+
+                // Add click handlers
+                searchResults.querySelectorAll('.search-result-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const targetId = item.getAttribute('data-target');
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            // Clear search after navigation
+                            searchInput.value = '';
+                            searchResults.innerHTML = '';
+                            searchClear.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            // Highlight matching text
+            function highlightText(text, query) {
+                const regex = new RegExp(`(${query})`, 'gi');
+                return text.replace(regex, '<mark>$1</mark>');
+            }
+
+            // Event listeners
+            let searchTimeout;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                const query = e.target.value;
+
+                if (query.length > 0) {
+                    searchClear.style.display = 'flex';
+                } else {
+                    searchClear.style.display = 'none';
+                    searchResults.innerHTML = '';
+                    return;
+                }
+
+                searchTimeout = setTimeout(() => performSearch(query), 300);
+            });
+
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchInput.focus();
+                searchResults.innerHTML = '';
+                searchClear.style.display = 'none';
+            });
+
+            // Keyboard navigation
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    searchResults.innerHTML = '';
+                    searchClear.style.display = 'none';
+                    searchInput.blur();
+                }
+            });
+        })();
     </script>
 </body>
 </html>

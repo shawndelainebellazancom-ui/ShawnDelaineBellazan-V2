@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<!--
+    IMPLEMENTING A PMCR-O CHATBOT: FROM TEXT TO AUTONOMOUS CONVERSATIONS
+    Purpose: Practical tutorial showing PMCR-O chatbot implementation with real code.
+    Tech Stack: .NET 10, Aspire, Ollama, PostgreSQL (pgvector), gRPC, SignalR.
+    Keywords: PMCR-O chatbot, AI agent conversations, autonomous chat, .NET chatbot.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Build a PMCR-O powered chatbot that evolves through conversation. Complete .NET tutorial with autonomous agents, memory persistence, and real-time responses using SignalR.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="PMCR-O Chatbot, AI Agent Conversations, Autonomous Chat, .NET Chatbot, SignalR, Real-time AI, Self-Improving Chat">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-implementing-pmcro-chatbot.html">
+    <meta property="og:title" content="Implementing a PMCR-O Chatbot: Autonomous Conversations | Shawn Bellazan">
+    <meta property="og:description" content="Build a chatbot that evolves through conversation using PMCR-O autonomous agents. Complete .NET implementation with memory and real-time responses.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PMCR-O Chatbot: Autonomous AI Conversations">
+    <meta name="twitter:description" content="Build self-improving chatbots with PMCR-O agents and .NET.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>Implementing a PMCR-O Chatbot: From Text to Autonomous Conversations | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-implementing-pmcro-chatbot#article",
+      "headline": "Implementing a PMCR-O Chatbot: From Text to Autonomous Conversations",
+      "description": "Complete tutorial for building PMCR-O powered chatbots with autonomous agents, memory persistence, and real-time SignalR responses.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": ".NET 10, SignalR, Ollama, PostgreSQL",
+      "proficiencyLevel": "Intermediate",
+      "articleBody": "Complete chatbot implementation using PMCR-O autonomous agents...",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-implementing-pmcro-chatbot"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["PMCR-O", "Chatbot", "AI Agent", "SignalR", ".NET", "Autonomous", "Conversations"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-implementing-pmcro-chatbot.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .chat-demo {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+        }
+
+        .chat-message.user {
+            background: var(--gold);
+            color: var(--darker);
+            margin-left: 2rem;
+        }
+
+        .chat-message.agent {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            margin-right: 2rem;
+        }
+
+        .step-counter {
+            background: var(--gold);
+            color: var(--darker);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Architecture diagram */
+        .architecture-diagram {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .diagram-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .diagram-box {
+            background: var(--gray);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 120px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .diagram-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+
+            .diagram-flow {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .diagram-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 12 min read</div>
+
+            <div class="article-content">
+                <h1>Implementing a PMCR-O Chatbot: From Text to Autonomous Conversations</h1>
+
+                <p>Traditional chatbots react to user input. PMCR-O chatbots <strong>evolve through conversation</strong>. They maintain cognitive trails, reflect on interactions, and improve their responses over time.</p>
+
+                <p>This tutorial shows you how to build a production-ready chatbot that uses the full PMCR-O cycle: Plan responses, Make them contextually relevant, Check for accuracy, Reflect on effectiveness, and Orchestrate multi-turn conversations.</p>
+
+                <div class="architecture-diagram">
+                    <h3>🤖 Actual PMCR-O Chatbot Architecture</h3>
+                    <div class="diagram-flow">
+                        <div class="diagram-box">User Input</div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">Chatbot Service<br><small>SignalR Hub</small></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">Orchestration API<br><small>REST Gateway</small></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">gRPC Services<br><small>Planner/Maker/Checker</small></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">Knowledge Vault<br><small>RAG retrieval</small></div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box">Real-time Response</div>
+                    </div>
+                    <p><small><em>Based on your actual PMCR-O source architecture</em></small></p>
+                </div>
+
+                <h2>Prerequisites</h2>
+
+                <p>Complete the <a href="article-pmcro-quickstart-30-minutes.html" style="color: var(--gold);">PMCR-O Quickstart</a> tutorial first, or ensure you have:</p>
+
+                <ul>
+                    <li><strong>.NET 10 SDK</strong> with Aspire</li>
+                    <li><strong>Ollama</strong> running with <code>qwen2.5-coder:7b</code> and <code>nomic-embed-text</code> models</li>
+                    <li><strong>PostgreSQL</strong> with pgvector extension</li>
+                    <li><strong>SignalR</strong> for real-time communication</li>
+                </ul>
+
+                <h2>Step 1: Create the Chatbot Service</h2>
+
+                <span class="step-counter">Step 1 of 5</span>
+
+                <p>Create a new ASP.NET Core Web API project for the chatbot:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Add to your PMCR-O solution
+dotnet new webapi -n PmcroQuickstart.ChatbotService
+dotnet sln add PmcroQuickstart.ChatbotService/PmcroQuickstart.ChatbotService.csproj
+
+# Add SignalR for real-time chat
+dotnet add PmcroQuickstart.ChatbotService package Microsoft.AspNetCore.SignalR</code></pre>
+                </div>
+
+                <h2>Step 2: Build the Chat Hub (Real-time Communication)</h2>
+
+                <span class="step-counter">Step 2 of 5</span>
+
+                <p>Create a SignalR hub that calls your Orchestration API. Add <code>ChatHub.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.AspNetCore.SignalR;
+using PmcroQuickstart.Shared.Grpc;
+
+namespace PmcroQuickstart.ChatbotService;
+
+public class ChatHub : Hub
+{
+    private readonly ILogger&lt;ChatHub&gt; _logger;
+    private readonly IHttpClientFactory _httpClientFactory;
+
+    public ChatHub(ILogger&lt;ChatHub&gt; logger, IHttpClientFactory httpClientFactory)
+    {
+        _logger = logger;
+        _httpClientFactory = httpClientFactory;
+    }
+
+    public async Task SendMessage(string message, string conversationId)
+    {
+        var connectionId = Context.ConnectionId;
+
+        try
+        {
+            // Send typing indicator
+            await Clients.Caller.SendAsync("TypingIndicator", true);
+
+            // Process through PMCR-O agents
+            var response = await ProcessWithPmcroAgents(message, conversationId);
+
+            // Send response
+            await Clients.Caller.SendAsync("ReceiveMessage", new
+            {
+                content = response.Content,
+                agent = response.AgentRole,
+                timestamp = DateTime.UtcNow,
+                conversationId = conversationId
+            });
+
+            // Stop typing indicator
+            await Clients.Caller.SendAsync("TypingIndicator", false);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Chat processing failed");
+            await Clients.Caller.SendAsync("ReceiveMessage", new
+            {
+                content = "I apologize, but I'm experiencing technical difficulties. Please try again.",
+                agent = "system",
+                timestamp = DateTime.UtcNow,
+                conversationId = conversationId
+            });
+            await Clients.Caller.SendAsync("TypingIndicator", false);
+        }
+    }
+
+    private async Task&lt;ChatResponse&gt; ProcessWithPmcroAgents(string message, string conversationId)
+    {
+        var httpClient = _httpClientFactory.CreateClient();
+
+        // Call your Orchestration API (REST gateway to gRPC services)
+        // Based on your actual architecture, this calls the WorkflowController
+        var workflowRequest = new
+        {
+            intent = message,
+            conversationId = conversationId,
+            context = new
+            {
+                maxTokens = 1000,
+                temperature = 0.7,
+                includeKnowledge = true
+            }
+        };
+
+        var response = await httpClient.PostAsJsonAsync(
+            "http://localhost:5201/api/workflow/execute", // Your Orchestration API endpoint
+            workflowRequest);
+
+        var workflowResult = await response.Content.ReadFromJsonAsync&lt;WorkflowResponse&gt;();
+
+        return new ChatResponse
+        {
+            Content = workflowResult?.Content ?? "I'm processing your request...",
+            AgentRole = workflowResult?.AgentRole ?? "orchestrator",
+            ConversationId = conversationId
+        };
+    }
+
+    public override async Task OnConnectedAsync()
+    {
+        _logger.LogInformation("Client connected: {ConnectionId}", Context.ConnectionId);
+        await base.OnConnectedAsync();
+    }
+
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        _logger.LogInformation("Client disconnected: {ConnectionId}", Context.ConnectionId);
+        await base.OnDisconnectedAsync(exception);
+    }
+}
+
+// Data models
+public record ChatResponse(string Content, string AgentRole, string ConversationId);
+public record WorkflowResponse(string Content, string AgentRole, string ConversationId, bool Success);</code></pre>
+                </div>
+
+                <h2>Step 3: Configure the Chatbot Service</h2>
+
+                <span class="step-counter">Step 3 of 5</span>
+
+                <p>Update <code>Program.cs</code> to configure SignalR and CORS:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+
+// Add service defaults & Aspire components
+builder.AddServiceDefaults();
+
+// Add SignalR
+builder.Services.AddSignalR();
+
+// Add CORS for web client
+builder.Services.AddCors(options =&gt;
+{
+    options.AddPolicy("AllowAll", policy =&gt;
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+// Add HTTP client for inter-service communication
+builder.Services.AddHttpClient();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseCors("AllowAll");
+
+app.MapDefaultEndpoints();
+
+// Map SignalR hub
+app.MapHub&lt;ChatHub&gt;("/chatHub");
+
+// Basic health check
+app.MapGet("/health", () =&gt; "Chatbot service is healthy");
+
+app.Run();</code></pre>
+                </div>
+
+                <h2>Step 4: Create the Chat Interface</h2>
+
+                <span class="step-counter">Step 4 of 5</span>
+
+                <p>Create a simple HTML chat interface. Add <code>chat.html</code> to your wwwroot:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">HTML</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;PMCR-O Chatbot&lt;/title&gt;
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"&gt;&lt;/script&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #0a0a0a; color: #ffffff; }
+        .chat-container { max-width: 800px; margin: 0 auto; }
+        .chat-messages { height: 400px; overflow-y: auto; border: 1px solid #2c2c2c; padding: 10px; margin-bottom: 10px; background: #1a1a1a; }
+        .message { margin-bottom: 10px; padding: 8px; border-radius: 5px; }
+        .user { background: #d4a574; color: #0a0a0a; margin-left: 100px; }
+        .agent { background: #2c2c2c; margin-right: 100px; }
+        .typing { font-style: italic; color: #888; }
+        .input-container { display: flex; gap: 10px; }
+        #messageInput { flex: 1; padding: 10px; border: 1px solid #2c2c2c; background: #1a1a1a; color: #ffffff; }
+        button { padding: 10px 20px; background: #d4a574; color: #0a0a0a; border: none; cursor: pointer; }
+        button:hover { background: #e6c89f; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="chat-container"&gt;
+        &lt;h1&gt;🤖 PMCR-O Chatbot&lt;/h1&gt;
+        &lt;div id="messages" class="chat-messages"&gt;&lt;/div&gt;
+        &lt;div class="input-container"&gt;
+            &lt;input type="text" id="messageInput" placeholder="Ask me anything..." /&gt;
+            &lt;button onclick="sendMessage()"&gt;Send&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:5005/chatHub")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('messageInput');
+        let conversationId = 'chat_' + Date.now();
+
+        connection.on("ReceiveMessage", (message) =&gt; {
+            addMessage(message.content, 'agent', message.agent);
+        });
+
+        connection.on("TypingIndicator", (isTyping) =&gt; {
+            const typingDiv = document.getElementById('typing');
+            if (isTyping) {
+                if (!typingDiv) {
+                    const div = document.createElement('div');
+                    div.id = 'typing';
+                    div.className = 'message typing';
+                    div.textContent = '🤖 PMCR-O is thinking...';
+                    messagesDiv.appendChild(div);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }
+            } else {
+                if (typingDiv) {
+                    typingDiv.remove();
+                }
+            }
+        });
+
+        async function startConnection() {
+            try {
+                await connection.start();
+                addMessage("Hello! I'm a PMCR-O autonomous agent. How can I help you today?", 'agent', 'system');
+            } catch (err) {
+                console.error(err);
+                addMessage("Connection failed. Please check if the chatbot service is running.", 'agent', 'system');
+            }
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            connection.invoke("SendMessage", message, conversationId).catch(err =&gt; {
+                console.error(err);
+                addMessage("Failed to send message. Please try again.", 'agent', 'system');
+            });
+
+            messageInput.value = '';
+        }
+
+        function addMessage(content, type, agent = '') {
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.textContent = agent ? `[${agent}] ${content}` : content;
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        messageInput.addEventListener('keypress', (e) =&gt; {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        startConnection();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <h2>Step 5: Update AppHost Configuration</h2>
+
+                <span class="step-counter">Step 5 of 5</span>
+
+                <p>Add the chatbot service to your existing PMCR-O AppHost. Based on your source architecture:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// In AppHost/Program.cs (add to your existing configuration)
+var chatbotService = builder.AddProject&lt;Projects.ProjectName_ChatbotService&gt;("chatbot-service")
+    .WithReference(orchestrationApi) // Connect to your Orchestration API
+    .WaitFor(orchestrationApi);</code></pre>
+                </div>
+
+                <p>Your chatbot service now integrates with your actual PMCR-O architecture:</p>
+                <ul>
+                    <li><strong>Chatbot Service</strong> → <strong>Orchestration API</strong> (REST calls)</li>
+                    <li><strong>Orchestration API</strong> → <strong>gRPC Services</strong> (Planner, Maker, etc.)</li>
+                    <li><strong>gRPC Services</strong> → <strong>Knowledge Vault</strong> (RAG queries)</li>
+                </ul>
+
+                <h2>🚀 Test Your Autonomous Chatbot</h2>
+
+                <div class="chat-demo">
+                    <div class="chat-message user">User: Tell me about PMCR-O</div>
+                    <div class="chat-message agent">[maker] PMCR-O is a self-referential AI framework that creates autonomous agents through a Plan-Make-Check-Reflect-Orchestrate cycle. The system evolves through strange loops of self-reference, maintaining cognitive trails that enable continuous improvement.</div>
+                    <div class="chat-message user">User: How does it differ from other AI frameworks?</div>
+                    <div class="chat-message agent">[maker] Unlike traditional AI frameworks that treat intelligence as a tool, PMCR-O embodies first-person identity through Behavioral Intent Programming (BIP). Agents speak as "I AM" rather than "You are", creating genuine agency and the capacity for self-improvement.</div>
+                </div>
+
+                <div class="callout">
+                    <h3>🎉 What You've Built</h3>
+                    <p>Your PMCR-O chatbot is now a <strong>learning system</strong> that:</p>
+                    <ul>
+                        <li>Queries the knowledge vault for relevant context</li>
+                        <li>Plans responses using structured reasoning</li>
+                        <li>Makes contextually appropriate replies</li>
+                        <li>Checks responses for accuracy</li>
+                        <li>Reflects on conversation effectiveness</li>
+                        <li>Maintains cognitive trails for future improvement</li>
+                    </ul>
+                </div>
+
+                <h2>Advanced Features to Add</h2>
+
+                <p>Once your basic chatbot works, extend it with:</p>
+
+                <ul>
+                    <li><strong>Multi-agent conversations</strong> - Let agents debate responses</li>
+                    <li><strong>Memory consolidation</strong> - Periodically summarize conversation history</li>
+                    <li><strong>Tool integration</strong> - Allow agents to call external APIs</li>
+                    <li><strong>Personality evolution</strong> - Agents adapt based on user feedback</li>
+                    <li><strong>Multi-modal input</strong> - Handle images, documents, voice</li>
+                </ul>
+
+                <h2>Production Deployment</h2>
+
+                <p>For production use:</p>
+
+                <ul>
+                    <li><strong>Authentication</strong> - Add user sessions and API keys</li>
+                    <li><strong>Rate limiting</strong> - Prevent abuse and manage costs</li>
+                    <li><strong>Monitoring</strong> - Track conversation quality and agent performance</li>
+                    <li><strong>Backup/Recovery</strong> - Ensure cognitive trails persist</li>
+                    <li><strong>Scaling</strong> - Deploy agents across multiple instances</li>
+                </ul>
+
+                <div class="callout">
+                    <p><strong>🔗 Related Resources:</strong></p>
+                    <ul>
+                        <li><a href="article-pmcro-quickstart-30-minutes.html" style="color: var(--gold);">PMCR-O Quickstart</a> - Build the foundation agents</li>
+                        <li><a href="article-structured-output-json-schema.html" style="color: var(--gold);">Structured Output</a> - Reliable agent responses</li>
+                        <li><a href="pmcro-prompt-library.html" style="color: var(--gold);">Prompt Library</a> - Copy production-ready BIP prompts</li>
+                        <li><a href="pmcro-codex.html#the-infinite-loop" style="color: var(--gold);">PMCR-O Codex</a> - Technical deep-dive</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script>
+        /**
+         * Copy code block to clipboard
+         * Enterprise-grade: Handles clipboard API with fallback for file:// protocol
+         */
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+
+            const text = codeBlock.textContent;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

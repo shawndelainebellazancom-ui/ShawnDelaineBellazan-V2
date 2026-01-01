@@ -375,6 +375,7 @@
                 <li><a href="index.html#work">Work</a></li>
                 <li><a href="pmcro-codex.html">PMCR-O</a></li>
                 <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </div>
@@ -514,15 +515,18 @@ mkdir PmcroAgents
 cd PmcroAgents
 dotnet new sln -n PmcroAgents
 
-# Create projects
-dotnet new aspire-apphost -n PmcroAgents.AppHost
-dotnet new web -n PmcroAgents.PlannerService
+# Create projects (matching your actual PMCR-O architecture)
+# AppHost - Console app with Aspire packages (or use: dotnet new aspire-apphost if available)
+dotnet new console -n PmcroAgents.AppHost
+dotnet new webapi -n PmcroAgents.PlannerService
+dotnet new classlib -n PmcroAgents.ServiceDefaults
 dotnet new classlib -n PmcroAgents.Shared
 
 # Add projects to solution
-dotnet sln add PmcroAgents.AppHost
-dotnet sln add PmcroAgents.PlannerService
-dotnet sln add PmcroAgents.Shared</code></pre>
+dotnet sln add PmcroAgents.AppHost/PmcroAgents.AppHost.csproj
+dotnet sln add PmcroAgents.ServiceDefaults/PmcroAgents.ServiceDefaults.csproj
+dotnet sln add PmcroAgents.Shared/PmcroAgents.Shared.csproj
+dotnet sln add PmcroAgents.PlannerService/PmcroAgents.PlannerService.csproj</code></pre>
                 </div>
 
                 <h3>Step 2: Install Packages</h3>
@@ -556,10 +560,11 @@ dotnet add package Grpc.Tools</code></pre>
                         <button class="copy-button" onclick="copyCode(this)">Copy</button>
                     </div>
                     <pre><code class="language-bash">cd ../PmcroAgents.PlannerService
-dotnet add reference ../PmcroAgents.Shared
+dotnet add reference ../PmcroAgents.Shared/PmcroAgents.Shared.csproj
+dotnet add reference ../PmcroAgents.ServiceDefaults/PmcroAgents.ServiceDefaults.csproj
 
 cd ../PmcroAgents.AppHost
-dotnet add reference ../PmcroAgents.PlannerService</code></pre>
+dotnet add reference ../PmcroAgents.PlannerService/PmcroAgents.PlannerService.csproj</code></pre>
                 </div>
 
                 <p>Your solution structure should look like this:</p>

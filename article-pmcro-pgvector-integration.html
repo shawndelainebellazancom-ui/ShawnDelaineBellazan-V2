@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<!--
+    PMCR-O AND VECTOR DATABASES: ENHANCING MEMORY WITH PGVECTOR
+    Purpose: Complete guide to integrating pgvector for RAG in PMCR-O agents.
+    Tech Stack: PostgreSQL, pgvector, Npgsql, Entity Framework Core, Ollama embeddings.
+    Keywords: PMCR-O pgvector integration, AI memory with PostgreSQL, vector DB for agents, RAG with pgvector.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete guide to integrating pgvector with PMCR-O for RAG (Retrieval-Augmented Generation). Learn vector embeddings, similarity search, and cognitive trail persistence using PostgreSQL.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="PMCR-O pgvector, PostgreSQL Vector Database, RAG with pgvector, AI Memory, Vector Embeddings, Cognitive Trails, Semantic Search">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-pmcro-pgvector-integration.html">
+    <meta property="og:title" content="PMCR-O and Vector Databases: Enhancing Memory with pgvector | Shawn Bellazan">
+    <meta property="og:description" content="Complete guide to integrating pgvector with PMCR-O for RAG. Learn vector embeddings, similarity search, and cognitive trail persistence.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PMCR-O and pgvector: Vector Database Integration">
+    <meta name="twitter:description" content="Complete guide to RAG with pgvector in PMCR-O agents.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>PMCR-O and Vector Databases: Enhancing Memory with pgvector | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-pmcro-pgvector-integration#article",
+      "headline": "PMCR-O and Vector Databases: Enhancing Memory with pgvector",
+      "description": "Complete guide to integrating pgvector with PMCR-O for RAG (Retrieval-Augmented Generation) using PostgreSQL, vector embeddings, and semantic search.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": "PostgreSQL, pgvector, Npgsql, Entity Framework Core, Ollama",
+      "proficiencyLevel": "Intermediate",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-pmcro-pgvector-integration"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["PMCR-O", "pgvector", "PostgreSQL", "RAG", "Vector Database", "Embeddings", "Semantic Search"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-pmcro-pgvector-integration.html">
+    <!-- Prism.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .step-counter {
+            background: var(--gold);
+            color: var(--darker);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 15 min read</div>
+
+            <div class="article-content">
+                <h1>PMCR-O and Vector Databases: Enhancing Memory with pgvector</h1>
+
+                <p>PMCR-O agents don't just execute tasks—they <strong>remember</strong>. Every plan, every artifact, every reflection becomes part of an externalized cognitive trail. But how do you store and retrieve this knowledge efficiently at scale?</p>
+
+                <p>The answer is <strong>pgvector</strong>—PostgreSQL's vector extension that enables semantic search over millions of cognitive trails. This guide shows you how to integrate pgvector with PMCR-O for production-ready RAG (Retrieval-Augmented Generation).</p>
+
+                <h2>Why Vector Databases for PMCR-O?</h2>
+
+                <p>Traditional databases store data by exact matches. Vector databases store data by <em>meaning</em>. When a PMCR-O agent needs to recall a similar problem it solved before, semantic search finds it even if the wording differs.</p>
+
+                <div class="callout">
+                    <strong>💡 The Cognitive Trail Advantage:</strong> pgvector enables agents to query their own history semantically. "How did I solve authentication before?" finds relevant solutions even if the exact keywords don't match.
+                </div>
+
+                <h2>Step 1: Set Up PostgreSQL with pgvector</h2>
+
+                <span class="step-counter">Step 1 of 5</span>
+
+                <p>Using Docker (recommended) or install PostgreSQL with pgvector extension:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Using Docker with pgvector image
+docker run -d \
+  --name pmcro-postgres \
+  -e POSTGRES_DB=knowledge \
+  -e POSTGRES_USER=pmcro \
+  -e POSTGRES_PASSWORD=pmcro123 \
+  -p 5432:5432 \
+  pgvector/pgvector:pg16
+
+# Verify pgvector extension
+docker exec pmcro-postgres psql -U pmcro -d knowledge -c "CREATE EXTENSION IF NOT EXISTS vector;"</code></pre>
+                </div>
+
+                <h2>Step 2: Create the Knowledge Service</h2>
+
+                <span class="step-counter">Step 2 of 5</span>
+
+                <p>Create a new webapi project for the Knowledge service (matching your actual architecture):</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash">dotnet new webapi -n ProjectName.KnowledgeService
+cd ProjectName.KnowledgeService
+
+# Add required packages
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Pgvector.EntityFrameworkCore
+dotnet add package Pgvector
+dotnet add package OllamaSharp
+dotnet add package Microsoft.Extensions.AI
+
+# Add project references
+dotnet add reference ../ProjectName.ServiceDefaults/ProjectName.ServiceDefaults.csproj
+dotnet add reference ../ProjectName.Shared/ProjectName.Shared.csproj</code></pre>
+                </div>
+
+                <h2>Step 3: Configure Entity Framework with pgvector</h2>
+
+                <span class="step-counter">Step 3 of 5</span>
+
+                <p>Create the database context with vector support. Add <code>Data/KnowledgeDbContext.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Pgvector;
+using Pgvector.EntityFrameworkCore;
+
+namespace ProjectName.KnowledgeService.Data;
+
+public class KnowledgeDbContext : DbContext
+{
+    public KnowledgeDbContext(DbContextOptions&lt;KnowledgeDbContext&gt; options) : base(options) { }
+
+    public DbSet&lt;KnowledgeItem&gt; KnowledgeItems =&gt; Set&lt;KnowledgeItem&gt;();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Enable pgvector extension
+        modelBuilder.HasPostgresExtension("vector");
+
+        modelBuilder.Entity&lt;KnowledgeItem&gt;(entity =&gt;
+        {
+            entity.HasKey(k =&gt; k.Id);
+            
+            // Configure vector column (768 dimensions for nomic-embed-text)
+            entity.Property(k =&gt; k.Embedding)
+                .HasColumnType("vector(768)")
+                .HasColumnName("embedding");
+
+            // Create IVFFlat index for fast similarity search
+            entity.HasIndex(k =&gt; k.Embedding)
+                .HasMethod("ivfflat")
+                .HasOperators("vector_cosine_ops")
+                .HasAnnotation("Npgsql:StorageParameter:lists", 100);
+        });
+    }
+}
+
+public class KnowledgeItem
+{
+    public Guid Id { get; set; }
+    public string Content { get; set; } = "";
+    public Vector Embedding { get; set; } = new Vector(Array.Empty&lt;float&gt;());
+    public string? Metadata { get; set; }
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    public string? Source { get; set; } // e.g., "planner", "maker", "reflector"
+}</code></pre>
+                </div>
+
+                <h2>Step 4: Implement Embedding Service</h2>
+
+                <span class="step-counter">Step 4 of 5</span>
+
+                <p>Create a service to generate embeddings using Ollama. Add <code>Services/EmbeddingService.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using OllamaSharp;
+using Pgvector;
+
+namespace ProjectName.KnowledgeService.Services;
+
+public class EmbeddingService
+{
+    private readonly OllamaApiClient _ollamaClient;
+    private readonly ILogger&lt;EmbeddingService&gt; _logger;
+    private const string EmbeddingModel = "nomic-embed-text";
+
+    public EmbeddingService(OllamaApiClient ollamaClient, ILogger&lt;EmbeddingService&gt; logger)
+    {
+        _ollamaClient = ollamaClient;
+        _logger = logger;
+    }
+
+    public async Task&lt;Vector&gt; GenerateEmbeddingAsync(string text, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            // Call Ollama embedding API
+            var response = await _ollamaClient.EmbeddingsAsync(
+                new EmbeddingRequest
+                {
+                    Model = EmbeddingModel,
+                    Prompt = text
+                },
+                cancellationToken);
+
+            // Convert to Vector type
+            var embedding = response.Embedding?.ToArray() ?? Array.Empty&lt;float&gt;();
+            return new Vector(embedding);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to generate embedding for text: {Text}", text);
+            throw;
+        }
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 5: Implement Knowledge Vault Service</h2>
+
+                <span class="step-counter">Step 5 of 5</span>
+
+                <p>Create the service that stores and retrieves knowledge. Add <code>Services/KnowledgeVaultService.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.EntityFrameworkCore;
+using ProjectName.KnowledgeService.Data;
+using Pgvector;
+
+namespace ProjectName.KnowledgeService.Services;
+
+public class KnowledgeVaultService
+{
+    private readonly KnowledgeDbContext _db;
+    private readonly EmbeddingService _embeddingService;
+    private readonly ILogger&lt;KnowledgeVaultService&gt; _logger;
+
+    public KnowledgeVaultService(
+        KnowledgeDbContext db,
+        EmbeddingService embeddingService,
+        ILogger&lt;KnowledgeVaultService&gt; logger)
+    {
+        _db = db;
+        _embeddingService = embeddingService;
+        _logger = logger;
+    }
+
+    /// &lt;summary&gt;
+    /// Store a cognitive trail item with automatic embedding generation
+    /// &lt;/summary&gt;
+    public async Task&lt;Guid&gt; StoreAsync(string content, string? source = null, string? metadata = null)
+    {
+        // Generate embedding
+        var embedding = await _embeddingService.GenerateEmbeddingAsync(content);
+
+        // Store in database
+        var item = new KnowledgeItem
+        {
+            Id = Guid.NewGuid(),
+            Content = content,
+            Embedding = embedding,
+            Source = source,
+            Metadata = metadata,
+            Timestamp = DateTime.UtcNow
+        };
+
+        _db.KnowledgeItems.Add(item);
+        await _db.SaveChangesAsync();
+
+        _logger.LogInformation("📦 Stored knowledge item: {Id} from source: {Source}", item.Id, source);
+        return item.Id;
+    }
+
+    /// &lt;summary&gt;
+    /// Semantic search: Find similar cognitive trails
+    /// &lt;/summary&gt;
+    public async Task&lt;List&lt;KnowledgeItem&gt;&gt; SearchAsync(string query, int topK = 5, float threshold = 0.7f)
+    {
+        // Generate embedding for query
+        var queryEmbedding = await _embeddingService.GenerateEmbeddingAsync(query);
+
+        // Vector similarity search using cosine similarity
+        var results = await _db.KnowledgeItems
+            .Select(k =&gt; new
+            {
+                Item = k,
+                Similarity = EF.Functions.VectorCosineSimilarity(k.Embedding, queryEmbedding)
+            })
+            .Where(x =&gt; x.Similarity &gt;= threshold)
+            .OrderByDescending(x =&gt; x.Similarity)
+            .Take(topK)
+            .Select(x =&gt; x.Item)
+            .ToListAsync();
+
+        _logger.LogInformation("🔍 Found {Count} similar items for query: {Query}", results.Count, query);
+        return results;
+    }
+
+    /// &lt;summary&gt;
+    /// Retrieve cognitive trails by source (e.g., all Planner decisions)
+    /// &lt;/summary&gt;
+    public async Task&lt;List&lt;KnowledgeItem&gt;&gt; GetBySourceAsync(string source, int limit = 100)
+    {
+        return await _db.KnowledgeItems
+            .Where(k =&gt; k.Source == source)
+            .OrderByDescending(k =&gt; k.Timestamp)
+            .Take(limit)
+            .ToListAsync();
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 6: Configure Program.cs</h2>
+
+                <p>Set up the Knowledge service in <code>Program.cs</code> (matching your actual architecture):</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+
+// Add service defaults (OpenTelemetry, health checks, etc.)
+builder.AddServiceDefaults();
+
+// PostgreSQL with pgvector (Aspire provides connection string as "knowledge")
+var connectionString = builder.Configuration.GetConnectionString("knowledge") 
+    ?? "Host=localhost;Database=knowledge;Username=pmcro;Password=pmcro123";
+
+builder.Services.AddDbContext&lt;KnowledgeDbContext&gt;(options =&gt;
+    options.UseNpgsql(connectionString, npgsqlOptions =&gt;
+    {
+        npgsqlOptions.UseVector();
+    }));
+
+// Ollama for embeddings
+var ollamaUri = builder.Configuration.GetConnectionString("ollama") 
+    ?? "http://localhost:11434";
+
+if (!Uri.TryCreate(ollamaUri, UriKind.Absolute, out var uri))
+{
+    uri = new Uri("http://localhost:11434");
+}
+
+builder.Services.AddSingleton(_ =&gt; new OllamaApiClient(uri));
+builder.Services.AddScoped&lt;EmbeddingService&gt;();
+builder.Services.AddScoped&lt;KnowledgeVaultService&gt;();
+
+// Add controllers
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline
+app.MapDefaultEndpoints();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.MapControllers();
+
+// Initialize database
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService&lt;KnowledgeDbContext&gt;();
+    await db.Database.MigrateAsync();
+}
+
+app.Run();</code></pre>
+                </div>
+
+                <h2>Step 7: Create REST API Endpoints</h2>
+
+                <p>Add <code>Controllers/KnowledgeController.cs</code> for HTTP access:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.AspNetCore.Mvc;
+using ProjectName.KnowledgeService.Services;
+
+namespace ProjectName.KnowledgeService.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class KnowledgeController : ControllerBase
+{
+    private readonly KnowledgeVaultService _vault;
+    private readonly ILogger&lt;KnowledgeController&gt; _logger;
+
+    public KnowledgeController(KnowledgeVaultService vault, ILogger&lt;KnowledgeController&gt; logger)
+    {
+        _vault = vault;
+        _logger = logger;
+    }
+
+    /// &lt;summary&gt;
+    /// Store a cognitive trail item
+    /// &lt;/summary&gt;
+    [HttpPost("store")]
+    public async Task&lt;IActionResult&gt; Store([FromBody] StoreRequest request)
+    {
+        var id = await _vault.StoreAsync(
+            request.Content,
+            request.Source,
+            request.Metadata);
+
+        return Ok(new { Id = id, Message = "Knowledge item stored successfully" });
+    }
+
+    /// &lt;summary&gt;
+    /// Semantic search for similar cognitive trails
+    /// &lt;/summary&gt;
+    [HttpGet("search")]
+    public async Task&lt;IActionResult&gt; Search(
+        [FromQuery] string query,
+        [FromQuery] int topK = 5,
+        [FromQuery] float threshold = 0.7f)
+    {
+        var results = await _vault.SearchAsync(query, topK, threshold);
+        return Ok(results);
+    }
+
+    /// &lt;summary&gt;
+    /// Get cognitive trails by source (e.g., all Planner decisions)
+    /// &lt;/summary&gt;
+    [HttpGet("source/{source}")]
+    public async Task&lt;IActionResult&gt; GetBySource(string source, [FromQuery] int limit = 100)
+    {
+        var results = await _vault.GetBySourceAsync(source, limit);
+        return Ok(results);
+    }
+}
+
+public record StoreRequest(string Content, string? Source = null, string? Metadata = null);</code></pre>
+                </div>
+
+                <h2>Step 8: Integrate with PMCR-O Agents</h2>
+
+                <p>Update your Planner service to store cognitive trails. In <code>PlannerService/Services/PlannerAgentService.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">public override async Task&lt;AgentResponse&gt; ExecuteTask(
+    AgentRequest request,
+    ServerCallContext context)
+{
+    _logger.LogInformation("🧭 I AM the Planner. Analyzing: {Intent}", request.Intent);
+
+    // Query knowledge vault for similar past solutions
+    var httpClient = _httpClientFactory.CreateClient();
+    var knowledgeResponse = await httpClient.GetAsync(
+        $"http://localhost:5002/api/knowledge/search?query={Uri.EscapeDataString(request.Intent)}&topK=3");
+
+    var pastSolutions = await knowledgeResponse.Content.ReadFromJsonAsync&lt;List&lt;KnowledgeItem&gt;&gt;() ?? new();
+
+    // Build context from past solutions
+    var contextPrompt = pastSolutions.Any()
+        ? $"Similar past solutions:\n{string.Join("\n", pastSolutions.Select(s => $"- {s.Content}"))}"
+        : "No similar past solutions found.";
+
+    // Generate plan
+    var systemPrompt = @"I AM the Planner.
+I TRANSFER complex intent into minimal viable plans.
+I EVOLVE through reflection on execution outcomes.";
+
+    var history = new ChatHistory
+    {
+        new ChatMessage(ChatRole.System, systemPrompt),
+        new ChatMessage(ChatRole.User, $"{request.Intent}\n\nContext: {contextPrompt}")
+    };
+
+    var response = await _chatClient.CompleteChatAsync(history, new ChatOptions
+    {
+        ResponseFormat = ChatResponseFormat.Json
+    });
+
+    // Store this plan in knowledge vault for future reference
+    await httpClient.PostAsJsonAsync("http://localhost:5002/api/knowledge/store", new
+    {
+        Content = response.Content,
+        Source = "planner",
+        Metadata = JsonSerializer.Serialize(new { Intent = request.Intent, Timestamp = DateTime.UtcNow })
+    });
+
+    return new AgentResponse
+    {
+        Content = response.Content,
+        Success = true
+    };
+}</code></pre>
+                </div>
+
+                <h2>Performance Optimization</h2>
+
+                <h3>IVFFlat Index Configuration</h3>
+                <p>The IVFFlat index speeds up similarity search. Adjust the <code>lists</code> parameter based on your data size:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">SQL</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- For small datasets (&lt;100K items): lists = 100
+-- For medium datasets (100K-1M): lists = 1000
+-- For large datasets (&gt;1M): lists = 10000
+
+CREATE INDEX ON "KnowledgeItems" 
+USING ivfflat (embedding vector_cosine_ops) 
+WITH (lists = 100);</code></pre>
+                </div>
+
+                <h3>Batch Embedding Generation</h3>
+                <p>For bulk ingestion, generate embeddings in batches:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">public async Task&lt;List&lt;Guid&gt;&gt; StoreBatchAsync(List&lt;string&gt; contents, string? source = null)
+{
+    // Generate embeddings in parallel
+    var embeddingTasks = contents.Select(c =&gt; _embeddingService.GenerateEmbeddingAsync(c));
+    var embeddings = await Task.WhenAll(embeddingTasks);
+
+    // Batch insert
+    var items = contents.Zip(embeddings).Select((tuple, index) =&gt; new KnowledgeItem
+    {
+        Id = Guid.NewGuid(),
+        Content = tuple.First,
+        Embedding = tuple.Second,
+        Source = source,
+        Timestamp = DateTime.UtcNow
+    }).ToList();
+
+    _db.KnowledgeItems.AddRange(items);
+    await _db.SaveChangesAsync();
+
+    return items.Select(i =&gt; i.Id).ToList();
+}</code></pre>
+                </div>
+
+                <h2>Real-World Use Cases</h2>
+
+                <h3>1. Cognitive Trail Persistence</h3>
+                <p>Store every PMCR-O cycle outcome for future reference:</p>
+                <ul>
+                    <li><strong>Planner decisions:</strong> What plans worked? What failed?</li>
+                    <li><strong>Maker artifacts:</strong> Code patterns that succeeded</li>
+                    <li><strong>Checker validations:</strong> Common error patterns</li>
+                    <li><strong>Reflector insights:</strong> Meta-level learnings</li>
+                </ul>
+
+                <h3>2. RAG-Enhanced Agent Responses</h3>
+                <p>Agents query their own history before generating responses:</p>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Before generating a plan, check if we've solved this before
+var similarPlans = await _knowledgeVault.SearchAsync(
+    "authentication system with JWT tokens",
+    topK: 3,
+    threshold: 0.8f);
+
+if (similarPlans.Any())
+{
+    // Use past solution as context
+    var context = $"We solved this before: {similarPlans[0].Content}";
+    // Generate new plan with context
+}</code></pre>
+                </div>
+
+                <h3>3. Multi-Agent Knowledge Sharing</h3>
+                <p>Different agents can learn from each other's cognitive trails:</p>
+                <ul>
+                    <li>Maker learns from Checker's validation patterns</li>
+                    <li>Reflector learns from Planner's decision history</li>
+                    <li>Orchestrator learns from all agents' outcomes</li>
+                </ul>
+
+                <h2>Monitoring & Analytics</h2>
+
+                <p>Track knowledge vault health and usage:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">[HttpGet("stats")]
+public async Task&lt;IActionResult&gt; GetStats()
+{
+    var totalItems = await _db.KnowledgeItems.CountAsync();
+    var bySource = await _db.KnowledgeItems
+        .GroupBy(k =&gt; k.Source)
+        .Select(g =&gt; new { Source = g.Key, Count = g.Count() })
+        .ToListAsync();
+
+    return Ok(new
+    {
+        TotalItems = totalItems,
+        BySource = bySource,
+        AverageSimilarity = await CalculateAverageSimilarityAsync()
+    });
+}</code></pre>
+                </div>
+
+                <h2>Production Deployment</h2>
+
+                <p>For production use:</p>
+                <ul>
+                    <li><strong>Connection Pooling:</strong> Configure Npgsql connection pool size</li>
+                    <li><strong>Index Maintenance:</strong> Rebuild IVFFlat indexes periodically</li>
+                    <li><strong>Backup Strategy:</strong> Regular pg_dump with vector data</li>
+                    <li><strong>Monitoring:</strong> Track embedding generation latency</li>
+                    <li><strong>Scaling:</strong> Consider read replicas for search queries</li>
+                </ul>
+
+                <div class="callout">
+                    <h3>🎉 What You've Built</h3>
+                    <p>Your PMCR-O system now has:</p>
+                    <ul>
+                        <li><strong>Semantic Memory:</strong> Agents can find similar past solutions</li>
+                        <li><strong>Externalized Cognition:</strong> Cognitive trails persist beyond sessions</li>
+                        <li><strong>RAG Capabilities:</strong> Context-aware responses from history</li>
+                        <li><strong>Multi-Agent Learning:</strong> Agents learn from each other's trails</li>
+                    </ul>
+                </div>
+
+                <h2>Next Steps</h2>
+
+                <p>Extend your knowledge vault with:</p>
+                <ul>
+                    <li><strong>Metadata Filtering:</strong> Search by source, timestamp, or custom tags</li>
+                    <li><strong>Hybrid Search:</strong> Combine vector similarity with keyword matching</li>
+                    <li><strong>Time-Based Decay:</strong> Weight recent cognitive trails higher</li>
+                    <li><strong>Knowledge Consolidation:</strong> Periodically merge similar trails</li>
+                </ul>
+
+                <div class="callout">
+                    <p><strong>🔗 Related Resources:</strong></p>
+                    <ul>
+                        <li><a href="article-pmcro-quickstart-30-minutes.html" style="color: var(--gold);">PMCR-O Quickstart</a> - Build the foundation</li>
+                        <li><a href="doc-cognitive-trail.html" style="color: var(--gold);">Cognitive Trail Documentation</a> - Memory system design</li>
+                        <li><a href="article-building-self-referential-agents-part3.html" style="color: var(--gold);">Building Self-Referential Agents Part 3</a> - RAG integration</li>
+                        <li><a href="pmcro-codex.html#the-infinite-loop" style="color: var(--gold);">PMCR-O Codex</a> - Framework architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+            const text = codeBlock.textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

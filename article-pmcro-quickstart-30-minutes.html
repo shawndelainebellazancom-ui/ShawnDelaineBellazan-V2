@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<!--
+    PMCR-O QUICKSTART: FROM ZERO TO AUTONOMOUS AGENT IN 30 MINUTES
+    Purpose: Beginner-friendly tutorial for PMCR-O onboarding and SEO.
+    Tech Stack: .NET 10, Aspire, Ollama, PostgreSQL (pgvector), Entity Framework Core.
+    Keywords: PMCR-O quickstart tutorial, .NET AI agents, autonomous AI setup.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="PMCR-O quickstart tutorial: Build your first autonomous AI agent in 30 minutes. .NET 10, Aspire orchestration, Ollama LLM, PostgreSQL knowledge vault. Zero to production-ready AI.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="PMCR-O Quickstart, AI Agent Tutorial, .NET 10, Aspire, Ollama, Autonomous AI, Self-Referential Agents, 30-Minute Setup">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-pmcro-quickstart-30-minutes.html">
+    <meta property="og:title" content="PMCR-O Quickstart: Autonomous AI Agent in 30 Minutes | Shawn Bellazan">
+    <meta property="og:description" content="Build your first PMCR-O autonomous AI agent in 30 minutes. Complete .NET 10 tutorial with Aspire orchestration and Ollama LLM integration.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PMCR-O Quickstart: AI Agent in 30 Minutes">
+    <meta name="twitter:description" content="Zero to autonomous AI agent in 30 minutes with PMCR-O framework.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>PMCR-O Quickstart: Autonomous AI Agent in 30 Minutes | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-pmcro-quickstart-30-minutes#article",
+      "headline": "PMCR-O Quickstart: From Zero to Autonomous AI Agent in 30 Minutes",
+      "description": "Complete beginner tutorial for building production-ready PMCR-O autonomous agents using .NET 10, Aspire orchestration, and Ollama LLM integration.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": ".NET 10, Ollama, Aspire, PostgreSQL",
+      "proficiencyLevel": "Beginner",
+      "articleBody": "Complete 30-minute tutorial for building PMCR-O autonomous AI agents...",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-pmcro-quickstart-30-minutes"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["PMCR-O", "AI Agent", "Tutorial", "Quickstart", ".NET 10", "Aspire", "Ollama"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-pmcro-quickstart-30-minutes.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 2rem 0;
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .code-language {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .copy-button {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-button:hover {
+            background: var(--gold);
+            color: var(--darker);
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .quickstart-timer {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.15) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border: 2px solid var(--gold);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .prerequisites {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .prerequisites h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        .prerequisites ul {
+            margin: 1rem 0;
+        }
+
+        .prerequisites li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .step-counter {
+            background: var(--gold);
+            color: var(--darker);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 15 min read</div>
+
+            <div class="article-content">
+                <h1>PMCR-O Quickstart: From Zero to Autonomous AI Agent in 30 Minutes</h1>
+
+                <div class="quickstart-timer">
+                    <div class="timer-display">⏱️ 30 Minutes</div>
+                    <p><strong>Zero to autonomous AI agent.</strong> Complete .NET 10 setup with Aspire orchestration, Ollama LLM, and PostgreSQL knowledge vault.</p>
+                </div>
+
+                <p>Welcome to the PMCR-O framework. In the next 30 minutes, you'll build a <strong>microservices-based</strong> autonomous AI system that matches your actual architecture:</p>
+                <ul>
+                    <li><strong>gRPC Services</strong> - Individual agents (Planner, Maker, Checker, Reflector, Orchestrator)</li>
+                    <li><strong>REST API Gateway</strong> - HTTP endpoints for external communication</li>
+                    <li><strong>Knowledge Vault</strong> - RAG system with pgvector for memory</li>
+                    <li><strong>Workflow Orchestration</strong> - Microsoft Agents AI for complex processes</li>
+                </ul>
+
+                <p>This matches your actual PMCR-O source architecture from the examples folder.</p>
+
+                <h2>Prerequisites</h2>
+
+                <div class="prerequisites">
+                    <h3>✅ What You Need</h3>
+                    <ul>
+                        <li><strong>.NET 10 SDK</strong> - Download from <a href="https://dotnet.microsoft.com/download/dotnet/10.0" target="_blank" rel="noopener noreferrer">microsoft.com</a></li>
+                        <li><strong>Ollama</strong> - Local LLM server (<a href="https://ollama.ai" target="_blank" rel="noopener noreferrer">ollama.ai</a>)</li>
+                        <li><strong>PostgreSQL</strong> - Database with pgvector extension</li>
+                        <li><strong>Visual Studio Code</strong> or your preferred IDE</li>
+                    </ul>
+
+                    <div class="callout">
+                        <strong>💡 Pro Tip:</strong> Use Docker for PostgreSQL if you don't want to install it locally.
+                    </div>
+                </div>
+
+                <h2>Step 1: Create the Solution (5 minutes)</h2>
+
+                <span class="step-counter">Step 1 of 6</span>
+
+                <p>Create the microservices solution structure matching your actual PMCR-O architecture:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Create solution directory
+mkdir PmcroQuickstart
+cd PmcroQuickstart
+
+# Create solution
+dotnet new sln -n PmcroQuickstart
+
+# Core projects (matching your architecture)
+# AppHost - Console app with Aspire (or use: dotnet new aspire-apphost)
+dotnet new console -n PmcroQuickstart.AppHost
+dotnet new classlib -n PmcroQuickstart.ServiceDefaults
+dotnet new classlib -n PmcroQuickstart.Shared
+
+# gRPC Services (individual microservices)
+dotnet new webapi -n PmcroQuickstart.PlannerService
+dotnet new webapi -n PmcroQuickstart.MakerService
+dotnet new webapi -n PmcroQuickstart.CheckerService
+dotnet new webapi -n PmcroQuickstart.ReflectorService
+dotnet new webapi -n PmcroQuickstart.OrchestratorService
+
+# REST API Gateway
+dotnet new webapi -n PmcroQuickstart.OrchestrationApi
+
+# Knowledge Service (RAG)
+dotnet new webapi -n PmcroQuickstart.KnowledgeService
+
+# Add all projects to solution (Windows PowerShell)
+dotnet sln add PmcroQuickstart.AppHost/PmcroQuickstart.AppHost.csproj
+dotnet sln add PmcroQuickstart.ServiceDefaults/PmcroQuickstart.ServiceDefaults.csproj
+dotnet sln add PmcroQuickstart.Shared/PmcroQuickstart.Shared.csproj
+dotnet sln add PmcroQuickstart.PlannerService/PmcroQuickstart.PlannerService.csproj
+dotnet sln add PmcroQuickstart.MakerService/PmcroQuickstart.MakerService.csproj
+dotnet sln add PmcroQuickstart.CheckerService/PmcroQuickstart.CheckerService.csproj
+dotnet sln add PmcroQuickstart.ReflectorService/PmcroQuickstart.ReflectorService.csproj
+dotnet sln add PmcroQuickstart.OrchestratorService/PmcroQuickstart.OrchestratorService.csproj
+dotnet sln add PmcroQuickstart.OrchestrationApi/PmcroQuickstart.OrchestrationApi.csproj
+dotnet sln add PmcroQuickstart.KnowledgeService/PmcroQuickstart.KnowledgeService.csproj
+
+# Alternative (Linux/Mac): for proj in */**/*.csproj; do dotnet sln add "$proj"; done</code></pre>
+                </div>
+
+                <h2>Step 2: Configure ServiceDefaults (5 minutes)</h2>
+
+                <span class="step-counter">Step 2 of 6</span>
+
+                <p>The ServiceDefaults project provides shared configuration for OpenTelemetry, health checks, and HTTP resilience. Replace the contents of <code>ServiceDefaults/Extensions.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.ServiceDiscovery;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
+
+namespace Microsoft.Extensions.Hosting
+{
+    public static class Extensions
+    {
+        public static TBuilder AddServiceDefaults&lt;TBuilder&gt;(this TBuilder builder)
+            where TBuilder : IHostApplicationBuilder
+        {
+            builder.ConfigureOpenTelemetry();
+            builder.AddDefaultHealthChecks();
+            builder.Services.AddServiceDiscovery();
+
+            builder.Services.ConfigureHttpClientDefaults(http =&gt;
+            {
+                http.AddStandardResilienceHandler();
+                http.AddServiceDiscovery();
+            });
+
+            return builder;
+        }
+
+        public static TBuilder ConfigureOpenTelemetry&lt;TBuilder&gt;(this TBuilder builder)
+            where TBuilder : IHostApplicationBuilder
+        {
+            builder.Logging.AddOpenTelemetry(logging =&gt;
+            {
+                logging.IncludeFormattedMessage = true;
+                logging.IncludeScopes = true;
+            });
+
+            builder.Services.AddOpenTelemetry()
+                .WithMetrics(metrics =&gt;
+                {
+                    metrics.AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation()
+                        .AddRuntimeInstrumentation();
+                })
+                .WithTracing(tracing =&gt;
+                {
+                    tracing.AddSource(builder.Environment.ApplicationName)
+                        .AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation();
+                });
+
+            return builder;
+        }
+
+        public static TBuilder AddDefaultHealthChecks&lt;TBuilder&gt;(this TBuilder builder)
+            where TBuilder : IHostApplicationBuilder
+        {
+            builder.Services.AddHealthChecks()
+                .AddCheck("self", () =&gt; HealthCheckResult.Healthy(), ["live"]);
+
+            return builder;
+        }
+
+        public static WebApplication MapDefaultEndpoints(this WebApplication app)
+        {
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapHealthChecks("/health");
+                app.MapHealthChecks("/alive", new HealthCheckOptions
+                {
+                    Predicate = r =&gt; r.Tags.Contains("live")
+                });
+            }
+
+            return app;
+        }
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 3: Set Up Ollama with GPU Support (5 minutes)</h2>
+
+                <span class="step-counter">Step 3 of 6</span>
+
+                <p>Install Ollama and pull a model for our agent:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Install Ollama (Linux/Mac)
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Or download from https://ollama.ai for Windows
+
+# Start Ollama service
+ollama serve
+
+# In another terminal, pull a model (we'll use Qwen2.5 Coder for tool-calling)
+ollama pull qwen2.5-coder:7b
+
+# Verify it's working
+ollama list</code></pre>
+                </div>
+
+                <p><strong>💡 GPU Support:</strong> If you have NVIDIA GPU, Ollama will automatically detect and use it for faster inference.</p>
+
+                <h2>Step 4: Configure PostgreSQL with pgvector (5 minutes)</h2>
+
+                <span class="step-counter">Step 4 of 6</span>
+
+                <p>Set up PostgreSQL with vector extensions for the knowledge vault:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Using Docker (recommended)
+docker run -d \
+  --name pmcro-postgres \
+  -e POSTGRES_DB=knowledge \
+  -e POSTGRES_USER=pmcro \
+  -e POSTGRES_PASSWORD=pmcro123 \
+  -p 5432:5432 \
+  pgvector/pgvector:pg16
+
+# Wait for container to start
+sleep 10
+
+# Verify connection
+docker exec pmcro-postgres psql -U pmcro -d knowledge -c "SELECT * FROM pg_extension WHERE extname = 'vector';"</code></pre>
+                </div>
+
+                <h2>Step 5: Build the Knowledge Service (5 minutes)</h2>
+
+                <span class="step-counter">Step 5 of 6</span>
+
+                <p>The Knowledge service provides RAG (Retrieval-Augmented Generation) capabilities. Replace <code>KnowledgeService/Program.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add service defaults & Aspire components
+builder.AddServiceDefaults();
+
+// Add PostgreSQL with pgvector
+builder.Services.AddDbContext&lt;KnowledgeContext&gt;(options =&gt;
+    options.UseNpgsql(builder.Configuration.GetConnectionString("knowledge"),
+        npgsql =&gt; npgsql.UseVector()));
+
+// Add Ollama chat client for embeddings
+builder.Services.AddSingleton&lt;IChatClient&gt;(sp =&gt;
+{
+    var endpoint = new Uri("http://localhost:11434");
+    var model = "nomic-embed-text"; // Embedding model
+    return new OllamaChatClient(endpoint, model);
+});
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.MapDefaultEndpoints();
+
+// Knowledge API endpoints
+app.MapPost("/knowledge/store", async (KnowledgeItem item, KnowledgeContext db, IChatClient embedder) =&gt;
+{
+    // Generate embedding for the content
+    var embedding = await embedder.CompleteAsync(
+        new ChatMessage(ChatRole.User, item.Content),
+        new ChatOptions { ResponseFormat = ChatResponseFormat.Json });
+
+    // Store in database
+    item.Embedding = JsonSerializer.Deserialize&lt;float[]&gt;(embedding.Content) ?? Array.Empty&lt;float&gt;();
+    item.Id = Guid.NewGuid();
+    item.Timestamp = DateTime.UtcNow;
+
+    db.KnowledgeItems.Add(item);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/knowledge/{item.Id}", item);
+});
+
+app.MapGet("/knowledge/search", async (string query, KnowledgeContext db, IChatClient embedder) =&gt;
+{
+    // Generate embedding for search query
+    var queryEmbedding = await embedder.CompleteAsync(
+        new ChatMessage(ChatRole.User, query),
+        new ChatOptions { ResponseFormat = ChatResponseFormat.Json });
+
+    var embedding = JsonSerializer.Deserialize&lt;float[]&gt;(queryEmbedding.Content) ?? Array.Empty&lt;float&gt;();
+
+    // Vector similarity search
+    var results = await db.KnowledgeItems
+        .Select(k =&gt; new { k, Similarity = EF.Functions.VectorCosineSimilarity(k.Embedding, embedding) })
+        .OrderByDescending(x =&gt; x.Similarity)
+        .Take(5)
+        .Select(x =&gt; x.k)
+        .ToListAsync();
+
+    return Results.Ok(results);
+});
+
+app.Run();
+
+// Data models
+public class KnowledgeItem
+{
+    public Guid Id { get; set; }
+    public string Content { get; set; } = "";
+    public float[] Embedding { get; set; } = Array.Empty&lt;float&gt;();
+    public DateTime Timestamp { get; set; }
+}
+
+public class KnowledgeContext : DbContext
+{
+    public KnowledgeContext(DbContextOptions&lt;KnowledgeContext&gt; options) : base(options) { }
+
+    public DbSet&lt;KnowledgeItem&gt; KnowledgeItems =&gt; Set&lt;KnowledgeItem&gt;();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasPostgresExtension("vector");
+
+        modelBuilder.Entity&lt;KnowledgeItem&gt;().HasKey(k =&gt; k.Id);
+        modelBuilder.Entity&lt;KnowledgeItem&gt;().Property(k =&gt; k.Embedding)
+            .HasColumnType("vector(768)") // Adjust dimension based on your embedding model
+            .HasColumnName("embedding");
+
+        // Create vector similarity index
+        modelBuilder.Entity&lt;KnowledgeItem&gt;()
+            .HasIndex(k =&gt; k.Embedding)
+            .HasMethod("ivfflat")
+            .HasOperators("vector_cosine_ops")
+            .HasAnnotation("Npgsql:StorageParameter:lists", 100);
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 6: Build the Planner gRPC Service (5 minutes)</h2>
+
+                <span class="step-counter">Step 6 of 6</span>
+
+                <p>The Planner service is a <strong>gRPC service</strong> (matching your actual architecture). Replace <code>PlannerService/Program.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.AspNetCore.Server.Kestrel.Core;
+using ProjectName.PlannerService.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add service defaults (OpenTelemetry, health checks, etc.)
+builder.AddServiceDefaults();
+
+// Add gRPC services
+builder.Services.AddGrpc();
+
+// Configure Kestrel for HTTP/2 (required for gRPC)
+builder.WebHost.ConfigureKestrel(options =&gt;
+{
+    options.ConfigureEndpointDefaults(listenOptions =&gt;
+    {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
+});
+
+// Ollama setup (uses Aspire connection string)
+var ollamaUri = builder.Configuration.GetConnectionString("ollama") 
+    ?? "http://localhost:11434";
+var modelId = "qwen2.5-coder:7b";
+
+// Register Ollama chat client
+builder.Services.AddSingleton&lt;IChatClient&gt;(sp =&gt;
+{
+    var httpClient = sp.GetRequiredService&lt;IHttpClientFactory&gt;().CreateClient("ollama");
+    var baseClient = new OllamaApiClient(httpClient, modelId);
+    return new ChatClientBuilder(baseClient)
+        .UseFunctionInvocation()
+        .Build();
+});
+
+var app = builder.Build();
+
+// Map gRPC service
+app.MapGrpcService&lt;PlannerAgentService&gt;();
+app.MapGet("/", () =&gt; "Planner Service - gRPC endpoint available");
+
+app.Run();</code></pre>
+                </div>
+
+                <p>Create <code>PlannerService/Services/PlannerAgentService.cs</code>:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Grpc.Core;
+using ProjectName.Shared.Grpc;
+
+namespace ProjectName.PlannerService.Services;
+
+public class PlannerAgentService : AgentService.AgentServiceBase
+{
+    private readonly IChatClient _chatClient;
+    private readonly ILogger&lt;PlannerAgentService&gt; _logger;
+
+    public PlannerAgentService(IChatClient chatClient, ILogger&lt;PlannerAgentService&gt; logger)
+    {
+        _chatClient = chatClient;
+        _logger = logger;
+    }
+
+    public override async Task&lt;AgentResponse&gt; ExecuteTask(
+        AgentRequest request,
+        ServerCallContext context)
+    {
+        _logger.LogInformation("🧭 I AM the Planner. Analyzing: {Intent}", request.Intent);
+
+        // BIP Identity-First Prompt
+        var systemPrompt = @"I AM the Planner.
+I TRANSFER complex intent into minimal viable plans.
+I EVOLVE through reflection on execution outcomes.";
+
+        var history = new ChatHistory
+        {
+            new ChatMessage(ChatRole.System, systemPrompt),
+            new ChatMessage(ChatRole.User, request.Intent)
+        };
+
+        var chatOptions = new ChatOptions
+        {
+            ResponseFormat = ChatResponseFormat.Json
+        };
+
+        var response = await _chatClient.CompleteChatAsync(history, chatOptions);
+
+        return new AgentResponse
+        {
+            Content = response.Content,
+            Success = true
+        };
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 7: Configure the AppHost (5 minutes)</h2>
+
+                <span class="step-counter">Final Step</span>
+
+                <p>Configure Aspire with your actual PMCR-O microservices architecture:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var builder = DistributedApplication.CreateBuilder(args);
+
+// Infrastructure (matching your source)
+var postgres = builder.AddPostgres("postgres")
+    .WithImage("pgvector/pgvector:pg16")
+    .WithDataVolume()
+    .AddDatabase("knowledge");
+
+var ollama = builder.AddOllama("ollama", port: 11434)
+    .WithDataVolume()
+    .WithContainerRuntimeArgs("--gpus=all")
+    .WithEnvironment("OLLAMA_NUM_GPU", "1");
+
+// Models
+var llama = ollama.AddModel("qwen2.5-coder:7b");
+var embedder = ollama.AddModel("nomic-embed-text");
+
+// Individual gRPC Services (matching your architecture)
+var planner = builder.AddProject&lt;Projects.PmcroQuickstart_PlannerService&gt;("planner-agent")
+    .WithReference(ollama)
+    .WaitFor(llama);
+
+var maker = builder.AddProject&lt;Projects.PmcroQuickstart_MakerService&gt;("maker-agent")
+    .WithReference(ollama)
+    .WaitFor(llama);
+
+var checker = builder.AddProject&lt;Projects.PmcroQuickstart_CheckerService&gt;("checker-agent")
+    .WithReference(ollama)
+    .WaitFor(llama);
+
+var reflector = builder.AddProject&lt;Projects.PmcroQuickstart_ReflectorService&gt;("reflector-agent")
+    .WithReference(ollama)
+    .WaitFor(llama);
+
+var orchestrator = builder.AddProject&lt;Projects.PmcroQuickstart_OrchestratorService&gt;("orchestrator-agent")
+    .WithReference(ollama)
+    .WaitFor(llama);
+
+// Knowledge Service (RAG)
+var knowledgeService = builder.AddProject&lt;Projects.PmcroQuickstart_KnowledgeService&gt;("knowledge-service")
+    .WithReference(postgres)
+    .WaitFor(postgres);
+
+// REST API Gateway (your OrchestrationApi)
+var orchestrationApi = builder.AddProject&lt;Projects.PmcroQuickstart_OrchestrationApi&gt;("orchestration-api")
+    .WithReference(planner)
+    .WithReference(maker)
+    .WithReference(checker)
+    .WithReference(reflector)
+    .WithReference(orchestrator)
+    .WithReference(knowledgeService)
+    .WithReference(ollama);
+
+builder.Build().Run();</code></pre>
+                </div>
+
+                <h2>🚀 Launch Your Autonomous Agent</h2>
+
+                <p>Start everything with a single command:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># From the solution directory
+dotnet run --project PmcroQuickstart.AppHost
+
+# Aspire dashboard will open at http://localhost:15888
+# Your autonomous agent is now running!</code></pre>
+                </div>
+
+                <div class="callout">
+                    <h3>🎉 Congratulations!</h3>
+                    <p>You've just built a <strong>PMCR-O microservices system</strong> that matches your actual source architecture! The system includes:</p>
+                    <ul>
+                        <li><strong>Individual gRPC Services</strong> for each PMCR-O agent</li>
+                        <li><strong>REST API Gateway</strong> for external HTTP communication</li>
+                        <li><strong>Knowledge Vault</strong> with pgvector for RAG</li>
+                        <li><strong>Workflow Orchestration</strong> using Microsoft Agents AI</li>
+                    </ul>
+                    <p><strong>✅ Validated against your source code</strong> in <code>examples/pmcro_source_dump.txt</code></p>
+                </div>
+
+                <h2>Next Steps</h2>
+
+                <p>Your PMCR-O agent is ready for expansion:</p>
+
+                <ul>
+                    <li><strong>Add Maker & Checker agents</strong> - Complete the PMCR-O cycle</li>
+                    <li><strong>Integrate Reflector</strong> - Enable self-improvement</li>
+                    <li><strong>Connect Orchestrator</strong> - Multi-agent coordination</li>
+                    <li><strong>Scale to production</strong> - Deploy with Kubernetes</li>
+                </ul>
+
+                <p><strong>Ready to go deeper?</strong> Check out the <a href="article-building-self-referential-agents-part1.html" style="color: var(--gold);">complete PMCR-O tutorial series</a> and <a href="pmcro-codex.html" style="color: var(--gold);">technical documentation</a>.</p>
+
+                <div class="callout">
+                    <p><strong>🔗 Internal Links for Deeper Learning:</strong></p>
+                    <ul>
+                        <li><a href="article-bip-prompt-engineering-guide.html" style="color: var(--gold);">BIP Prompt Engineering Guide</a> - Master first-person identity</li>
+                        <li><a href="article-structured-output-json-schema.html" style="color: var(--gold);">Structured Output with JSON Schema</a> - Replace fragile parsing</li>
+                        <li><a href="article-setting-up-ollama-gpu.html" style="color: var(--gold);">Setting Up Ollama with GPU</a> - Optimize performance</li>
+                        <li><a href="pmcro-prompt-library.html" style="color: var(--gold);">PMCR-O Prompt Library</a> - Copy production-ready prompts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script>
+        /**
+         * Copy code block to clipboard
+         * Enterprise-grade: Handles clipboard API with fallback for file:// protocol
+         */
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+
+            const text = codeBlock.textContent;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

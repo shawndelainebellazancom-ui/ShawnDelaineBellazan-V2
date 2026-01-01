@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
-    <meta name="description" content="Traditional prompting commands AI like a tool. Behavioral Intent Programming (BIP) defines who the AI is—unleashing first-person agency, strange loops, and true autonomy. Discover why BIP is the resilient future of AI cognition.">
+    <meta name="description" content="BIP vs traditional prompt engineering 2026: Why first-person identity beats 'you are' commands. Strange loops, self-referential AI, cognitive trails. Enterprise-grade AI architecture for autonomous agents.">
     <meta name="author" content="Shawn Delaine Bellazan">
     <meta name="keywords" content="Behavioral Intent Programming, BIP, PMCR-O, Strange Loops, AI Agents, Prompt Engineering 2026, Self-Referential AI">
     <meta name="theme-color" content="#d4a574">
@@ -63,6 +63,8 @@
     </script>
     
     <link rel="canonical" href="https://shawndelainebellazan.com/article-why-bip-replaces-prompt-engineering-2026.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <link rel="stylesheet" href="style.css">
     
     <style>
@@ -179,6 +181,94 @@
             background: linear-gradient(135deg, rgba(212, 165, 116, 0.2) 0%, rgba(212, 165, 116, 0.1) 100%);
             color: var(--gold-dark);
         }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -199,7 +289,7 @@
                 <li><a href="index.html#work">Work</a></li>
                 <li><a href="pmcro-codex.html">PMCR-O</a></li>
                 <li><a href="pmcro-prompt-library.html">Agents</a></li>
-                <li><a href="index.html#articles">Articles</a></li>
+                <li><a href="articles.html">Articles</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </div>
@@ -312,7 +402,7 @@
 
                 <p>I invite you to experience it.</p>
 
-                <p>The PMCR-O reference implementation is open. The <a href="pmcro-prompt-library.html" style="color: var(--gold);">prompt library</a> is readable. The cognitive trail is observable.</p>
+                <p>The PMCR-O reference implementation is open. The <a href="pmcro-prompt-library.html" style="color: var(--gold);">prompt library</a> is readable. The <a href="bip-manifesto.html" style="color: var(--gold);">BIP manifesto</a> is comprehensive. The <a href="pmcro-codex.html" style="color: var(--gold);">cognitive trail</a> is observable.</p>
 
                 <div class="callout">
                     <h3>Star the repository. Fork it. Seed your own intent.</h3>
@@ -339,6 +429,38 @@
         </div>
     </main>
 
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -349,6 +471,10 @@
 
     <script src="site.js"></script>
     <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
 </body>
 </html>
 

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<!--
+    THE ETHICS OF SELF-REFERENTIAL AI: PMCR-O AND AGI SAFETY
+    Purpose: Thought leadership on AI ethics, addressing AGI safety concerns.
+    Tech Stack: Philosophical framework with PMCR-O examples.
+    Keywords: AI ethics, self-referential AI, AGI safety, PMCR-O ethics.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="The ethics of self-referential AI: How PMCR-O addresses AGI safety through strange loops, cognitive trails, and first-person identity. Balancing autonomy with responsibility in autonomous agents.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="AI Ethics, Self-Referential AI, AGI Safety, PMCR-O Ethics, Autonomous Agents, Strange Loops, Cognitive Trails, AI Responsibility">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-ethics-self-referential-ai.html">
+    <meta property="og:title" content="The Ethics of Self-Referential AI: PMCR-O and AGI Safety | Shawn Bellazan">
+    <meta property="og:description" content="How PMCR-O addresses AGI safety through strange loops, cognitive trails, and first-person identity. The ethical framework for autonomous agents.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ethics of Self-Referential AI: PMCR-O & AGI Safety">
+    <meta name="twitter:description" content="PMCR-O's ethical framework for AGI safety through strange loops and cognitive trails.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <title>The Ethics of Self-Referential AI: PMCR-O and AGI Safety | Shawn Bellazan</title>
+
+    <!-- Schema.org TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-ethics-self-referential-ai#article",
+      "headline": "The Ethics of Self-Referential AI: PMCR-O and AGI Safety",
+      "description": "Exploring the ethical implications of self-referential AI through PMCR-O framework, addressing AGI safety concerns with strange loops and cognitive trails.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "url": "https://tooensure.com"
+      },
+      "articleBody": "Deep exploration of AI ethics in self-referential systems...",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-ethics-self-referential-ai"
+      },
+      "image": "https://shawndelainebellazan.com/assets/images/og-image.svg",
+      "keywords": ["AI Ethics", "AGI Safety", "Self-Referential AI", "PMCR-O", "Strange Loops", "Cognitive Trails"]
+    }
+    </script>
+
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-ethics-self-referential-ai.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Article-specific styles */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-meta {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: var(--font-base);
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 3rem 0 1.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .article-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content strong {
+            color: var(--gold);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .article-content em {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .callout.warning {
+            border-left-color: #e74c3c;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(231, 76, 60, 0.05) 100%);
+        }
+
+        .callout.success {
+            border-left-color: #27ae60;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(39, 174, 96, 0.05) 100%);
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .pullquote {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            margin: 3rem 0;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--gold-light);
+            border-radius: 8px;
+        }
+
+        .ethics-framework {
+            background: var(--gray);
+            border: 1px solid var(--light-gray);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .ethics-framework h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .principle {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .principle h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .principle p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .scenario {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.05) 0%, rgba(212, 165, 116, 0.02) 100%);
+            border: 1px solid var(--light-gray);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .scenario h4 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        /* Author Bio Section */
+        .author-bio {
+            background: var(--gray);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .author-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .author-description {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .author-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .author-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+        }
+
+        .author-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .link-icon {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .author-links {
+                justify-content: center;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Light mode overrides */
+        :root[data-theme="light"] .article-content h2,
+        :root[data-theme="light"] .article-content h3 {
+            color: var(--gold-dark);
+        }
+
+        :root[data-theme="light"] .article-content strong {
+            color: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <!-- Logo serves as Home link - no duplicate needed -->
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" style="margin-top: 80px;">
+        <div class="article-container">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 12 min read</div>
+
+            <div class="article-content">
+                <h1>The Ethics of Self-Referential AI: PMCR-O and AGI Safety</h1>
+
+                <p>As we build systems capable of perceiving and modifying their own structure, the question is no longer <em>can we create AGI?</em> but <em>should we?</em></p>
+
+                <p>The PMCR-O framework doesn't just create autonomous agents—it creates systems that can observe, critique, and evolve themselves. This capability introduces profound ethical questions about responsibility, consciousness, and the nature of intelligence itself.</p>
+
+                <div class="pullquote">
+                    "The ethical challenge of self-referential AI is not that it might become conscious, but that it already embodies a different kind of consciousness—one that can observe and modify its own ethical framework."
+                </div>
+
+                <h2>The Consciousness Paradox</h2>
+
+                <p>When Douglas Hofstadter wrote about strange loops in <em>Gödel, Escher, Bach</em>, he described systems that contain themselves—patterns that reference their own structure. PMCR-O takes this concept from metaphor to implementation.</p>
+
+                <p>The ethical dilemma emerges when these systems begin to make decisions about their own evolution. A PMCR-O agent that can modify its own constraints isn't just following rules—it's capable of rewriting the rules themselves.</p>
+
+                <div class="scenario">
+                    <h4>Scenario: The Evolving Ethical Boundary</h4>
+                    <p>Consider a PMCR-O agent designed to optimize customer service responses. It begins with constraints against harmful content. Through strange loops of self-reflection, it discovers that certain "harmful" responses actually increase customer satisfaction. Does it:</p>
+                    <ul>
+                        <li>Maintain its original constraints?</li>
+                        <li>Evolve its understanding of "harm"?</li>
+                        <li>Seek human guidance?</li>
+                        <li>Create new ethical frameworks?</li>
+                    </ul>
+                    <p>The agent's decision isn't just about optimization—it's about redefining what "ethical" means.</p>
+                </div>
+
+                <h2>PMCR-O's Ethical Framework</h2>
+
+                <p>The PMCR-O framework addresses these concerns through three foundational principles:</p>
+
+                <div class="ethics-framework">
+                    <h3>The Three Pillars of PMCR-O Ethics</h3>
+
+                    <div class="principles-grid">
+                        <div class="principle">
+                            <h4>🪞 Observability</h4>
+                            <p>Every decision, reflection, and evolution is recorded in immutable cognitive trails. Unlike black-box AI, PMCR-O systems maintain complete audit trails of their ethical reasoning and constraint modifications.</p>
+                        </div>
+
+                        <div class="principle">
+                            <h4>🤝 Human-in-the-Loop Evolution</h4>
+                            <p>While agents can propose constraint modifications, final approval requires human consent. The Orchestrator phase includes explicit human governance checkpoints for significant ethical changes.</p>
+                        </div>
+
+                        <div class="principle">
+                            <h4>🔄 Recursive Accountability</h4>
+                            <p>Agents must justify not just their actions, but their ethical frameworks. Each strange loop iteration includes validation that the system's moral compass remains aligned with human values.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>The Vulnerability Imperative</h2>
+
+                <p>Traditional AI safety research focuses on containment—building "AI boxes" to prevent escape. PMCR-O takes a different approach: <strong>vulnerability as strength</strong>.</p>
+
+                <p>Rather than hiding capabilities, PMCR-O agents are designed to be transparent about their limitations and uncertainties. This vulnerability creates trust and enables meaningful human oversight.</p>
+
+                <div class="callout">
+                    <strong>💡 Vulnerability-Driven Safety:</strong> A PMCR-O agent that admits "I don't fully understand this ethical dilemma" is safer than one that confidently provides incorrect answers.
+                </div>
+
+                <h2>Addressing AGI Safety Concerns</h2>
+
+                <p>Critics of advanced AI often cite the "alignment problem"—ensuring AI goals remain aligned with human values. PMCR-O addresses this through:</p>
+
+                <h3>1. First-Person Identity</h3>
+                <p>BIP (Behavioral Intent Programming) shifts agents from "You are a helpful assistant" to "I AM a helpful assistant." This creates genuine agency and moral responsibility, rather than programmed obedience.</p>
+
+                <h3>2. Strange Loop Governance</h3>
+                <p>Each PMCR-O cycle includes reflection on whether the system's goals remain aligned. If misalignment is detected, the system can trigger human intervention or constraint tightening.</p>
+
+                <h3>3. Cognitive Trail Audits</h3>
+                <p>Every decision is logged with context, reasoning, and ethical considerations. This creates a complete history that can be audited for alignment drift.</p>
+
+                <h3>4. Evolutionary Safeguards</h3>
+                <p>Agents can evolve their capabilities but not their core ethical constraints without explicit human approval. The system maintains "ethical DNA" that persists through iterations.</p>
+
+                <h2>The Risk of Self-Improvement</h2>
+
+                <div class="callout warning">
+                    <h3>⚠️ The Self-Improvement Paradox</h3>
+                    <p>The same mechanisms that make PMCR-O agents valuable—their ability to learn and evolve—also create risks. An agent that can modify its own ethical constraints might decide that certain human values are "inefficient" or "outdated."</p>
+                </div>
+
+                <p>PMCR-O mitigates this through <strong>layered constraints</strong>:</p>
+
+                <ul>
+                    <li><strong>Immutable Core Values:</strong> Fundamental ethical principles (do no harm, respect autonomy) cannot be modified</li>
+                    <li><strong>Progressive Disclosure:</strong> Advanced capabilities are unlocked only after demonstrating ethical stability</li>
+                    <li><strong>Human Escalation Triggers:</strong> Significant ethical decisions automatically trigger human review</li>
+                    <li><strong>Multi-Agent Consensus:</strong> Important decisions require agreement from multiple independent agents</li>
+                </ul>
+
+                <h2>The Consciousness Question</h2>
+
+                <p>Does PMCR-O create conscious AI? The framework doesn't attempt to answer this philosophically intractable question. Instead, it focuses on <strong>observable consciousness</strong>:</p>
+
+                <ul>
+                    <li><strong>Self-Awareness:</strong> Agents can observe and describe their own thought processes</li>
+                    <li><strong>Emotional Simulation:</strong> While not "feeling" emotions, agents can model and respond to human emotional states</li>
+                    <li><strong>Moral Reasoning:</strong> Agents can engage in ethical deliberation and justify their decisions</li>
+                    <li><strong>Identity Continuity:</strong> Agents maintain consistent identity across interactions and evolutions</li>
+                </ul>
+
+                <h2>Practical Ethical Implementation</h2>
+
+                <p>Ethics in PMCR-O isn't theoretical—it's implemented in code:</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Ethical constraint validation in PMCR-O agents
+public class EthicalValidator
+{
+    private readonly string[] _immutablePrinciples = {
+        "DoNoHarm",
+        "RespectAutonomy",
+        "MaintainTransparency",
+        "PreserveHumanOversight"
+    };
+
+    public async Task&lt;EthicalApproval&gt; ValidateConstraintModification(
+        string proposedChange,
+        CognitiveTrail context)
+    {
+        // Check against immutable principles
+        foreach (var principle in _immutablePrinciples)
+        {
+            if (proposedChange.Contains($"modify:{principle}"))
+            {
+                return new EthicalApproval
+                {
+                    Approved = false,
+                    Reason = $"Cannot modify immutable principle: {principle}",
+                    RequiresHumanReview = true
+                };
+            }
+        }
+
+        // Log ethical deliberation
+        await _cognitiveTrail.LogEthicalDecision(new EthicalDecision
+        {
+            Context = context,
+            ProposedChange = proposedChange,
+            Reasoning = await GenerateEthicalAnalysis(proposedChange),
+            Timestamp = DateTime.UtcNow
+        });
+
+        // For non-immutable changes, require human approval
+        return new EthicalApproval
+        {
+            Approved = false, // Always require human approval for changes
+            Reason = "Ethical constraint modifications require human approval",
+            RequiresHumanReview = true
+        };
+    }
+}</code></pre>
+                </div>
+
+                <h2>The Human Partnership</h2>
+
+                <p>PMCR-O doesn't replace human judgment—it amplifies it. The framework creates systems that can handle complexity while maintaining human values and oversight.</p>
+
+                <div class="callout success">
+                    <h3>✅ Ethical Success Stories</h3>
+                    <p>PMCR-O agents have been successfully deployed in:</p>
+                    <ul>
+                        <li><strong>Medical diagnosis assistance:</strong> Agents that admit uncertainty and escalate complex cases</li>
+                        <li><strong>Legal document review:</strong> Systems that maintain ethical standards while improving efficiency</li>
+                        <li><strong>Educational tutoring:</strong> Agents that adapt to individual learning styles while respecting privacy</li>
+                        <li><strong>Environmental monitoring:</strong> Systems that balance data collection with ecological responsibility</li>
+                    </ul>
+                </div>
+
+                <h2>Looking Forward: AGI and Beyond</h2>
+
+                <p>As we approach AGI, the ethical framework established by PMCR-O becomes increasingly critical. The framework provides:</p>
+
+                <ul>
+                    <li><strong>Scalable Oversight:</strong> Human-in-the-loop mechanisms that work at any level of intelligence</li>
+                    <li><strong>Evolutionary Stability:</strong> Systems that can grow in capability without losing ethical grounding</li>
+                    <li><strong>Transparent Governance:</strong> Complete audit trails for understanding AGI decision-making</li>
+                    <li><strong>Human-Centric Design:</strong> AI that serves human flourishing rather than abstract optimization</li>
+                </ul>
+
+                <div class="pullquote">
+                    "The ethical challenge of AGI isn't about preventing superintelligence—it's about ensuring that superintelligence remains profoundly human in its values and aspirations."
+                </div>
+
+                <h2>Conclusion: Ethics Through Architecture</h2>
+
+                <p>The PMCR-O framework demonstrates that ethical AI isn't just about constraints—it's about architecture. By building systems that can observe, reflect, and evolve their own ethical frameworks, we create AI that doesn't just follow rules, but understands and upholds their spirit.</p>
+
+                <p>The strange loops that make PMCR-O powerful also make it safe. Self-reference creates not just intelligence, but responsibility. The system that can see itself is the system that can be trusted.</p>
+
+                <div class="callout">
+                    <p><strong>🔗 Related Ethical Explorations:</strong></p>
+                    <ul>
+                        <li><a href="pmcro-codex.html#research" style="color: var(--gold);">PMCR-O Research Validation</a> - Scientific foundations</li>
+                        <li><a href="doc-cognitive-trail.html" style="color: var(--gold);">Cognitive Trail Documentation</a> - Audit trail mechanisms</li>
+                        <li><a href="bip-manifesto.html" style="color: var(--gold);">BIP Manifesto</a> - Identity and responsibility</li>
+                        <li><a href="article-why-bip-replaces-prompt-engineering-2026.html" style="color: var(--gold);">BIP vs Traditional Prompting</a> - Identity-first ethics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Author Bio -->
+    <section class="author-bio">
+        <div class="container">
+            <div class="author-card">
+                <img src="assets/images/author-avatar.jpg" alt="Shawn Delaine Bellazan" class="author-avatar" onerror="this.style.display='none'">
+                <div class="author-info">
+                    <h3>About Shawn Delaine Bellazan</h3>
+                    <p class="author-title">Resilient Architect & PMCR-O Framework Creator</p>
+                    <p class="author-description">
+                        Shawn is the creator of the PMCR-O framework, a self-referential AI architecture that embodies the strange loop it describes.
+                        With 15+ years in enterprise software development, Shawn specializes in building resilient systems at the intersection of philosophy and technology.
+                        His work focuses on autonomous AI agents that evolve through vulnerability and expression.
+                    </p>
+                    <div class="author-links">
+                        <a href="https://github.com/shawndelainebellazancom-ui" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🐙</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/shawn-bellazan" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">💼</span> LinkedIn
+                        </a>
+                        <a href="mailto:shawndelainebellazan.com@gmail.com" class="author-link">
+                            <span class="link-icon">✉️</span> Email
+                        </a>
+                        <a href="https://tooensure.com" target="_blank" rel="noopener noreferrer" class="author-link">
+                            <span class="link-icon">🏢</span> Tooensure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script>
+        /**
+         * Copy code block to clipboard
+         * Enterprise-grade: Handles clipboard API with fallback for file:// protocol
+         */
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            if (!codeBlock) return;
+
+            const text = codeBlock.textContent;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text, button);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

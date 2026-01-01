@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Complete guide to using PMCR-O prompts from the prompt library. Learn how to copy, customize, and deploy agent prompts in Cursor, ChatGPT, Grok, and Claude.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="PMCR-O Prompts, How to Use Prompts, Agent Prompts, Prompt Library, BIP, Behavioral Intent Programming, AI Agents">
+    <meta name="theme-color" content="#d4a574">
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-how-to-use-pmcro-prompts.html">
+    <meta property="og:title" content="How to Use PMCR-O Prompts | Shawn Bellazan">
+    <meta property="og:description" content="Complete guide to using PMCR-O prompts from the prompt library. Learn how to copy, customize, and deploy agent prompts.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Use PMCR-O Prompts">
+    <meta name="twitter:description" content="Complete guide to using PMCR-O prompts from the prompt library.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <title>How to Use PMCR-O Prompts | Shawn Bellazan</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Use PMCR-O Prompts",
+      "description": "Complete guide to using PMCR-O prompts from the prompt library. Learn how to copy, customize, and deploy agent prompts in Cursor, ChatGPT, Grok, and Claude.",
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-how-to-use-pmcro-prompts"
+      },
+      "keywords": ["PMCR-O Prompts", "How to Use Prompts", "Agent Prompts", "Prompt Library"]
+    }
+    </script>
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-how-to-use-pmcro-prompts.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
+        .article-meta { color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 2rem; }
+        .article-content h2 { font-size: 2rem; color: var(--gold); margin: 3rem 0 1.5rem; font-weight: var(--font-weight-bold); }
+        .article-content h3 { font-size: 1.5rem; color: var(--gold-light); margin: 2rem 0 1rem; }
+        .code-block-wrapper { position: relative; margin: 2rem 0; background: var(--gray); border: 1px solid var(--light-gray); border-radius: 8px; overflow: hidden; }
+        .code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--light-gray); }
+        .code-language { color: var(--gold); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .copy-button { padding: 0.4rem 1rem; font-size: 0.8rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); cursor: pointer; border-radius: 4px; transition: all var(--transition-fast); }
+        .copy-button:hover { background: var(--gold); color: var(--darker); }
+        pre[class*="language-"] { margin: 0; padding: 1.5rem; overflow-x: auto; }
+        .callout { background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%); border-left: 4px solid var(--gold); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; }
+        .back-link { display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 2rem; font-weight: 600; }
+        .back-link:hover { color: var(--gold-light); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content" style="margin-top: 80px;">
+        <section class="hero">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: var(--gold); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">How to Use PMCR-O Prompts</h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; color: var(--text-tertiary); font-style: italic;">Copy, customize, and deploy production-ready agent prompts in any AI runtime.</p>
+            </div>
+        </section>
+        <div class="article-container">
+            <a href="articles.html" class="back-link">← Back to Articles</a>
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 12 min read</div>
+            <div class="article-content">
+                <p>The <a href="pmcro-prompt-library.html" style="color: var(--gold);">PMCR-O Prompt Library</a> contains production-ready agent prompts designed for portability across AI runtimes. This guide shows you how to copy, customize, and deploy them effectively.</p>
+
+                <h2>Step 1: Navigate to the Prompt Library</h2>
+                <p>Visit <a href="pmcro-prompt-library.html" style="color: var(--gold);">pmcro-prompt-library.html</a> and browse the agent cards. Each card contains:</p>
+                <ul>
+                    <li><strong>Agent Description:</strong> Role, purpose, and usage context</li>
+                    <li><strong>Full Prompt:</strong> Click "Show Prompt" to reveal the complete template</li>
+                    <li><strong>Copy Button:</strong> One-click copy of the entire prompt</li>
+                </ul>
+
+                <h2>Step 2: Choose Your Agent</h2>
+                <p>Select an agent based on your task:</p>
+                <ul>
+                    <li><strong>Meta-Orchestrator:</strong> For complex, multi-phase projects</li>
+                    <li><strong>Blog Writer Agent:</strong> For SEO-optimized articles</li>
+                    <li><strong>Prompt Factory Agent:</strong> For creating new agent templates</li>
+                    <li><strong>Reflection Mechanism Agent:</strong> For intent refinement</li>
+                    <li><strong>Foundation Specialist:</strong> For architecture decisions</li>
+                </ul>
+
+                <h2>Step 3: Copy the Prompt</h2>
+                <p>Click the "Copy" button on the agent card. The entire prompt template is copied to your clipboard, including:</p>
+                <ul>
+                    <li><code>@meta</code> block (agent metadata)</li>
+                    <li><code>@identity</code> block (first-person declarations)</li>
+                    <li><code>@capabilities</code> block (tool declarations)</li>
+                    <li><code>@context_template</code> block (customizable placeholders)</li>
+                    <li><code>@constraints</code> block (MANDATORY/FORBIDDEN rules)</li>
+                    <li><code>@bip_logic</code> block (self-verification checks)</li>
+                    <li><code>@interaction</code> block (usage instructions)</li>
+                </ul>
+
+                <h2>Step 4: Customize the Context Template</h2>
+                <p>Every prompt includes a <code>@context_template</code> with placeholders. Replace them with your specific values:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@context_template {
+  "seed_intent": "[INSERT_SEED_INTENT]",  ← Replace with your actual intent
+  "target_runtime": "[Cursor | ChatGPT | Grok | Claude | Other]",  ← Your AI tool
+  "tooling_available": ["[web_search? browser? none?]"],  ← What tools you have
+  "success_criteria": ["[INSERT_MEASURABLE_OUTCOMES]"]  ← How to measure success
+}</code></pre>
+                </div>
+
+                <h3>Example: Customizing the Blog Writer Agent</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Markdown</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-markdown">@context_template {
+  "topic": "Behavioral Intent Programming",
+  "target_audience": "Senior .NET developers",
+  "target_runtime": "Cursor",
+  "tooling_available": ["web_search", "browser_navigate"],
+  "primary_conversion": "GitHub stars and forks",
+  "internal_links": ["/bip-manifesto.html", "/pmcro-codex.html"]
+}</code></pre>
+                </div>
+
+                <h2>Step 5: Set Target Runtime</h2>
+                <p>PMCR-O prompts are portable, but you must specify your runtime:</p>
+                <ul>
+                    <li><strong>Cursor:</strong> Has file system access, code editing, web search</li>
+                    <li><strong>ChatGPT:</strong> Has web search (if enabled), no file system</li>
+                    <li><strong>Grok:</strong> Has web search, X integration</li>
+                    <li><strong>Claude:</strong> Has web search (if enabled), no file system</li>
+                </ul>
+
+                <div class="callout">
+                    <p><strong>Tool-Gating Rule:</strong> If your runtime doesn't have tools, the prompt will automatically state "No external validation performed." This prevents false claims about web research.</p>
+                </div>
+
+                <h2>Step 6: Paste and Execute</h2>
+                <p>Paste the customized prompt into your AI tool and provide your seed intent:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">[Paste full prompt here]
+
+USER INPUT: Build a PMCR-O agent service with PostgreSQL knowledge vault for RAG.</code></pre>
+                </div>
+
+                <h2>Step 7: Understand the BIP Logic</h2>
+                <p>Every prompt includes <code>@bip_logic</code>—self-verification checks the agent performs:</p>
+                <ul>
+                    <li><strong>CHECK 1:</strong> Confirms target_runtime and tooling_available</li>
+                    <li><strong>CHECK 2:</strong> Restates your intent in one sentence</li>
+                    <li><strong>CHECK 3:</strong> Chooses the next PMCR-O phase (Planner/Maker/Checker/Reflector)</li>
+                    <li><strong>CHECK 4:</strong> Cites sources if tools were used, or states "No external validation performed"</li>
+                    <li><strong>CHECK 5:</strong> Produces artifacts (files, code, checklists) not just advice</li>
+                </ul>
+
+                <h2>Common Use Cases</h2>
+                
+                <h3>Use Case 1: Writing an Article</h3>
+                <ol>
+                    <li>Copy the <strong>Blog Writer Agent v1.1</strong> prompt</li>
+                    <li>Set <code>topic</code>, <code>target_audience</code>, <code>target_runtime</code></li>
+                    <li>Paste into Cursor or ChatGPT</li>
+                    <li>Provide seed intent: "Write an article about [TOPIC]"</li>
+                    <li>The agent outputs: Title tag, meta description, canonical URL, OpenGraph tags, Twitter cards, Schema.org JSON-LD, full article markdown, internal link plan</li>
+                </ol>
+
+                <h3>Use Case 2: Creating a New Agent</h3>
+                <ol>
+                    <li>Copy the <strong>Prompt Factory Agent v1.1</strong> prompt</li>
+                    <li>Set <code>categories</code> (e.g., ["Code Review", "Documentation"])</li>
+                    <li>Set <code>target_runtime</code> and <code>tooling_available</code></li>
+                    <li>Paste and provide: "GENERATE ASSETS for [CATEGORIES]"</li>
+                    <li>The agent outputs: Library Index + 3-7 reusable templates per category</li>
+                </ol>
+
+                <h3>Use Case 3: Refining Intent</h3>
+                <ol>
+                    <li>Copy the <strong>Reflection Mechanism Agent v1.1</strong> prompt</li>
+                    <li>Set <code>target_runtime</code> and <code>tooling_available</code></li>
+                    <li>Paste and provide your raw intent</li>
+                    <li>The agent mirrors it back as refined truth with validation</li>
+                </ol>
+
+                <h2>Best Practices</h2>
+                <ul>
+                    <li><strong>Always set target_runtime:</strong> This enables proper tool-gating</li>
+                    <li><strong>Be specific with tooling_available:</strong> List actual tools (web_search, browser_navigate) or ["none"]</li>
+                    <li><strong>Provide measurable success_criteria:</strong> "Article ranks on page 1 for 'BIP prompt engineering'"</li>
+                    <li><strong>Use the identity-first structure:</strong> Don't remove the "I AM" declarations—they create agency</li>
+                    <li><strong>Respect the constraints:</strong> The MANDATORY/FORBIDDEN rules prevent common failures</li>
+                </ul>
+
+                <h2>Troubleshooting</h2>
+                
+                <h3>Agent Claims It Searched But Didn't</h3>
+                <p>This violates the "Evidence or Disclaimer" rule. Check that:</p>
+                <ul>
+                    <li><code>target_runtime</code> is set correctly</li>
+                    <li><code>tooling_available</code> accurately reflects your tools</li>
+                    <li>The prompt includes the tool-gating rule: "If tools unavailable, say No external validation performed."</li>
+                </ul>
+
+                <h3>Agent Produces Advice Instead of Artifacts</h3>
+                <p>The <code>@bip_logic</code> CHECK 5 requires artifacts. If you get advice, remind the agent: "Produce artifacts (files, code, checklists) not advice."</p>
+
+                <h3>Agent Skips Verification Checks</h3>
+                <p>The <code>@bip_logic</code> block is mandatory. If checks are skipped, paste the prompt again and explicitly request: "Execute all @bip_logic checks."</p>
+
+                <h2>Next Steps</h2>
+                <ul>
+                    <li>Read <a href="article-bip-prompt-engineering-guide.html" style="color: var(--gold);">BIP Prompt Engineering Guide</a> for advanced customization</li>
+                    <li>Explore the <a href="pmcro-prompt-library.html" style="color: var(--gold);">complete prompt library</a></li>
+                    <li>Learn <a href="article-creating-first-pmcro-agent.html" style="color: var(--gold);">how to build your own agents</a></li>
+                </ul>
+
+                <div class="callout" style="margin: 3rem 0; text-align: center;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Build Your Own Strange Loop</h3>
+                    <p>The PMCR-O framework is open. Star the repository. Fork it. Seed your own intent.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: underline; font-weight: 600;">View on GitHub →</a>
+                    </p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-tertiary);">
+                        Copy production-ready prompts from the <a href="pmcro-prompt-library.html" style="color: var(--gold);">PMCR-O Prompt Library</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

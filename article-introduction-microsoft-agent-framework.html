@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Master Microsoft.Extensions.AI and Microsoft.Agents.AI. Learn tool calling, workflow orchestration, and production-ready error handling for PMCR-O agents.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="Microsoft Agent Framework, Microsoft.Extensions.AI, Microsoft.Agents.AI, Tool Calling, Workflow Orchestration, .NET AI">
+    <meta name="theme-color" content="#d4a574">
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-introduction-microsoft-agent-framework.html">
+    <meta property="og:title" content="Introduction to Microsoft Agent Framework | Shawn Bellazan">
+    <meta property="og:description" content="Master Microsoft.Extensions.AI and Microsoft.Agents.AI. Learn tool calling, workflow orchestration, and production-ready error handling.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Introduction to Microsoft Agent Framework">
+    <meta name="twitter:description" content="Master Microsoft.Extensions.AI and Microsoft.Agents.AI for PMCR-O agents.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <title>Introduction to Microsoft Agent Framework | Shawn Bellazan</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Introduction to Microsoft Agent Framework",
+      "description": "Master Microsoft.Extensions.AI and Microsoft.Agents.AI. Learn tool calling, workflow orchestration, and production-ready error handling for PMCR-O agents.",
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-introduction-microsoft-agent-framework"
+      },
+      "keywords": ["Microsoft Agent Framework", "Microsoft.Extensions.AI", "Tool Calling", "Workflow Orchestration"]
+    }
+    </script>
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-introduction-microsoft-agent-framework.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
+        .article-meta { color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 2rem; }
+        .article-content h2 { font-size: 2rem; color: var(--gold); margin: 3rem 0 1.5rem; font-weight: var(--font-weight-bold); }
+        .article-content h3 { font-size: 1.5rem; color: var(--gold-light); margin: 2rem 0 1rem; }
+        .code-block-wrapper { position: relative; margin: 2rem 0; background: var(--gray); border: 1px solid var(--light-gray); border-radius: 8px; overflow: hidden; }
+        .code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--light-gray); }
+        .code-language { color: var(--gold); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .copy-button { padding: 0.4rem 1rem; font-size: 0.8rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); cursor: pointer; border-radius: 4px; transition: all var(--transition-fast); }
+        .copy-button:hover { background: var(--gold); color: var(--darker); }
+        pre[class*="language-"] { margin: 0; padding: 1.5rem; overflow-x: auto; }
+        .callout { background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%); border-left: 4px solid var(--gold); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; }
+        .back-link { display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 2rem; font-weight: 600; }
+        .back-link:hover { color: var(--gold-light); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content" style="margin-top: 80px;">
+        <section class="hero">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: var(--gold); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">Introduction to Microsoft Agent Framework</h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; color: var(--text-tertiary); font-style: italic;">Native .NET AI abstractions for tool calling, workflow orchestration, and resilient agent architectures.</p>
+            </div>
+        </section>
+        <div class="article-container">
+            <a href="articles.html" class="back-link">← Back to Articles</a>
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 12 min read</div>
+            <div class="article-content">
+                <p><strong>Microsoft Agent Framework</strong> consists of two core packages: <code>Microsoft.Extensions.AI</code> (abstractions) and <code>Microsoft.Agents.AI</code> (workflow orchestration). Together, they provide production-ready AI agent infrastructure for .NET.</p>
+
+                <p>This guide teaches you to use these frameworks for PMCR-O agents, including tool calling, structured output, and error recovery.</p>
+
+                <h2>Package Overview</h2>
+                
+                <h3>Microsoft.Extensions.AI</h3>
+                <p>Provides abstractions for AI clients:</p>
+                <ul>
+                    <li><strong>IChatClient:</strong> Unified interface for LLM interactions</li>
+                    <li><strong>ChatClientBuilder:</strong> Fluent API for configuring clients</li>
+                    <li><strong>ChatOptions:</strong> Request configuration (temperature, response format, etc.)</li>
+                </ul>
+
+                <h3>Microsoft.Agents.AI</h3>
+                <p>Provides workflow orchestration:</p>
+                <ul>
+                    <li><strong>Agent workflows:</strong> Multi-step agent execution</li>
+                    <li><strong>Tool invocation:</strong> Function calling middleware</li>
+                    <li><strong>Error recovery:</strong> Retry and fallback patterns</li>
+                </ul>
+
+                <h2>Step 1: Install Packages</h2>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash">cd YourAgentService
+dotnet add package Microsoft.Agents.AI
+dotnet add package Microsoft.Extensions.AI
+dotnet add package OllamaSharp</code></pre>
+                </div>
+
+                <h2>Step 2: Register IChatClient</h2>
+                <p>The <code>IChatClient</code> interface abstracts LLM interactions. Here's how to register it with Ollama:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.Extensions.AI;
+using OllamaSharp;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Get Ollama connection string (injected by Aspire)
+var ollamaUri = builder.Configuration.GetConnectionString("ollama") 
+    ?? "http://localhost:11434";
+var modelId = "qwen2.5-coder:7b";
+
+// Configure HttpClient for Ollama
+builder.Services.AddHttpClient("ollama", client =>
+{
+    client.BaseAddress = new Uri(ollamaUri);
+    client.Timeout = Timeout.InfiniteTimeSpan;  // LLM inference can take time
+})
+.AddStandardResilienceHandler(options =>
+{
+    options.AttemptTimeout.Timeout = TimeSpan.FromMinutes(3);
+    options.TotalRequestTimeout.Timeout = TimeSpan.FromMinutes(5);
+    options.Retry.MaxRetryAttempts = 2;
+});
+
+// Register IChatClient with function invocation middleware
+builder.Services.AddSingleton&lt;IChatClient&gt;(sp =>
+{
+    var httpClient = sp.GetRequiredService&lt;IHttpClientFactory&gt;().CreateClient("ollama");
+    var baseClient = new OllamaApiClient(httpClient, modelId);
+    
+    return new ChatClientBuilder(baseClient)
+        .UseFunctionInvocation()  // ✅ Critical: Enables tool calling
+        .Build();
+});</code></pre>
+                </div>
+
+                <h2>Step 3: Use IChatClient in Your Agent</h2>
+                <p>Inject <code>IChatClient</code> into your agent service:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.Extensions.AI;
+
+public class PlannerAgent : AgentService.AgentServiceBase
+{
+    private readonly IChatClient _chatClient;
+    private readonly ILogger&lt;PlannerAgent&gt; _logger;
+
+    public PlannerAgent(IChatClient chatClient, ILogger&lt;PlannerAgent&gt; logger)
+    {
+        _chatClient = chatClient;
+        _logger = logger;
+    }
+
+    public override async Task&lt;AgentResponse&gt; ExecuteTask(
+        AgentRequest request,
+        ServerCallContext context)
+    {
+        _logger.LogInformation("🧭 I AM the Planner. I am analyzing: {Intent}", request.Intent);
+
+        // Use IChatClient to interact with LLM
+        var response = await _chatClient.CompleteChatAsync(
+            new ChatHistory
+            {
+                new ChatMessage(ChatRole.System, "I AM the Planner. I create minimal viable plans."),
+                new ChatMessage(ChatRole.User, request.Intent)
+            },
+            new ChatOptions
+            {
+                Temperature = 0.7,
+                ResponseFormat = ChatResponseFormat.Json  // Structured output
+            }
+        );
+
+        return new AgentResponse
+        {
+            Content = response.Content,
+            Success = true
+        };
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 4: Enable Tool Calling</h2>
+                <p>The <code>.UseFunctionInvocation()</code> middleware enables tool calling. Define tools using function definitions:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Define a tool
+var fileReadTool = new FunctionDefinition
+{
+    Name = "read_file",
+    Description = "Reads the contents of a file",
+    Parameters = new
+    {
+        type = "object",
+        properties = new
+        {
+            path = new { type = "string", description = "File path to read" }
+        },
+        required = new[] { "path" }
+    }
+};
+
+// Register tool with chat client
+var chatClient = new ChatClientBuilder(baseClient)
+    .UseFunctionInvocation()
+    .WithFunction("read_file", async (args) =>
+    {
+        var path = args["path"]?.ToString() ?? "";
+        return await File.ReadAllTextAsync(path);
+    })
+    .Build();</code></pre>
+                </div>
+
+                <h2>Step 5: Structured Output with JSON Schema</h2>
+                <p>Microsoft.Extensions.AI supports structured output via <code>ChatResponseFormat.Json</code>:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">var chatOptions = new ChatOptions
+{
+    ResponseFormat = ChatResponseFormat.Json,
+    AdditionalProperties = new Dictionary&lt;string, object?&gt;
+    {
+        ["schema"] = JsonSerializer.Serialize(new
+        {
+            type = "object",
+            properties = new
+            {
+                plan = new { type = "string" },
+                steps = new
+                {
+                    type = "array",
+                    items = new
+                    {
+                        type = "object",
+                        properties = new
+                        {
+                            action = new { type = "string" },
+                            rationale = new { type = "string" }
+                        }
+                    }
+                },
+                estimated_complexity = new { type = "string", @enum = new[] { "low", "medium", "high" } }
+            },
+            required = new[] { "plan", "steps" }
+        })
+    }
+};
+
+var response = await _chatClient.CompleteChatAsync(history, chatOptions);
+var plan = JsonSerializer.Deserialize&lt;PlanResponse&gt;(response.Content);</code></pre>
+                </div>
+
+                <h2>Step 6: Workflow Orchestration (Microsoft.Agents.AI)</h2>
+                <p>For multi-agent workflows, use <code>Microsoft.Agents.AI</code>:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.Agents.AI;
+
+// Create workflow builder
+var workflow = new AgentWorkflowBuilder()
+    .AddStep("planner", async (context) =>
+    {
+        // Planner agent logic
+        return await plannerAgent.ExecuteAsync(context);
+    })
+    .AddStep("maker", async (context) =>
+    {
+        // Maker agent logic (runs after planner)
+        return await makerAgent.ExecuteAsync(context);
+    })
+    .AddStep("checker", async (context) =>
+    {
+        // Checker agent logic (runs after maker)
+        return await checkerAgent.ValidateAsync(context);
+    })
+    .WithErrorRecovery((error, context) =>
+    {
+        // On error, route to reflector
+        return "reflector";
+    })
+    .Build();
+
+// Execute workflow
+var result = await workflow.ExecuteAsync(seedIntent);</code></pre>
+                </div>
+
+                <h2>Key Benefits</h2>
+                <ul>
+                    <li><strong>Runtime Abstraction:</strong> Switch between Ollama, OpenAI, Azure OpenAI without changing agent code</li>
+                    <li><strong>Tool Calling:</strong> Native function invocation middleware</li>
+                    <li><strong>Structured Output:</strong> JSON schema validation built-in</li>
+                    <li><strong>Error Recovery:</strong> Workflow-level retry and fallback</li>
+                    <li><strong>Production-Ready:</strong> Resilience handlers, timeouts, circuit breakers</li>
+                </ul>
+
+                <h2>Next Steps</h2>
+                <ul>
+                    <li>Read <a href="article-creating-first-pmcro-agent.html" style="color: var(--gold);">Creating Your First PMCR-O Agent</a></li>
+                    <li>Read <a href="article-structured-output-json-schema.html" style="color: var(--gold);">Structured Output with JSON Schema</a></li>
+                    <li>Explore the <a href="articles.html" style="color: var(--gold);">complete article library</a></li>
+                </ul>
+
+                <div class="callout" style="margin: 3rem 0; text-align: center;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Build Your Own Strange Loop</h3>
+                    <p>The PMCR-O framework is open. Star the repository. Fork it. Seed your own intent.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: underline; font-weight: 600;">View on GitHub →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+

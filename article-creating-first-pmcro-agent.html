@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<!--
+    CREATING YOUR FIRST PMCR-O AGENT ARTICLE
+    Purpose: Tutorial for building the Planner agent from scratch with BIP principles.
+    Tech Stack: .NET 10, Aspire, Ollama, PostgreSQL (pgvector), Entity Framework Core, Npgsql.
+    Note: All code examples use PostgreSQL/.NET stack (aligned with actual PMCR-O project).
+    Design: Enterprise-grade with Prism.js syntax highlighting for all code blocks.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
+    <meta name="description" content="Build the Planner agent from scratch. Learn BIP (Behavioral Intent Programming), first-person identity prompts, and agent architecture patterns for PMCR-O.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="keywords" content="PMCR-O Agent, Planner Agent, BIP, Behavioral Intent Programming, First-Person Identity, Agent Architecture, .NET Agents">
+    <meta name="theme-color" content="#d4a574">
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-creating-first-pmcro-agent.html">
+    <meta property="og:title" content="Creating Your First PMCR-O Agent | Shawn Bellazan">
+    <meta property="og:description" content="Build the Planner agent from scratch. Learn BIP, first-person identity prompts, and agent architecture patterns.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Creating Your First PMCR-O Agent">
+    <meta name="twitter:description" content="Build the Planner agent from scratch with BIP and first-person identity.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+    <title>Creating Your First PMCR-O Agent | Shawn Bellazan</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Creating Your First PMCR-O Agent",
+      "description": "Build the Planner agent from scratch. Learn BIP (Behavioral Intent Programming), first-person identity prompts, and agent architecture patterns for PMCR-O.",
+      "datePublished": "2026-01-01",
+      "dateModified": "2026-01-01",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-creating-first-pmcro-agent"
+      },
+      "keywords": ["PMCR-O Agent", "Planner Agent", "BIP", "Agent Architecture"]
+    }
+    </script>
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-creating-first-pmcro-agent.html">
+    <!-- Prism.js for syntax highlighting (Enterprise-grade code display) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .article-container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
+        .article-meta { color: var(--text-tertiary); font-size: 0.9rem; margin-bottom: 2rem; }
+        .article-content h2 { font-size: 2rem; color: var(--gold); margin: 3rem 0 1.5rem; font-weight: var(--font-weight-bold); }
+        .article-content h3 { font-size: 1.5rem; color: var(--gold-light); margin: 2rem 0 1rem; }
+        .code-block-wrapper { position: relative; margin: 2rem 0; background: var(--gray); border: 1px solid var(--light-gray); border-radius: 8px; overflow: hidden; }
+        .code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--light-gray); }
+        .code-language { color: var(--gold); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .copy-button { padding: 0.4rem 1rem; font-size: 0.8rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); cursor: pointer; border-radius: 4px; transition: all var(--transition-fast); }
+        .copy-button:hover { background: var(--gold); color: var(--darker); }
+        pre[class*="language-"] { margin: 0; padding: 1.5rem; overflow-x: auto; }
+        .callout { background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(212, 165, 116, 0.05) 100%); border-left: 4px solid var(--gold); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; }
+        .back-link { display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 2rem; font-weight: 600; }
+        .back-link:hover { color: var(--gold-light); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main id="main-content" style="margin-top: 80px;">
+        <section class="hero">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1 style="color: var(--gold); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">Creating Your First PMCR-O Agent</h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; color: var(--text-tertiary); font-style: italic;">Build the Planner agent with BIP, first-person identity, and structured output.</p>
+            </div>
+        </section>
+        <div class="article-container">
+            <a href="articles.html" class="back-link">← Back to Articles</a>
+            <div class="article-meta">By Shawn Delaine Bellazan • January 1, 2026 • 15 min read</div>
+            <div class="article-content">
+                <p>The <strong>Planner</strong> is the first agent in the PMCR-O cycle. It takes raw user intent and transforms it into a minimal viable plan. This guide shows you how to build it from scratch using <a href="article-bip-prompt-engineering-guide.html" style="color: var(--gold);">BIP</a> principles. You'll need a <a href="pmcro-prompt-library.html" style="color: var(--gold);">Planner prompt</a> from the library.</p>
+
+                <h2>Prerequisites</h2>
+                <p>Complete these guides first:</p>
+                <ul>
+                    <li><a href="article-getting-started-dotnet-aspire.html" style="color: var(--gold);">Getting Started with .NET Aspire</a></li>
+                    <li><a href="article-setting-up-ollama-gpu.html" style="color: var(--gold);">Setting Up Ollama with GPU Support</a></li>
+                    <li><a href="article-introduction-microsoft-agent-framework.html" style="color: var(--gold);">Introduction to Microsoft Agent Framework</a></li>
+                </ul>
+
+                <h2>Step 1: Create the Planner Service</h2>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Bash</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-bash">cd PmcroAgents
+dotnet new web -n PmcroAgents.PlannerService
+cd PmcroAgents.PlannerService
+
+# Add required packages
+dotnet add package Microsoft.Agents.AI
+dotnet add package Microsoft.Extensions.AI
+dotnet add package OllamaSharp
+dotnet add package Grpc.AspNetCore
+
+# Add project references
+dotnet add reference ../PmcroAgents.ServiceDefaults
+dotnet add reference ../PmcroAgents.Shared
+
+# Add to solution
+cd ..
+dotnet sln add PmcroAgents.PlannerService</code></pre>
+                </div>
+
+                <h2>Step 2: Define gRPC Service Contract</h2>
+                <p>Create <code>PmcroAgents.Shared/Protos/agent.proto</code>:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Protobuf</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-protobuf">syntax = "proto3";
+
+option csharp_namespace = "PmcroAgents.Shared.Grpc";
+
+package agent;
+
+service AgentService {
+  rpc ExecuteTask (AgentRequest) returns (AgentResponse);
+}
+
+message AgentRequest {
+  string intent = 1;
+  string context_json = 2;
+}
+
+message AgentResponse {
+  string content = 1;
+  bool success = 2;
+}</code></pre>
+                </div>
+
+                <h2>Step 3: Configure Program.cs</h2>
+                <p>Set up the service with Ollama and gRPC:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Microsoft.Extensions.AI;
+using OllamaSharp;
+using PmcroAgents.PlannerService.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add ServiceDefaults (OpenTelemetry, health checks, service discovery)
+builder.AddServiceDefaults();
+
+// Add gRPC
+builder.Services.AddGrpc();
+
+// Configure Ollama client
+var ollamaUri = builder.Configuration.GetConnectionString("ollama") 
+    ?? "http://localhost:11434";
+var modelId = "qwen2.5-coder:7b";
+
+builder.Services.AddHttpClient("ollama", client =>
+{
+    client.BaseAddress = new Uri(ollamaUri);
+    client.Timeout = Timeout.InfiniteTimeSpan;
+})
+.AddStandardResilienceHandler(options =>
+{
+    options.AttemptTimeout.Timeout = TimeSpan.FromMinutes(3);
+    options.TotalRequestTimeout.Timeout = TimeSpan.FromMinutes(5);
+    options.Retry.MaxRetryAttempts = 2;
+});
+
+// Register IChatClient
+builder.Services.AddSingleton&lt;IChatClient&gt;(sp =>
+{
+    var httpClient = sp.GetRequiredService&lt;IHttpClientFactory&gt;().CreateClient("ollama");
+    var baseClient = new OllamaApiClient(httpClient, modelId);
+    
+    return new ChatClientBuilder(baseClient)
+        .UseFunctionInvocation()
+        .Build();
+});
+
+var app = builder.Build();
+
+app.MapDefaultEndpoints();
+app.MapGrpcService&lt;PlannerAgent&gt;();
+app.MapGet("/", () => "Planner Agent - gRPC endpoint available");
+
+app.Run();</code></pre>
+                </div>
+
+                <h2>Step 4: Create the Planner Agent</h2>
+                <p>Create <code>PmcroAgents.PlannerService/Services/PlannerAgent.cs</code>:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">using Grpc.Core;
+using Microsoft.Extensions.AI;
+using PmcroAgents.Shared.Grpc;
+using System.Text.Json;
+
+namespace PmcroAgents.PlannerService.Services;
+
+public class PlannerAgent : AgentService.AgentServiceBase
+{
+    private readonly IChatClient _chatClient;
+    private readonly ILogger&lt;PlannerAgent&gt; _logger;
+
+    public PlannerAgent(IChatClient chatClient, ILogger&lt;PlannerAgent&gt; logger)
+    {
+        _chatClient = chatClient;
+        _logger = logger;
+    }
+
+    public override async Task&lt;AgentResponse&gt; ExecuteTask(
+        AgentRequest request,
+        ServerCallContext context)
+    {
+        _logger.LogInformation("🧭 I AM the Planner. I am analyzing: {Intent}", request.Intent);
+
+        // BIP Identity-First Prompt
+        var systemPrompt = @"I AM the Planner.
+I TRANSFER complex intent into minimal viable plans.
+I EVOLVE through reflection on execution outcomes.
+
+When given an intent, I create a plan with:
+- A clear goal statement
+- 3-7 actionable steps
+- Rationale for each step
+- Estimated complexity (low/medium/high)";
+
+        var chatOptions = new ChatOptions
+        {
+            Temperature = 0.7,
+            ResponseFormat = ChatResponseFormat.Json,
+            AdditionalProperties = new Dictionary&lt;string, object?&gt;
+            {
+                ["schema"] = JsonSerializer.Serialize(new
+                {
+                    type = "object",
+                    properties = new
+                    {
+                        plan = new { type = "string", description = "The implementation plan" },
+                        steps = new
+                        {
+                            type = "array",
+                            items = new
+                            {
+                                type = "object",
+                                properties = new
+                                {
+                                    action = new { type = "string" },
+                                    rationale = new { type = "string" }
+                                }
+                            }
+                        },
+                        estimated_complexity = new { type = "string", @enum = new[] { "low", "medium", "high" } }
+                    },
+                    required = new[] { "plan", "steps" }
+                })
+            }
+        };
+
+        var history = new ChatHistory
+        {
+            new ChatMessage(ChatRole.System, systemPrompt),
+            new ChatMessage(ChatRole.User, request.Intent)
+        };
+
+        var response = await _chatClient.CompleteChatAsync(history, chatOptions);
+        
+        _logger.LogInformation("✅ Planner completed. Response: {Response}", response.Content);
+
+        return new AgentResponse
+        {
+            Content = response.Content,
+            Success = true
+        };
+    }
+}</code></pre>
+                </div>
+
+                <h2>Step 5: The Critical Insight: "I AM" vs "You Are"</h2>
+                <p>Notice the system prompt uses first-person identity. For production agents, you'll want to add <a href="article-structured-output-json-schema.html" style="color: var(--gold);">structured output</a> for reliable JSON parsing:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">Text</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-text">❌ TRADITIONAL: "You are a planner. Generate a plan for the user."
+✅ BIP: "I AM the Planner. I TRANSFER complex intent into minimal viable plans."</code></pre>
+                </div>
+
+                <p><strong>Why this matters:</strong> Research shows LLMs perform 10-30% better when they think of themselves as <em>actors</em> rather than <em>tools</em>. First-person identity creates agency—a sense of ownership over decisions.</p>
+
+                <h2>Step 6: Test the Agent</h2>
+                <p>Run the AppHost and test via gRPC:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">C#</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-csharp">// Test client (create a simple console app)
+using Grpc.Net.Client;
+using PmcroAgents.Shared.Grpc;
+
+var channel = GrpcChannel.ForAddress("http://localhost:5001");
+var client = new AgentService.AgentServiceClient(channel);
+
+var request = new AgentRequest
+{
+    Intent = "Build a PMCR-O agent service with PostgreSQL knowledge vault for RAG"
+};
+
+var response = await client.ExecuteTaskAsync(request);
+Console.WriteLine(response.Content);</code></pre>
+                </div>
+
+                <h2>Expected Output</h2>
+                <p>The Planner should return structured JSON:</p>
+                
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="code-language">JSON</span>
+                        <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code class="language-json">{
+  "plan": "Create a PMCR-O agent service with PostgreSQL knowledge vault for RAG",
+  "steps": [
+    {
+      "action": "Set up .NET 10 service project with Aspire orchestration",
+      "rationale": "Aspire provides service discovery and observability for agent services"
+    },
+    {
+      "action": "Configure PostgreSQL with pgvector extension for vector embeddings",
+      "rationale": "RAG requires vector similarity search for knowledge retrieval"
+    },
+    {
+      "action": "Implement Entity Framework Core DbContext with vector support",
+      "rationale": "EF Core provides type-safe database access with Npgsql vector extensions"
+    },
+    {
+      "action": "Create knowledge service with embedding storage and retrieval",
+      "rationale": "Agents need persistent memory for cognitive trails and learned patterns"
+    }
+  ],
+  "estimated_complexity": "medium"
+}</code></pre>
+                </div>
+
+                <h2>Next Steps</h2>
+                <ul>
+                    <li>Read <a href="article-structured-output-json-schema.html" style="color: var(--gold);">Structured Output with JSON Schema</a> for advanced patterns</li>
+                    <li>Continue with <a href="article-building-self-referential-agents-part2.html" style="color: var(--gold);">Building Self-Referential Agents — Part 2</a> to add Maker, Checker, and Reflector</li>
+                    <li>Explore the <a href="articles.html" style="color: var(--gold);">complete article library</a></li>
+                </ul>
+
+                <div class="callout" style="margin: 3rem 0; text-align: center;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Build Your Own Strange Loop</h3>
+                    <p>The PMCR-O framework is open. Star the repository. Fork it. Seed your own intent.</p>
+                    <p style="margin-top: 1rem;">
+                        <a href="https://github.com/tooensure" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: underline; font-weight: 600;">View on GitHub →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Shawn Delaine Bellazan. All rights reserved.</p>
+            <p class="footer-tagline">Strength in vulnerability. Power in expression. Resilience in architecture.</p>
+        </div>
+    </footer>
+    <script src="site.js"></script>
+    <script src="main.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-protobuf.min.js"></script>
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+
