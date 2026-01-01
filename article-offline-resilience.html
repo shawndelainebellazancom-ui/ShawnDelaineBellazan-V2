@@ -7,8 +7,73 @@
     <meta name="description" content="When the connection dies, the truth must reside locally. A technical deep-dive into building resilient offline-first mobile applications with Kotlin Multiplatform and Room Database.">
     <meta name="author" content="Shawn Delaine Bellazan">
     <meta name="keywords" content="Offline-First Architecture, Kotlin Multiplatform, Room Database, Resilient Systems, Mobile Development">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/article-offline-resilience.html">
+    <meta property="og:title" content="The Code That Survives — Offline-First Architecture | Shawn Bellazan">
+    <meta property="og:description" content="When the connection dies, the truth must reside locally. A technical deep-dive into building resilient offline-first mobile applications with Kotlin Multiplatform and Room Database.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Code That Survives — Offline-First Architecture">
+    <meta name="twitter:description" content="A technical deep-dive into building resilient offline-first mobile applications with Kotlin Multiplatform and Room Database.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
     
     <title>The Code That Survives — Offline-First Architecture | Shawn Bellazan</title>
+    
+    <!-- Schema.org TechArticle (2025 Standards) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/article-offline-resilience#article",
+      "headline": "The Code That Survives — Offline-First Architecture",
+      "description": "A technical deep-dive into building resilient offline-first mobile applications with Kotlin Multiplatform and Room Database.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2025-01-27",
+      "dateModified": "2025-01-27",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": "Kotlin Multiplatform, Room Database, Offline-First Architecture",
+      "proficiencyLevel": "Intermediate",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Offline-First Architecture"
+        },
+        {
+          "@type": "Thing",
+          "name": "Kotlin Multiplatform"
+        },
+        {
+          "@type": "Thing",
+          "name": "Resilient Systems"
+        }
+      ],
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/article-offline-resilience"
+      }
+    }
+    </script>
+    
+    <link rel="canonical" href="https://shawndelainebellazan.com/article-offline-resilience.html">
     <link rel="stylesheet" href="style.css">
     
     <style>
@@ -101,13 +166,65 @@
         .back-link:hover {
             color: var(--text-primary);
         }
+        /* === SKIP LINK (Accessibility) === */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--gold);
+            color: var(--darker);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            z-index: 10000;
+            transition: top 0.2s ease;
+            border-radius: 0 0 4px 0;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* === GLOBAL SCROLLBAR STYLING (2025 Design System) === */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 165, 116, 0.3) transparent;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 165, 116, 0.3);
+            border-radius: 5px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 165, 116, 0.5);
+            background-clip: padding-box;
+        }
+        
+        ::-webkit-scrollbar-thumb:active {
+            background: rgba(212, 165, 116, 0.7);
+            background-clip: padding-box;
+        }
     </style>
 </head>
 <body>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Navigation -->
-    <nav>
+    <nav role="navigation" aria-label="Main navigation">
         <div class="container">
-            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
             <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -116,8 +233,8 @@
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#work">Work</a></li>
-                <li><a href="pmcro-codex.html">Docs</a></li>
-                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
                 <li><a href="index.html#articles">Articles</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
@@ -141,7 +258,7 @@
             <a href="index.html" class="back-link">← Back to Portfolio</a>
             
             <div class="article-meta">
-                By Shawn Delaine Bellazan • December 26, 2025 • 8 min read
+                By Shawn Delaine Bellazan • January 27, 2025 • 8 min read
             </div>
 
             <div class="article-content">
@@ -315,6 +432,7 @@
         </div>
     </footer>
 
+    <script src="site.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -56,6 +56,51 @@
     --radius-full: 50%;
 }
 
+/* ==================== COLOR SCHEME (DARK/LIGHT) ==================== */
+/* Default is DARK (brand). Light can be enabled via:
+   - JS: document.documentElement.dataset.theme = 'light'
+   - CSS: prefers-color-scheme: light (if no explicit data-theme is set)
+*/
+:root[data-theme="light"] {
+    /* Surfaces */
+    --darker: #f7f7f8;
+    --dark: #ffffff;
+    --gray: #f0f1f3;
+    --light-gray: #e2e4e8;
+
+    /* Text */
+    --text-primary: #0a0a0a;
+    --text-secondary: #2a2a2a;
+    --text-tertiary: #5a5a5a;
+
+    /* Shadows (lighter) */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 10px 40px rgba(212, 165, 116, 0.18);
+    --shadow-glow: 0 0 18px rgba(212, 165, 116, 0.35);
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme]) {
+        /* Surfaces */
+        --darker: #f7f7f8;
+        --dark: #ffffff;
+        --gray: #f0f1f3;
+        --light-gray: #e2e4e8;
+
+        /* Text */
+        --text-primary: #0a0a0a;
+        --text-secondary: #2a2a2a;
+        --text-tertiary: #5a5a5a;
+
+        /* Shadows (lighter) */
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 10px 40px rgba(212, 165, 116, 0.18);
+        --shadow-glow: 0 0 18px rgba(212, 165, 116, 0.35);
+    }
+}
+
 /* ==================== RESET & BASE ==================== */
 * {
     margin: 0;
@@ -76,6 +121,30 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== ACCESSIBILITY UTILITIES ==================== */
+/* Screen-reader-only utility (global). Some pages relied on this class existing. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
 }
 
 /* Accessibility: Skip Link */
@@ -109,10 +178,67 @@ nav {
     transition: padding var(--transition-base), background var(--transition-base);
 }
 
+:root[data-theme="light"] nav {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 nav.scrolled {
     padding: 0.5rem 0;
     background: rgba(0, 0, 0, 0.98);
     box-shadow: var(--shadow-md);
+}
+
+:root[data-theme="light"] nav.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* ==================== LIGHT MODE: HERO + CTA CONTRAST ==================== */
+:root[data-theme="light"] .hero h1 {
+    color: #1a1a1a; /* keep strong contrast on gold */
+}
+
+:root[data-theme="light"] .hero-subtitle {
+    color: #1a1a1a;
+}
+
+:root[data-theme="light"] .hero-tagline {
+    color: rgba(26, 26, 26, 0.85);
+}
+
+/* Keep the PMCR-O visual panel dark even in light mode (brand anchor) */
+:root[data-theme="light"] .hero-right {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+/* Buttons should not inherit light gray text/borders in light mode */
+:root[data-theme="light"] .btn {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
+
+:root[data-theme="light"] .btn::before {
+    /* In light mode, CTA hover should feel "premium", not like the button goes dark */
+    background: var(--gold);
+}
+
+:root[data-theme="light"] .btn:hover,
+:root[data-theme="light"] .btn:focus {
+    color: #0a0a0a; /* readable on gold fill */
+}
+
+/* ==================== LIGHT MODE: CARD SURFACES ==================== */
+:root[data-theme="light"] .skill-category,
+:root[data-theme="light"] .philosophy-card,
+:root[data-theme="light"] .contact-info {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme="light"] .agent-card,
+:root[data-theme="light"] .work-card,
+:root[data-theme="light"] .achievement-card {
+    box-shadow: var(--shadow-sm);
 }
 
 nav .container {
@@ -120,8 +246,51 @@ nav .container {
     margin: 0 auto;
     padding: 0 var(--spacing-md);
     display: flex;
-    justify-content: space-between;
+    /* With 3+ children (logo, menu, controls), space-between causes awkward gaps.
+       We use margin-left:auto on `.nav-menu` to push nav items right deterministically. */
+    justify-content: flex-start;
     align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid rgba(212, 165, 116, 0.35);
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.5px;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus {
+    background: rgba(212, 165, 116, 0.1);
+    border-color: var(--gold);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+.theme-toggle .theme-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    display: inline-block;
+    line-height: 1;
 }
 
 .logo {
@@ -145,6 +314,7 @@ nav .container {
     gap: var(--spacing-md);
     list-style: none;
     align-items: center;
+    margin-left: auto;
 }
 
 .nav-menu a {
@@ -158,6 +328,112 @@ nav .container {
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--radius-sm);
     position: relative;
+}
+
+/* Light mode nav text needs contrast on white nav background */
+:root[data-theme="light"] .nav-menu a {
+    color: #1a1a1a;
+}
+
+:root[data-theme="light"] .nav-menu a:hover,
+:root[data-theme="light"] .nav-menu a:focus {
+    color: #0a0a0a;
+    background: rgba(212, 165, 116, 0.18);
+}
+
+:root[data-theme="light"] .logo {
+    /* Keep brand mark gold in light mode, but use darker gold for contrast */
+    color: var(--gold-dark);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="light"] .logo:hover,
+:root[data-theme="light"] .logo:focus {
+    color: var(--gold);
+}
+
+/* ==================== NAV: "MORE" DROPDOWN (DESKTOP DENSITY CONTROL) ==================== */
+.nav-more {
+    position: relative;
+}
+
+.nav-more-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid rgba(212, 165, 116, 0.35);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font: inherit;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.nav-more-toggle:hover,
+.nav-more-toggle:focus {
+    background: rgba(212, 165, 116, 0.1);
+    color: var(--text-primary);
+}
+
+.nav-more-toggle:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+.nav-more-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 220px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+    padding: 0.5rem 0;
+    list-style: none;
+    z-index: 2000;
+    display: none;
+}
+
+.nav-more-menu a {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+.nav-more-menu a:hover,
+.nav-more-menu a:focus {
+    background: rgba(212, 165, 116, 0.12);
+    color: var(--text-primary);
+    outline: none;
+}
+
+.nav-more.open .nav-more-menu {
+    display: block;
+}
+
+:root[data-theme="light"] .nav-more-menu {
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme="light"] .nav-more-menu a {
+    color: #1a1a1a;
+}
+
+:root[data-theme="light"] .nav-more-toggle {
+    color: #1a1a1a;
+    border-color: rgba(0, 0, 0, 0.18);
 }
 
 .nav-menu a::after {

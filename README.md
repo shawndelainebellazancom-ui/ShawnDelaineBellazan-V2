@@ -4,6 +4,9 @@
 ![Status](https://img.shields.io/badge/status-production-success)
 ![Architecture](https://img.shields.io/badge/architecture-PMCR--O-blue)
 
+## 🧭 Repo Map (Start Here)
+See `INDEX.md` for the canonical map of pages, docs, prompts, and system files.
+
 ## 🎯 Overview
 
 This is the official portfolio website for **Shawn Delaine Bellazan**, Resilient Architect specializing in autonomous AI agents, self-referential systems, and the PMCR-O framework.

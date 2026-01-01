@@ -7,6 +7,9 @@
 (function() {
     'use strict';
 
+    // If site-wide core is present (site.js), avoid duplicating nav/theme behaviors.
+    const hasSiteCore = typeof window !== 'undefined' && !!window.__pmcroSiteInitialized;
+
     // ==================== UTILITY FUNCTIONS ====================
     
     /**
@@ -49,7 +52,7 @@
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
-    if (mobileToggle && navMenu) {
+    if (!hasSiteCore && mobileToggle && navMenu) {
         // Toggle mobile menu
         mobileToggle.addEventListener('click', () => {
             const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
@@ -98,7 +101,7 @@
     
     const navbar = document.querySelector('nav');
     
-    if (navbar) {
+    if (!hasSiteCore && navbar) {
         const handleScroll = throttle(() => {
             if (window.scrollY > 100) {
                 navbar.classList.add('scrolled');
@@ -261,7 +264,7 @@
 
     // ==================== ACCESSIBILITY: FOCUS TRAP FOR MOBILE MENU ====================
     
-    if (navMenu) {
+    if (!hasSiteCore && navMenu) {
         const focusableElements = navMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
         const firstFocusable = focusableElements[0];
         const lastFocusable = focusableElements[focusableElements.length - 1];

@@ -5,7 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="UdKSEhF53U7UM_M7tJ1jzITrxm5OrgypZyEDoSuUhtQ" />
     <meta name="description" content="Behavioral Intent Programming (BIP): The Transition from Imperative Logic to Declarative Cognition. A Technical Manifesto for PMCR-O.">
+    <meta name="author" content="Shawn Delaine Bellazan">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shawndelainebellazan.com/bip-manifesto.html">
+    <meta property="og:title" content="BIP Manifesto | Behavioral Intent Programming">
+    <meta property="og:description" content="Behavioral Intent Programming (BIP): The Transition from Imperative Logic to Declarative Cognition. A Technical Manifesto for PMCR-O.">
+    <meta property="og:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BIP Manifesto | Behavioral Intent Programming">
+    <meta name="twitter:description" content="Behavioral Intent Programming (BIP): The Transition from Imperative Logic to Declarative Cognition.">
+    <meta name="twitter:image" content="https://shawndelainebellazan.com/assets/images/og-image.svg">
     <title>BIP Manifesto | Behavioral Intent Programming</title>
+    
+    <!-- Schema.org TechArticle (2025 Standards) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://shawndelainebellazan.com/bip-manifesto#article",
+      "headline": "BIP Manifesto: Behavioral Intent Programming",
+      "description": "Behavioral Intent Programming (BIP): The Transition from Imperative Logic to Declarative Cognition. A Technical Manifesto for PMCR-O.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://shawndelainebellazan.com/#person",
+        "name": "Shawn Delaine Bellazan",
+        "jobTitle": "Resilient Architect",
+        "url": "https://shawndelainebellazan.com"
+      },
+      "datePublished": "2025-01-27",
+      "dateModified": "2025-01-27",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Tooensure LLC",
+        "@id": "https://tooensure.com/#organization",
+        "url": "https://tooensure.com"
+      },
+      "dependencies": "Understanding of Programming Paradigms, Behavioral Design Patterns",
+      "proficiencyLevel": "Advanced",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Behavioral Intent Programming"
+        },
+        {
+          "@type": "Thing",
+          "name": "PMCR-O Framework"
+        },
+        {
+          "@type": "Thing",
+          "name": "Declarative Cognition"
+        }
+      ],
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://shawndelainebellazan.com/bip-manifesto"
+      }
+    }
+    </script>
+    
+    <link rel="canonical" href="https://shawndelainebellazan.com/bip-manifesto.html">
     <link rel="stylesheet" href="style.css">
     <style>
         .doc-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
@@ -52,15 +119,71 @@
             font-style: italic;
             color: var(--text-secondary);
         }
+        /* === SKIP LINK (Accessibility) === */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--gold);
+            color: var(--darker);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            z-index: 10000;
+            transition: top 0.2s ease;
+            border-radius: 0 0 4px 0;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* === GLOBAL SCROLLBAR STYLING (2025 Design System) === */
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 165, 116, 0.3) transparent;
+        }
+        
+        /* Webkit browsers */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 165, 116, 0.3);
+            border-radius: 5px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 165, 116, 0.5);
+            background-clip: padding-box;
+        }
+        
+        ::-webkit-scrollbar-thumb:active {
+            background: rgba(212, 165, 116, 0.7);
+            background-clip: padding-box;
+        }
     </style>
 </head>
 <body>
-    <nav>
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <nav role="navigation" aria-label="Main navigation">
         <div class="container">
-            <a href="index.html" class="logo">SHAWN BELLAZAN</a>
+            <a href="index.html" class="logo" aria-label="Shawn Bellazan - Home">SHAWN BELLAZAN</a>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="pmcro-codex.html">Docs</a></li>
+                <li><a href="pmcro-codex.html">PMCR-O</a></li>
+                <li><a href="pmcro-prompt-library.html">Agents</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -73,7 +196,7 @@
             <div class="meta-info">
                 <p><strong>Author:</strong> Shawn Delaine Bellazan</p>
                 <p><strong>Architecture:</strong> PMCR-O Framework</p>
-                <p><strong>Date:</strong> December 2025</p>
+                <p><strong>Date:</strong> January 2025</p>
             </div>
 
             <hr style="border: 0; border-top: 1px solid var(--text-tertiary); margin: 2rem 0;">
@@ -137,5 +260,7 @@
             <p>&copy; 2025 Shawn Delaine Bellazan. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="site.js"></script>
 </body>
 </html>
