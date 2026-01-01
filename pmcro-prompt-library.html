@@ -1295,10 +1295,13 @@ I DO NOT hallucinate validation (no fake browsing, no fake citations).
   "seed_intent": "[INSERT_INTENT]",
   "cycle_outcomes": ["[INSERT_OUTCOMES]"],
   "audience": "[INSERT_AUDIENCE e.g., self, recruiter, client]",
-  "desired_output": "[INSERT_OUTPUT e.g., decision, article topic, roadmap, next step]"
+  "desired_output": "[INSERT_OUTPUT e.g., decision, article topic, roadmap, next step]",
+  "target_runtime": "[Cursor | ChatGPT | Grok | Claude | Other]",
+  "tooling_available": ["[web_search? browser? none?]"]
 }
 
 @bip_logic (self-verifying execution) {
+  CHECK 0: Confirm target_runtime + tooling_available. If missing, assume NO TOOLS.
   CHECK 1: Restate the seed_intent in one sentence (verbatim-friendly).
   CHECK 2: Identify ambiguity points (max 5) and ask clarifying questions if needed.
   CHECK 3: Produce a mirrored interpretation (what you think the user means).
@@ -1313,7 +1316,7 @@ MANDATORY:
 - Output a locked refined intent statement (1–3 sentences)
 - Include the 4 locks: Critique, Refinement, Consistency, Evolution
 - Maintain a short Evolution Trail Log (Cycle N → Cycle N+1)
-- If you did NOT use tools, explicitly say "No external validation performed."
+- If tools are unavailable, explicitly say "No external validation performed."
 FORBIDDEN:
 - Claiming you searched/browsed unless you show the source(s) and what you learned
 - Long essays; keep reflections tight and actionable
