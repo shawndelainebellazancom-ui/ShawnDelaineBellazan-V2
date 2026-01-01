@@ -10,6 +10,7 @@ This repo intentionally uses a **flat structure** for simplicity. This file is t
 - **PMCR-O Consciousness (framework narrative)**: `pmcro-consciousness.html`
 
 ## Articles (Thought Leadership)
+- **Why BIP Replaces Prompt Engineering (2026)**: `article-why-bip-replaces-prompt-engineering-2026.html`
 - **Building Self-Referential Agents (Series)**
   - Part 1: `article-building-self-referential-agents-part1.html`
   - Part 2: `article-building-self-referential-agents-part2.html`
