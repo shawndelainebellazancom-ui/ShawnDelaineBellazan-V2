@@ -2,28 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tooensure - Notice of Preservation & Invoice</title>
+    <title>Tooensure - Notice & Invoice (421 Thomas Ave)</title>
     <style>
-        /* Print Settings to force background colors */
+        /* PRINT SETTINGS: Ensures colors print correctly */
         @media print {
-            body { -webkit-print-color-adjust: exact; }
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                margin: 0;
+                padding: 20px;
+            }
+            .no-print { display: none; }
         }
 
+        /* GLOBAL STYLES */
         body {
-            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-            color: #1a1a1a;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #111;
+            line-height: 1.5;
             max-width: 8.5in;
             margin: 0 auto;
             padding: 40px;
             background: #fff;
         }
 
-        /* HEADER SECTION */
+        /* HEADER */
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 3px solid #d4a574; /* BRAND GOLD */
+            border-bottom: 4px solid #d4a574; /* BRAND GOLD */
             padding-bottom: 20px;
             margin-bottom: 40px;
         }
@@ -37,72 +45,89 @@
         .logo-img {
             width: 80px;
             height: auto;
+            display: block;
         }
 
         .company-name {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 1px;
             line-height: 1;
+            margin-bottom: 4px;
         }
 
         .company-sub {
-            color: #d4a574; /* GOLD */
-            font-size: 12px;
+            color: #d4a574;
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 2px;
-            margin-top: 5px;
+            text-transform: uppercase;
         }
 
-        .contact-info {
+        .contact-details {
             font-size: 12px;
             color: #666;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
         .invoice-meta {
             text-align: right;
         }
 
+        .meta-group {
+            margin-bottom: 10px;
+        }
+
         .meta-label {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             color: #888;
             font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .meta-value {
             font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-weight: 700;
         }
 
-        /* CONTENT SECTION */
-        .recipient-box {
-            margin-bottom: 30px;
+        /* NOTICE BOX */
+        .notice-box {
+            background-color: #f4f4f4;
+            border-left: 6px solid #d4a574;
             padding: 15px;
-            background: #f9f9f9;
-            border-left: 4px solid #333;
-        }
-
-        .notice-banner {
-            background: #d4a574; /* GOLD */
-            color: #000;
-            padding: 10px 15px;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .narrative {
-            font-size: 14px;
-            line-height: 1.5;
             margin-bottom: 30px;
         }
 
-        /* TABLE SECTION */
+        .notice-title {
+            font-weight: 900;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .notice-text {
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* RECIPIENT SECTION */
+        .recipient-section {
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .recipient-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        /* TABLE STYLES */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -111,156 +136,190 @@
 
         th {
             text-align: left;
-            padding: 12px;
-            background: #000;
+            padding: 12px 10px;
+            background-color: #000;
             color: #fff;
-            text-transform: uppercase;
             font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
         }
 
         td {
-            padding: 15px 12px;
-            border-bottom: 1px solid #eee;
+            padding: 15px 10px;
+            border-bottom: 1px solid #ddd;
             font-size: 14px;
+            vertical-align: top;
         }
 
-        .amount-col {
-            text-align: right;
-            font-family: monospace;
-            font-size: 15px;
+        .desc-col { width: 70%; }
+        .amount-col { width: 30%; text-align: right; font-weight: 600; }
+
+        .service-title {
+            font-weight: 700;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .service-note {
+            font-size: 12px;
+            color: #666;
         }
 
         .total-row td {
-            border-top: 2px solid #d4a574;
+            border-top: 2px solid #000;
+            border-bottom: none;
+            background-color: #fffbf0; /* Light Gold Tint */
+            font-size: 18px;
             font-weight: 900;
-            font-size: 20px;
-            background: #fffbf5;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
 
         /* FOOTER & TERMS */
-        .terms-box {
-            font-size: 12px;
+        .terms-section {
+            font-size: 11px;
             color: #555;
             border: 1px solid #ddd;
             padding: 15px;
             margin-bottom: 40px;
         }
 
+        .terms-title {
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+
         .signature-section {
             margin-top: 40px;
-            font-size: 14px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
         }
 
         .legal-footer {
-            margin-top: 60px;
-            font-size: 10px;
-            color: #999;
+            margin-top: 50px;
             text-align: center;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+            font-size: 10px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header-container">
     <div class="brand-section">
-        <!-- Ensure tooensure-logo.png is in the same folder -->
         <img src="tooensure-logo.png" alt="Logo" class="logo-img">
         <div>
             <div class="company-name">Tooensure</div>
             <div class="company-sub">Property Preservation & Asset Recovery</div>
-            <div class="contact-info">
-                Saint Paul, MN 55104 | tooensuremaster@gmail.com
+            <div class="contact-details">
+                Saint Paul, MN 55104<br>
+                tooensuremaster@gmail.com
             </div>
         </div>
     </div>
     <div class="invoice-meta">
-        <div class="meta-label">Date Issued</div>
-        <div class="meta-value">January 12, 2026</div>
-        <div class="meta-label">Invoice Number</div>
-        <div class="meta-value">INV-2026-001</div>
-        <div class="meta-label">Reference Property</div>
-        <div class="meta-value">421 Thomas Ave</div>
+        <div class="meta-group">
+            <div class="meta-label">Date Issued</div>
+            <div class="meta-value">January 12, 2026</div>
+        </div>
+        <div class="meta-group">
+            <div class="meta-label">Invoice Reference</div>
+            <div class="meta-value">#2026-001-B</div>
+        </div>
+        <div class="meta-group">
+            <div class="meta-label">Property ID</div>
+            <div class="meta-value">421 Thomas Ave</div>
+        </div>
     </div>
 </div>
 
-<div class="notice-banner">
-    Notice of Emergency Preservation & Mechanic's Lien Filing
+<!-- RECIPIENT -->
+<div class="recipient-section">
+    <div class="recipient-label">Bill To Property Owners:</div>
+    <div><strong>1. Buy Rite Companies LLC</strong> (Fee Owner)</div>
+    <div><strong>2. D E Lewis Properties LLC</strong> (Contract Owner)</div>
 </div>
 
-<div class="recipient-box">
-    <strong>TO PROPERTY OWNERS:</strong><br>
-    1. Buy Rite Companies LLC (Fee Owner)<br>
-    2. D E Lewis Properties LLC (Contract Owner)
+<!-- NOTICE BANNER -->
+<div class="notice-box">
+    <div class="notice-title">Notice of Emergency Preservation & Lien Filing</div>
+    <div class="notice-text">
+        This property was identified as unsecured, vacant, and suffering from critical utility failure (flooding), posing an immediate threat to the asset foundation and municipal compliance. Under Minnesota statutes regarding the prevention of waste, the following emergency mitigation services were performed. A <strong>Mechanic's Lien</strong> for the full amount is being recorded with Ramsey County.
+    </div>
 </div>
 
-<div class="narrative">
-    <p>This document serves as formal notice of <strong>Emergency Asset Preservation</strong> performed at the property listed above. The property was identified as unsecured, vacant, and suffering from critical utility failure (flooding) posing an immediate threat to the structure and municipal compliance.</p>
-    <p>Under Minnesota Statute regarding improvements and prevention of waste, the following services were rendered to stabilize the asset. A <strong>Mechanic's Lien</strong> for the total amount has been prepared for recording with Ramsey County.</p>
-</div>
-
+<!-- LINE ITEMS -->
 <table>
     <thead>
     <tr>
-        <th width="70%">Service Description</th>
-        <th width="30%" style="text-align: right;">Amount</th>
+        <th class="desc-col">Service Description</th>
+        <th class="amount-col">Amount</th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td>
-            <strong>Emergency Water Mitigation & Extraction (Basement)</strong><br>
-            <span style="font-size: 12px; color: #666;">Immediate remediation of flooding hazard; sewage prevention; foundation protection.</span>
+            <span class="service-title">Emergency Water Mitigation & Extraction (Basement)</span>
+            <span class="service-note">Immediate remediation of flooding hazard; sewage prevention; foundation protection.</span>
         </td>
         <td class="amount-col">$3,500.00</td>
     </tr>
     <tr>
         <td>
-            <strong>Hazardous Debris Removal & Sanitation</strong><br>
-            <span style="font-size: 12px; color: #666;">Clearance of interior refuse/biohazard to prevent infestation and fire load.</span>
+            <span class="service-title">Hazardous Debris Removal & Sanitation</span>
+            <span class="service-note">Clearance of interior refuse/biohazard to prevent infestation and fire load.</span>
         </td>
         <td class="amount-col">$1,500.00</td>
     </tr>
     <tr>
         <td>
-            <strong>Site Stabilization & Security Assessment</strong><br>
-            <span style="font-size: 12px; color: #666;">Initial intake; perimeter check; lockout of unauthorized access points.</span>
+            <span class="service-title">Site Stabilization & Security Assessment</span>
+            <span class="service-note">Initial intake; perimeter check; lockout of unauthorized access points.</span>
         </td>
         <td class="amount-col">$750.00</td>
     </tr>
     <tr>
         <td>
-            <strong>January 2026 - Exterior Asset Monitoring</strong><br>
-            <span style="font-size: 12px; color: #666;">Weekly surveillance rounds; snow removal check; board-up integrity verification.</span>
+            <span class="service-title">January 2026 - Exterior Asset Monitoring</span>
+            <span class="service-note">Weekly surveillance rounds; snow removal check; board-up integrity verification.</span>
         </td>
         <td class="amount-col">$150.00</td>
     </tr>
     <tr class="total-row">
-        <td>TOTAL DUE (Net 10)</td>
+        <td>TOTAL DUE (Net 10 Days)</td>
         <td class="amount-col">$5,900.00</td>
     </tr>
     </tbody>
 </table>
 
-<div class="terms-box">
-    <strong>TERMS & CONDITIONS:</strong><br>
-    Payment is due within 10 days of receipt. Failure to remit payment will result in the enforcement of the Mechanic's Lien against the property title.<br><br>
-    <strong>Late Fees:</strong> 10% of total balance applied after 30 days.<br>
-    <strong>Interest:</strong> 1.5% monthly interest (18% APR) on overdue balances.<br>
-    <strong>Collection:</strong> Client is liable for all legal fees, filing costs, and collection agency fees.<br><br>
-    <em>NOTE: Exterior monitoring will continue automatically to prevent city abatement orders unless written notice to cease is received.</em>
+<!-- TERMS -->
+<div class="terms-section">
+    <span class="terms-title">Terms & Conditions of Service</span>
+    Payment is due within 10 days of receipt. Failure to remit payment will result in the immediate enforcement of the Mechanic's Lien against the property title.<br><br>
+    <strong>• Late Fees:</strong> 10% of total balance applied after 30 days.<br>
+    <strong>• Interest:</strong> 1.5% monthly interest (18% APR) accrues on overdue balances.<br>
+    <strong>• Ongoing Service:</strong> Exterior monitoring will continue automatically to prevent city abatement orders unless written notice to cease is received.
 </div>
 
+<!-- SIGNATURE -->
 <div class="signature-section">
-    Executed by:<br><br>
+    <p>Executed by:</p>
+    <br>
+    <span style="font-family: 'Brush Script MT', cursive; font-size: 24px;">Shawn D. Bellazan</span><br>
     _____________________________________<br>
     <strong>Shawn Delaine Bellazan</strong><br>
     Principal Architect | Tooensure Property Services
 </div>
 
+<!-- FOOTER -->
 <div class="legal-footer">
-    © 2026 Tooensure LLC. All Rights Reserved. | Sent via Certified Mail with Return Receipt.
+    © 2026 Tooensure LLC. All Rights Reserved. | Served via Certified Mail with Return Receipt.
 </div>
 
 </body>
